@@ -1,0 +1,44 @@
+.section__show__accounts {
+    padding: 10px 20px;
+    display: flex;
+    border-bottom: 1px solid rgba(204, 204, 204, 0.507);
+    overflow-x: auto;
+}
+
+.section__show__accounts__item {
+    flex: 0 0 auto;
+    border: 1px solid rgba(204, 204, 204, 0.507);
+    border-radius: 5px;
+    width: 200px;
+    box-sizing: border-box;
+    margin-right: 10px;
+}
+
+.section__show__accounts__item:hover {
+    cursor: pointer;
+}
+
+    .item__header {
+        display: flex;
+        justify-content: space-between;
+        padding: 10px;
+    }
+        .item__header span {
+            font-weight: bold;
+            font-size: .9rem;
+        }
+
+    .item__footer {
+        background-color: beige;
+        display: flex;
+        justify-content: space-between;
+        font-size: .9rem;
+        padding: 10px;
+    }
+
+    @media screen and (max-width: 400px) {
+
+        .section__show__accounts {
+            padding: 10px;
+        }
+    }

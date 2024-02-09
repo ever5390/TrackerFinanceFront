@@ -1,0 +1,14 @@
+<header>
+    <section class="section__date">
+        <div class="section__date__icon__calendar">
+            <i class="far fa-calendar"></i>
+        </div>
+        <div class="section__date__data">
+            <p>Bienvenido: {{fullName}}</p>
+            <p>{{ actualDate | date:'EEEE YYYY-mm-dd' }} {{ horaActual | date:'hh:mm:ss a' }}</p>
+        </div>
+    </section>
+    <section class="section__actions">
+        <button (click)="showTransactionRegister()" class="section__actions__add__button"><i class="fas fa-plus"></i> add transaction</button>
+    </section>
+</header>

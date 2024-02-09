@@ -1,0 +1,7 @@
+<div class="form_control st_frm_search" >
+    <div class="st_block_search" [ngClass]="{'width__search': noData}">
+        <i class="far fa-search" ></i>
+        <input (keyup)="searchMethod($event)" type="text"
+        spellcheck="false" autocomplete="none" placeholder=".. Search .. ">
+    </div>
+</div>

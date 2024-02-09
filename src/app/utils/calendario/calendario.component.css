@@ -1,0 +1,85 @@
+.container__calendars {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: 0;
+}
+
+.calendars {
+    display: flex;
+    font-size: .9rem;
+    width: 280px;
+    height: 280px;
+    padding: 10px;
+    background-color: #fff;
+
+  }
+  
+  .calendar {
+    flex: 1;
+  }
+  
+    .calendar__header {
+      text-align: center;
+      margin-bottom: 10px;
+      display: flex;
+      justify-content: space-between;
+      padding: 10px 0;
+      font-weight: bold;
+      color: rgba(114, 114, 114, 0.623);
+      border-bottom: 1px solid rgba(240, 240, 240, 0.623);
+    }
+
+      button {
+        border: none;
+        outline: none;
+        background-color: #fff;
+        color: rgba(114, 114, 114, 0.623);
+      }
+
+  .calendar__week__days {
+    font-size: .8rem;
+    margin-bottom: 5px;
+    text-align: center;
+    font-weight: bold;
+  }
+    
+      .calendar__days, .calendar__week__days {
+        display: grid;
+        grid-template-columns: repeat(7, 1fr);
+        gap: 5px;
+      }
+      
+      .day, .day-semana {
+        text-align: center;
+        /* border: 1px solid #ccc; */
+        height: 30px;
+        padding: 5px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+        .day:hover {
+          cursor: pointer;
+          border-radius: 50%;
+          background-color: #313131;
+          color: #fff;
+        }
+
+      .last__month {
+        color: #aaa; /* Estilo para los días del mes anterior */
+      }
+      
+      .actual__month {
+        /* Estilo para los días del mes actual */
+        color: rgb(0, 0, 0);
+        background-color: #fff;
+      }
+      
+      .next__month {
+        color: #aaa; /* Estilo para los días del mes siguiente */
+      }
+  

@@ -1,0 +1,75 @@
+<div class="container__block__register">
+    <main  #contenedorDiv class="block__register">
+        <article  class="block__amount__date__desc"> 
+            <input type="text" placeholder="00.00">
+            <div class="filter filter__per__calendar">
+                <i class="far fa-calendar"></i>
+                <span>2024-03-02 10:02:10</span>
+            </div>
+            <textarea name="" id="" cols="30" rows="2" [(ngModel)]="transaction.description"></textarea>
+        </article>
+        <article (click)="bajarDiv('type')" class="block block__transaction">
+            <p>{{showTextType}}</p>
+            <span class="link__show__comp"><i class="fas fa-external-link-alt"></i></span>
+        </article>
+        <article *ngIf="flagShowBlockMember" (click)="bajarDiv('member')" class="block block__transaction">
+            <p >{{showTextCounterpart}}</p>
+            <span class="link__show__comp"><i class="fas fa-external-link-alt"></i></span>
+        </article>
+        <article  *ngIf="flagShowBlockLoanAssociated" (click)="bajarDiv('loanAssoc')" class="block block__transaction">
+            <p *ngIf="transaction.idLoanAssoc != 0">Código de préstamo asociado: {{transaction.idLoanAssoc}}</p>
+            <p *ngIf="transaction.idLoanAssoc == 0">{{TEXT_REQUEST_LOAN_ASSOC}}</p>
+            <span class="link__show__comp"><i class="fas fa-external-link-alt"></i></span>
+        </article>
+        <article (click)="bajarDiv('pmo')" class="block block__transaction">
+            <p *ngIf="transaction.paymentMethod.id != 0">Medio de pago: {{transaction.paymentMethod.name}}</p>
+            <p *ngIf="transaction.paymentMethod.id == 0">{{TEXT_REQUEST_PAYMENT_METHOD}}</p>
+            <span class="link__show__comp"><i class="fas fa-external-link-alt"></i></span>
+        </article>
+        <article *ngIf="flagShowBlockTransference" (click)="bajarDiv('pmo')" class="block block__transaction">
+            <p *ngIf="transaction.paymentMethodDestiny.id != 0">Medio de pago dezstino: {{transaction.paymentMethod.name}}</p>
+            <p *ngIf="transaction.paymentMethodDestiny.id == 0">{{TEXT_REQUEST_PAYMENT_METHOD_DESTINY}}</p>
+            <span class="link__show__comp"><i class="fas fa-external-link-alt"></i></span>
+        </article>
+        <article *ngIf="!flagShowBlockTransference" (click)="bajarDiv('category')" class="block block__transaction">
+            <p *ngIf="transaction.category.id != 0">categoría: {{transaction.category.name}}</p>
+            <p *ngIf="transaction.category.id == 0">{{TEXT_REQUEST_CATEGORY}}</p>
+            <span class="link__show__comp"><i class="fas fa-external-link-alt"></i></span>
+        </article>
+        <article *ngIf="!flagShowBlockTransference" (click)="bajarDiv('segment')" class="block block__transaction">
+            <p *ngIf="transaction.segment.id != 0">grupo: {{transaction.segment.name}}</p>
+            <p *ngIf="transaction.segment.id == 0">{{TEXT_REQUEST_GRUPO}}</p>
+            <span class="link__show__comp"><i class="fas fa-external-link-alt"></i></span>
+        </article>
+
+
+        <!-- pop ups -->
+        
+        <div id="miDiv" [style.top.px]="posicionTop" [style.height.px]="divHeight">
+            <app-types-transactions [operationTypesReceived]="operationTypes"
+                                    [receivedTextHeaderForm] = "showTextType"
+                                    (sendTypeSelected)="receiveTypeSelected($event)" *ngIf="flagShowTypeComponent">
+            </app-types-transactions>
+            <app-member-register-list *ngIf="flagShowMemberComponent"
+                                        [receivedTextHeaderForm] = "showTextCounterpart">
+            </app-member-register-list>
+            <app-payment-method-list *ngIf="flagShowPaymentMethodComponent"
+                                        [receivedTextHeaderForm] = "TEXT_REQUEST_PAYMENT_METHOD">
+            </app-payment-method-list>
+            <app-payment-method-list *ngIf="flagShowPaymentMethodDestinyComponent"
+                                        [receivedTextHeaderForm] = "TEXT_REQUEST_PAYMENT_METHOD_DESTINY">
+            </app-payment-method-list>
+            <app-category-list *ngIf="flagShowCategoryComponent"
+                                (sendOrderClosePopUp)="receivedOrderClosePopUp()"
+                                (sendItemSelected)="receivedItemSelected($event)"
+                                [receivedTextHeaderForm] = "TEXT_REQUEST_CATEGORY">
+            ></app-category-list>
+            <app-segment-list *ngIf="flagShowSegmentComponent"
+                              [receivedTextHeaderForm] = "TEXT_REQUEST_GRUPO">
+            >
+            </app-segment-list>
+            
+        </div>
+
+    </main>
+</div>

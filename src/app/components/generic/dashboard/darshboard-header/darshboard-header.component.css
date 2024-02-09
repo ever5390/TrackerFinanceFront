@@ -1,0 +1,56 @@
+
+header {
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid rgba(204, 204, 204, 0.507);
+}
+
+.section__date {
+    display: flex;
+    align-items: center;
+}
+
+    .section__date__icon__calendar {
+        border-radius: 50%;
+        border: 1px solid rgba(179, 179, 179, 0.705);
+        color: rgb(148, 148, 148);
+        width: 40px;
+        height: 40px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-right: 10px;
+        flex: 0 0 auto;
+    }
+
+    .section__actions__add__button {
+        padding: 10px 15px;
+        border-radius: 5px;
+        border: none;
+        outline: none;
+        color: #FFF;
+        width: 100%;
+        background-color: rgb(124, 71, 223);
+    }
+
+        .section__actions__add__button:hover {
+            cursor: pointer;
+            background-color: rgb(111, 40, 239);
+        }
+
+    .fa-plus {
+        padding-right: 10px;
+    }
+
+    @media screen and (max-width: 400px) {
+
+        header {
+            flex-direction: column;
+            padding: 20px 10px;
+        }
+
+        .section__actions {
+            margin-top: 10px;
+        }
+    }

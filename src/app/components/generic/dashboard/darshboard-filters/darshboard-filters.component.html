@@ -1,0 +1,37 @@
+<section class="section__filters">
+    <div class="section__filters__dates">
+        <div class="filter filter__today" (click)="sendToParentDateFilter('today')">
+            Today
+        </div>
+        <div class="dropdown">
+            <div class="filter filter__dropdown__per__days" (click)="toggleDropdown()">
+                <span>{{optionSelected}}</span>
+                <i class="fas fa-angle-down"></i>
+            </div>
+            <div class="dropdown-menu" [ngClass]="{ 'show': isDropdownOpen }">
+              <div class="dropdown-item" *ngFor="let opcion of opciones" (click)="onSelect(opcion)">
+                {{ opcion }}
+              </div>
+            </div>
+        </div>
+        <div class="filter filter__per__calendar">
+            <i class="far fa-calendar"></i>
+            <span (click)="initialSelectDate()">{{receivedInitialDateCalendarReceived}}</span>
+            <span> - </span>
+            <span (click)="finalSelectDate()">{{receivedFinalDateCalendarReceived}}</span>
+            <!-- <div class="card flex justify-content-center"> -->
+                <!-- <p-calendar [(ngModel)]="rangeDates" selectionMode="range" [readonlyInput]="true" class="ng-calendar"></p-calendar> -->
+            <!-- </div> -->
+        </div>
+    </div>
+    <div class="section__filters__searching">
+        <label class="searching__container">
+            <i class="fas fa-search"></i>
+            <input type="text" placeholder="Search...">
+        </label>
+        <div class="icon__show__aditional__filter">
+            <i class="fas fa-sort-amount-down"></i>
+            <span> Show Filters</span>
+        </div>
+    </div>
+</section>

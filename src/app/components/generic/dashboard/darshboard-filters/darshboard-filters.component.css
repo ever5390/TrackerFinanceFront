@@ -1,0 +1,161 @@
+.section__filters {
+    width: 100%;
+    padding: 20px;
+    padding-bottom: 10px;
+    display: flex;
+    font-size: .9rem;
+    box-sizing: border-box;
+    justify-content: space-between;
+    border-bottom: 1px solid rgba(204, 204, 204, 0.507);
+}
+
+.filter {
+    flex-shrink: 0;
+    padding: 5px 10px;
+    border-radius: 5px;
+    box-sizing: border-box;
+    border: 1px solid rgba(204, 204, 204, 0.507);
+}
+
+.section__filters__dates {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+    .filter__today {
+        width: 60px;
+        margin-right: 10px;
+        margin-bottom: 10px;
+    }
+
+    .filter__dropdown__per__days {
+        border-radius: 5px 0 0 5px;
+        margin-bottom: 10px;
+    }
+
+        .filter__dropdown__per__days i{
+            margin-left: 10px;
+        }
+
+    .filter__per__calendar {
+        border-radius: 0 5px 5px 0;
+        margin-bottom: 10px;
+    }
+        .filter__per__calendar i{
+            margin-right: 10px;
+        }
+
+.section__filters__searching {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-right: 10px;
+    margin-bottom: 10px;
+}
+
+    .searching__container {
+        padding: 5px 10px;
+        box-sizing: border-box;
+        border-radius: 5px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-right: 10px;
+        border: 1px solid rgba(204, 204, 204, 0.507);
+    }
+
+    .searching__container input{
+        border: none;
+        outline: none;
+        margin-left: 10px;
+        width: 100%;
+    }
+
+    .icon__show__aditional__filter {
+        border: 1px solid rgba(204, 204, 204, 0.507);
+        padding: 5px 10px;
+        border-radius: 5px;
+        width: 150px;
+        flex: 0 0 auto;
+    }
+
+    .filter:hover, .icon__show__aditional__filter:hover {
+        cursor: pointer;
+    }
+
+    /* Estilo para el contenedor del dropdown */
+    .dropdown {
+        position: relative;
+        display: inline-block;
+    }
+    
+    /* Estilo para el botón del dropdown */
+    .dropdown-toggle {
+        cursor: pointer;
+        padding: 8px 12px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        background-color: #fff;
+    }
+    
+    /* Estilo para el menú desplegable */
+    .dropdown-menu {
+        position: absolute;
+        top: 5px;
+        left: 0;
+        right: 0;
+        z-index: 1000;
+        display: none;
+        background-color: #fff;
+        border: 1px solid #ccc;
+        border-top: none;
+    }
+    
+    /* Estilo para mostrar el menú desplegable */
+    .dropdown-menu.show {
+        display: block;
+    }
+    
+    /* Estilo para las opciones del menú desplegable */
+    .dropdown-item {
+        padding: 8px 12px;
+        cursor: pointer;
+    }
+    
+    /* Estilo para las opciones del menú desplegable al pasar el ratón */
+    .dropdown-item:hover {
+        background-color: #f0f0f0;
+    }
+    
+
+@media screen and (max-width: 980px) {
+
+    .section__filters__dates {
+        width: 100%;
+    }
+
+    .section__filters {
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .section__filters__searching {
+        /* background-color: aqua; */
+    }
+
+    .searching__container {
+        width: calc( 100% - 100px);
+    }
+}
+
+p-calendar {
+    border: none !important;
+}
+
+@media screen and (max-width: 400px) {
+
+    .section__filters {
+        padding: 10px;
+    }
+}

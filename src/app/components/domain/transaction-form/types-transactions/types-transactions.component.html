@@ -1,0 +1,11 @@
+<section class="block__register__operation__type">
+    <h3>{{receivedTextHeaderForm}}</h3>
+    <section class="operation__types__container" >
+        <article class="operation__type" *ngFor="let item of operationTypesReceived;" (click)="itemSelected(item)">
+            <div class="icon__container">
+                <i class="icon fas fa-dollar-sign"></i>
+            </div>
+            <span class="item__name">{{item.name | lowercase}}</span>
+        </article>
+    </section>
+</section>

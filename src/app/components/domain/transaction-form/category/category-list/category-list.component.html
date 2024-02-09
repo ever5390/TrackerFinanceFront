@@ -1,0 +1,33 @@
+<section class="block__register__operation__type">
+    <h3>{{receivedTextHeaderForm}}</h3>
+
+    <app-search [receivedDataFromFather]="listaCategoriesSendSearch" (sendDataFromSearchToFather)="receivedDataFromSearch($event)"></app-search>
+
+    <!-- <p class="middle__title">Elija una opción:</p> -->
+    <section class="operation__types__container" *ngIf="categories.length>0; else template__no__data">
+        <ng-container *ngFor="let item of categories;" >
+            <article class="operation__type" (click)="catchItemSelected(item)">
+                <div class="icon__container">
+                    <i class="icon fas fa-dollar-sign"></i>
+                </div>
+                <span class="item__name">{{item.name | lowercase}}</span>
+            </article>
+        </ng-container>
+    </section>
+    <ng-template #template__no__data>
+        <section class="section__no__data" *ngIf="!flagDataLoaded">
+            <p>Cargando...</p>
+        </section>
+        <section class="section__no__data" *ngIf="flagDataLoaded && !flagIsDataFiltered">
+            <p>No se encontraron registros.</p>
+            <button class="button__new__register" (click)="showFormulryRegister()" type="button">Registre uno nuevo</button>
+        </section>
+        <section class="section__no__data" *ngIf="flagDataLoaded && flagIsDataFiltered">
+            <p>No se encontraron coincidencias con el nombre <b>{{textFiltered}}</b> filtrado.</p>
+            <button class="button__new__register" (click)="showFormulryRegister()" type="button">¿Desea registrarlo?</button>
+        </section>
+    </ng-template>
+
+    <i class="fas fa-long-arrow-alt-left back__arrow" (click)="back()"></i>
+
+</section>

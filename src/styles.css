@@ -1,1 +1,21 @@
 /* You can add global styles to this file, and also import other style files */
+@import "primeng/resources/themes/lara-light-blue/theme.css";
+@import "primeng/resources/primeng.css";
+
+body, html {
+    font-family: 'Arial', sans-serif;
+    color: #333;
+    background-color: beige;
+    margin: 0;
+    padding: 0;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+}
+
+ul, li, p, h1, h2, h3, h4, h5, h6{
+    margin: 0;
+    padding: 0;
+}

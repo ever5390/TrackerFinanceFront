@@ -1,0 +1,107 @@
+
+:host  {
+    --color-primario: #007bff;
+    --espaciado: 10px;
+    --border-color-icon:#b1b1b1;
+    --border-color-block:#d3d3d37c;
+}
+
+.container__block__register {
+    width: 100%;
+    height: 100vh;
+    background-color: #ffffff00;
+    
+}
+
+.block__register {
+    text-align: center;
+    max-width: 500px;
+    margin: auto;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    position: relative;
+    background-color: #fff;
+    height: 80%;
+}
+
+    .block {
+        padding: 20px;
+        text-align: left;
+        border-bottom: 1px solid var(--border-color-block);
+    }
+
+    .block__transaction {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .link__show__comp {
+        margin-left: 10px;
+    }
+
+.block__amount__date__desc {
+    padding: 20px;
+    box-sizing: border-box;
+    border-bottom: 1px solid var(--border-color-block);
+}
+    .block__amount__date__desc input[type="text"] {
+        border:none;
+        outline: none;
+        width: 90%;
+        font-size: 1.5rem;
+        color: #000;
+        font-weight: bold;
+        text-align: center;
+    }
+
+    .block__amount__date__desc textarea {
+        border:1px solid #d8d8d8af;
+        border-radius: 5px;
+        outline: none;
+        width: 100%;
+        color: #000;
+        text-align: left;
+    }
+
+    .filter {
+        flex-shrink: 0;
+        padding: 5px 10px;
+        border-radius: 5px;
+        box-sizing: border-box;
+    }
+    
+    .filter__per__calendar {
+        border-radius: 0 5px 5px 0;
+        margin-bottom: 10px;
+    }
+        .filter__per__calendar i{
+            margin-right: 10px;
+        }
+
+
+
+#miDiv {
+    width: 100%;
+    height: 700px;
+    overflow-y: scroll;
+    background-color: #fff;
+    position: absolute;
+    top: -700px; /* Inicialmente fuera de la pantalla */
+    transition: all 0.5s ease; /* Agrega transición para el efecto de desplazamiento */
+}
+
+@media screen and (max-width: 980px) {
+    .block__register {
+        height: 95%;
+    }
+    
+}
+
+@media screen and (max-width: 400px) {
+    .block {
+        padding: 15px 20px;
+    }
+}
+
+

@@ -1,0 +1,24 @@
+<div class="container">
+    <app-darshboard-header (sendOrderShowTransactionRegister)="receiveOrderShowTransactionRegister()"
+                           (sendOrderCloseTransactionRegisterAndReloadRows)="receiveOrderCloseTransactionRegisterAndReloadRows()">
+    </app-darshboard-header>
+    <app-darshboard-balance-resume (childEvent)="handleChildBalanceResumeToParentDataReceived($event)" 
+                                    [nameTimeFilterReceived]="nameTimeFilter" 
+                                    [nameAccountFilter]="filters.account" 
+                                    [balanceReceivedIN]="movementResume.totalIN" 
+                                    [balanceReceivedOUT]="movementResume.totalOUT"></app-darshboard-balance-resume>
+    <app-darshboard-accounts (childEvent)="handleChildAccountListToParentDataReceived($event)"
+                            [orderResetReceived]="orderResetSend">
+    </app-darshboard-accounts>
+    <app-darshboard-filters (childEvent)="handleChildFiltersToParentDataReceived($event)"
+                            (sendOrderToShowCalendar)="receiveOrderToShowCalendar($event)"
+                            [receivedInitialDateCalendarReceived]="initialDateCalendarSendPrintFilter"
+                            [receivedFinalDateCalendarReceived]="finalDateCalendarToSendPrintFilter">
+    </app-darshboard-filters>
+    <app-darshboard-movements [movementsReceived]="movementResume.movememts"></app-darshboard-movements>
+    
+    <app-calendario *ngIf="flagShowCalendar" [receivedOderDateCalendar]="requestCalendar"
+                    (sendDateSelectedFromCalendar)="receivedDateSelectedFromCalendar($event)"
+    ></app-calendario>
+
+</div>

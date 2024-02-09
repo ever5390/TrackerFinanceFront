@@ -1,0 +1,8 @@
+export enum Type {
+    LOAN = 'LOAN',
+    PAYMENT = 'PAYMENT',
+    EXPENSE = 'EXPENSE',
+    INCOME = 'INCOME',
+    TRANSFERENCE = 'TRANSFERENCE',
+    DEFAULT = 'DEFAULT'
+  }
