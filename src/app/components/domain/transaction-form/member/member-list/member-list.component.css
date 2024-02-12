@@ -1,0 +1,121 @@
+
+:host  {
+    --color-primario: #007bff;
+    --espaciado: 10px;
+    --border-color-icon:#b1b1b1;
+}
+
+.back__arrow {
+    text-align: left;
+}
+
+.block__elements__container {
+    position: relative;
+    height: 100%;
+    width: 100%;
+    overflow-y: auto;
+    background-color: aqua;
+    text-align: left;
+}
+
+.block__elements__header {
+    padding: 20px;
+    padding-bottom: 0;
+}
+
+    .block__elements__header h3{
+        padding-top: 10px;
+    }
+
+
+    .block__elements__body {
+        box-sizing: border-box;
+        width: 100%;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(80px, 1fr)); 
+        gap: 1em;
+        padding: 20px;
+    }
+    
+    .block__element {
+        text-align: center;
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        flex-direction: column;
+        border: 1px solid red;
+        border-radius: 5px;
+        padding: 10px;
+        box-sizing: border-box;
+    }
+
+    .icon {
+        font-size: 1.2rem;
+    }
+    
+    .block__input__member {
+        padding: 0 20px;
+    }
+
+
+/* searching group */
+
+.item__name {
+    font-size: .9rem;
+}
+
+.section__no__data {
+    padding: 20px;
+    text-align: center;
+}
+
+.section__no__data p{
+    margin-bottom: 20px;
+}
+
+.section__no__data button{
+    border: none;
+    color: #fff;
+    background-color: #6f28ef;
+    font-size: .9rem;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+/*::: pop up :::*/
+#miDiv {
+    width: 100%;
+    height: 700px;
+    background-color: #fff;
+    position: absolute;
+    top: -700px; /* Inicialmente fuera de la pantalla */
+    transition: all 0.5s ease; /* Agrega transición para el efecto de desplazamiento */
+}
+
+
+
+
+.btn__actions {
+    position: absolute;
+    border-radius: 50px;
+    display: none;
+}
+
+.icon__container:hover {
+    cursor: pointer;
+}
+
+.icon__container:hover .btn__actions {
+    cursor: pointer;
+    display: block;
+}
+
+.btn__actions.fa-trash-alt {
+    top: -8px;
+    right: -10px;
+} 
+
+.btn__actions.fa-edit {
+    top: 15px;
+    right: -10px;
+} 

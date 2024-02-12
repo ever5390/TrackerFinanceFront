@@ -32,6 +32,7 @@ import { CalendarioComponent } from './utils/calendario/calendario.component';
 import { CalendarModule } from 'primeng/calendar';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TypesTransactionsComponent } from './components/domain/transaction-form/types-transactions/types-transactions.component';
+import { MemberRegisterListComponent } from './components/domain/transaction-form/member-register-list/member-register-list.component';
 import { SearchComponent } from './utils/search/search.component';
 
 
@@ -60,6 +61,7 @@ import { SearchComponent } from './utils/search/search.component';
     DarshboardMovementsComponent,
     CalendarioComponent,
     TypesTransactionsComponent,
+    MemberRegisterListComponent,
     SearchComponent
 
   ],

@@ -1,0 +1,65 @@
+.section__form {
+    height: 100%;
+    overflow-y: auto;
+}
+
+.block__elements__header {
+    padding: 20px;
+    padding-bottom: 0;
+}
+
+    .block__elements__header h3{
+        padding-top: 10px;
+    }
+
+
+.section__form__control {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    padding: 20px;
+}
+
+.section__form__control label{
+    margin: 10px 0;
+    font-weight: bold;
+}
+
+input[type="text"] {
+    padding: 10px;
+    width: 100%;
+    font-size: .9rem;
+    border-radius: 5px;
+    border: 1px solid #c7c7c759;
+    outline: none;
+}
+
+button {
+    border-radius: 5px;
+    width: 100%;
+    background-color: #491988;
+    border: none;
+    outline: none;
+    margin: 10px 0;
+    color: #fff;
+    padding: 10px;
+    font-size: .9rem;
+}
+
+
+/*::: pop up :::*/
+#miDiv3 {
+    width: 100%;
+    box-sizing: border-box;
+    height: 100%;
+    background-color: #8d4040;
+    position: absolute;
+    top: -700px; /* Inicialmente fuera de la pantalla */
+    left: 0;
+    transition: all 0.5s ease; /* Agrega transición para el efecto de desplazamiento */
+}
+
+.back__arrow__popup {
+    padding: 20px;
+}

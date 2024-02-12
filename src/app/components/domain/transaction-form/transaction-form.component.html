@@ -13,7 +13,8 @@
             <span class="link__show__comp"><i class="fas fa-external-link-alt"></i></span>
         </article>
         <article *ngIf="flagShowBlockMember" (click)="bajarDiv('member')" class="block block__transaction">
-            <p >{{showTextCounterpart}}</p>
+            <p *ngIf="transaction.member.id != 0">{{textMemberByTypetx}} {{transaction.member.name}}</p>
+            <p *ngIf="transaction.member.id == 0">{{showTextCounterpart}}</p>
             <span class="link__show__comp"><i class="fas fa-external-link-alt"></i></span>
         </article>
         <article  *ngIf="flagShowBlockLoanAssociated" (click)="bajarDiv('loanAssoc')" class="block block__transaction">
@@ -42,21 +43,32 @@
             <span class="link__show__comp"><i class="fas fa-external-link-alt"></i></span>
         </article>
 
+        <button type="button" (click)="saveChanges()">Registrar</button>
+
+
 
         <!-- pop ups -->
         
         <div id="miDiv" [style.top.px]="posicionTop" [style.height.px]="divHeight">
+            <i class="fas fa-long-arrow-alt-left back__arrow" (click)="subirDiv()"></i>
+
             <app-types-transactions [operationTypesReceived]="operationTypes"
                                     [receivedTextHeaderForm] = "showTextType"
                                     (sendTypeSelected)="receiveTypeSelected($event)" *ngIf="flagShowTypeComponent">
             </app-types-transactions>
-            <app-member-register-list *ngIf="flagShowMemberComponent"
-                                        [receivedTextHeaderForm] = "showTextCounterpart">
-            </app-member-register-list>
+            <app-member-list *ngIf="flagShowMemberComponent"
+                                (sendOrderClosePopUp)="receivedOrderClosePopUp()"
+                                (sendItemSelected)="receivedItemSelected($event)"
+                                [receivedTextHeaderForm] = "showTextCounterpart">
+            </app-member-list>
             <app-payment-method-list *ngIf="flagShowPaymentMethodComponent"
+                                        (sendOrderClosePopUp)="receivedOrderClosePopUp()"
+                                        (sendItemSelected)="receivedItemSelected($event)"
                                         [receivedTextHeaderForm] = "TEXT_REQUEST_PAYMENT_METHOD">
             </app-payment-method-list>
             <app-payment-method-list *ngIf="flagShowPaymentMethodDestinyComponent"
+                                        (sendOrderClosePopUp)="receivedOrderClosePopUp()"
+                                        (sendItemSelected)="receivedItemSelected($event)"
                                         [receivedTextHeaderForm] = "TEXT_REQUEST_PAYMENT_METHOD_DESTINY">
             </app-payment-method-list>
             <app-category-list *ngIf="flagShowCategoryComponent"
@@ -65,7 +77,9 @@
                                 [receivedTextHeaderForm] = "TEXT_REQUEST_CATEGORY">
             ></app-category-list>
             <app-segment-list *ngIf="flagShowSegmentComponent"
-                              [receivedTextHeaderForm] = "TEXT_REQUEST_GRUPO">
+                                (sendOrderClosePopUp)="receivedOrderClosePopUp()"
+                                (sendItemSelected)="receivedItemSelected($event)"
+                                [receivedTextHeaderForm] = "TEXT_REQUEST_GRUPO">
             >
             </app-segment-list>
             

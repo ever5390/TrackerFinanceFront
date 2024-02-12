@@ -27,7 +27,7 @@ export class UserLoginComponent {
             if(res) {
               this._authService.saveToken(res.token);
               this._authService.saveUserDataFromToken(res.token);
-              this.router.navigate(['/movements']);
+              this.router.navigate(['/dashboard']);
             }
         }, error: (err : any)=> {
           console.log(err.error.message);

@@ -1,14 +1,47 @@
-<section class="section__show__accounts">
-    <ng-container *ngFor="let account of accounts; let index = index;">
-            <label class="section__show__accounts__item" for="option-{{index}}" (click)="sendNameAccountToParentFilter(account.name)">
+<section #contenedorDiv class="block__elements__container">
+
+    <div class="block__elements__header">
+        <i class="fas fa-long-arrow-alt-left back__arrow" (click)="backForm()"></i>
+        <h3>{{receivedTextHeaderForm}}</h3>
+        <app-search [receivedDataFromFather]="listAccountsSendSearch" (sendDataFromSearchToFather)="receivedDataFromSearch($event)"></app-search>
+    </div>
+
+    <section class="section__show__accounts"  *ngIf="accounts.length>0; else template__no__data">
+        <ng-container *ngFor="let account of accounts; let index = index;">
+            <article class="section__show__accounts__item" (click)="catchItemSelected(account)">
                 <div class="item__header">
                     <span>{{account.name}}</span>
-                    <input type="radio" name="group1" id="option-{{index}}" [value]="account.name" [(ngModel)]="orderResetReceived">
+                    <!-- <input type="radio" name="group1" id="option-{{index}}" [value]="account.name" [(ngModel)]="orderResetReceived"> -->
                 </div>
                 <div class="item__footer">
                     <span>balance</span>
                     <span>{{account.currentBalance | number:'.2'}} s/</span>
                 </div>
-            </label>  
-    </ng-container>
+            </article>  
+        </ng-container>
+    </section>
+    
+    <ng-template #template__no__data>
+        <section class="section__no__data" *ngIf="!flagDataLoaded">
+            <p>Cargando...</p>
+        </section>
+        <section class="section__no__data" *ngIf="flagDataLoaded && !flagIsDataFiltered">
+            <p>No se encontraron registros.</p>
+            <button class="button__new__register" (click)="showFormularyRegister(null)" type="button">Registre uno nuevo</button>
+        </section>
+        <section class="section__no__data" *ngIf="flagDataLoaded && flagIsDataFiltered">
+            <p>No se encontraron coincidencias con el nombre <b>{{textFiltered}}</b> filtrado.</p>
+            <button class="button__new__register" (click)="showFormularyRegister(null)" type="button">¿Desea registrarlo?</button>
+        </section>
+    </ng-template>
+
+    <div id="miDiv" [style.top.px]="posicionTop" [style.height.px]="divHeight">
+        <app-account-form *ngIf="flagShowFormulary" 
+                           [accountReceivedFromSegments]="account"
+                           [textHeaderReceivedFromAccounts] = "showTextHeader"
+                           (sendOrderClosePopUp)="receiveOrderClosePopUp()"
+                           (sentSuccessfullyProcessingFromFormulary)="receivedSuccessfullyProcessingFromFormulary()">
+        </app-account-form>
+    </div>
+
 </section>

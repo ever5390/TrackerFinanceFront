@@ -1,1 +1,13 @@
-<p>category-form works!</p>
+<section class="section__form">
+    <div class="block__elements__header">
+        <i class="fas fa-long-arrow-alt-left back__arrow" (click)="backForm()"></i>
+        <h3>{{textHeaderReceivedFromCategories}}</h3>
+    </div>
+    <article class="section__form__control">
+        <label for="">nombre:</label>
+        <input type="text" name="" placeholder="escriba nombre ..." [(ngModel)]="categoryReceivedFromCategories.name" id="">
+    </article>
+    <article class="section__form__control">
+        <button type="button" (click)="saveChanges()">{{textActionButton}}</button>
+    </article>
+</section>

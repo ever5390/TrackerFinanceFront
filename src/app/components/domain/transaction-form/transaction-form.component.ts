@@ -9,18 +9,9 @@ import { AuthenticationService } from 'src/app/services/user/authentication.serv
 @Component({
   selector: 'app-transaction-form',
   templateUrl: './transaction-form.component.html',
-  styleUrls: ['./transaction-form.component.css'],
-  animations: [
-    trigger('animacionBloque', [
-      state('visible', style({ bottom: '50px' })),
-      state('oculto', style({ bottom: '-200px' })),
-      transition('oculto => visible', animate('300ms ease-in')),
-      transition('visible => oculto', animate('300ms ease-out'))
-    ])
-  ]
+  styleUrls: ['./transaction-form.component.css']
 })
 export class TransactionFormComponent  implements OnInit {
-
 
   @ViewChild('contenedorDiv') contenedorDiv!: ElementRef;
   posicionTop: number = -700; // Inicialmente fuera de la pantalla
@@ -72,7 +63,7 @@ export class TransactionFormComponent  implements OnInit {
   }
   ngOnInit(): void {
     setTimeout(() => {
-      this.bajarDiv("category");
+      //this.bajarDiv("category");
     }, 200);
   }
 
@@ -145,6 +136,7 @@ export class TransactionFormComponent  implements OnInit {
   sendTextHeaderForm: string = "";
   showTextType: string = "";
   showTextCounterpart: string = "";
+  textMemberByTypetx: string = "";
 
   
   receiveTypeSelected(typeSelected:any){
@@ -153,6 +145,7 @@ export class TransactionFormComponent  implements OnInit {
     this.showFormularyBlocksByTxTypeSelected(typeSelected);
     this.setterTxParamasByTxTypeSelected(typeSelected);
     this.setterTypeAndCounterpartTextToShowByTxParamsByType();
+    this.receivedOrderClosePopUp();
   }
 
   private setterTypeAndCounterpartTextToShowByTxParamsByType() {
@@ -172,11 +165,13 @@ export class TransactionFormComponent  implements OnInit {
     if (this.transaction.type == Type.LOAN && this.transaction.action == Action.REALICÉ) {
       this.showTextType = this.TEXT_LOAN_SENDED;
       this.showTextCounterpart = this.TEXT_REQUEST_COUNTERPART_SENDED_LOAN;
+      this.textMemberByTypetx = "Le prestaste a: ";
     }
 
     if (this.transaction.type == Type.LOAN && this.transaction.action == Action.RECIBÍ) {
       this.showTextType = this.TEXT_LOAN_RECEIVED;
       this.showTextCounterpart = this.TEXT_REQUEST_COUNTERPART_RECEIVED_LOAN;
+      this.textMemberByTypetx = "Te prestó : ";
     }
 
     if (this.transaction.type == Type.PAYMENT && this.transaction.action == Action.REALICÉ) {
@@ -327,6 +322,11 @@ export class TransactionFormComponent  implements OnInit {
       case "segment":
         this.transaction.segment = itemSelected.object;
         break; 
+      case "member":
+        this.transaction.member = itemSelected.object;
+        if(this.transaction.action == Action.REALICÉ) this.textMemberByTypetx = "Le prestaste a: ";
+        if(this.transaction.action == Action.RECIBÍ) this.textMemberByTypetx = "Te prestó : ";
+        break; 
       case "pmo":
         this.transaction.paymentMethod = itemSelected.object;
         break;
@@ -335,7 +335,7 @@ export class TransactionFormComponent  implements OnInit {
         break;
       case "loanAssoc":
         this.transaction.idLoanAssoc = itemSelected.object;
-        break;     
+        break;
       default:
         break;
     }
@@ -343,5 +343,10 @@ export class TransactionFormComponent  implements OnInit {
     this.receivedOrderClosePopUp();
   }
 
+
+  saveChanges() {
+    console.log(this.transaction);
+    this.register();
+  }
 
 }
