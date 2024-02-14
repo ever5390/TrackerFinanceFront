@@ -1,23 +1,44 @@
-<div class="container__calendars">
-  <div class="calendars">
-      <div *ngFor="let calendar of calendars; let i = index" class="calendar">
-        <div class="calendar__header">
-          <button (click)="changeMonth(i, -1)"><i class="fas fa-chevron-left"></i></button>
-          <span>{{ meses[calendar.mes] }} {{ calendar.anio }}</span>
-          <button (click)="changeMonth(i, 1)"><i class="fas fa-chevron-right"></i></button>
-        </div>
-        <div class="calendar__week__days">
-          <div *ngFor="let dia of diasSemana" class="dia-semana">{{ dia }}</div>
-        </div>
-        <div class="calendar__days">
-          <div *ngFor="let dia of generarDias(calendar.mes, calendar.anio)" 
-              (click)="selectDate(dia.day, calendar.mes, calendar.anio)"
-              class="day" [ngClass]="{'last__month': dia.index === -1, 'actual__month': dia.index === 0, 'next__month': dia.index === 1}">
-            {{dia.day}}
-          </div>
-        </div>
-      </div>
-  </div>
+<div class="container__calendar">
+    <div class="calendar">
+        <!-- <div *ngFor="let calendar of calendars; let i = index" class="calendar"> -->
+          <section class="calendar__header">
+            <span>{{ meses[calendar.mes] }} {{ calendar.anio }}</span>
+            <button (click)="changeMonth(-1)"><i class="fas fa-chevron-left"></i></button>
+            <button (click)="changeMonth(1)"><i class="fas fa-chevron-right"></i></button>
+            <button (click)="sendDateSelected()" style="color: rgb(0, 117, 226);"><span>OK</span></button>
+          </section>
+          <section class="calendar__times">
+              <span>{{currentDate | date:'yyyy - MM - dd '}}</span>
+              <span (click)="activateBlockHour('hour')">{{hour}}</span>
+              <span >:</span>
+              <span (click)="activateBlockHour('minute')">{{minute}}</span>
+            <!-- <span (click)="activateBlockHour('second')">PM</span>
+              <span > | </span>
+              <span (click)="activateBlockHour('second')">AM</span>
+             -->|
+          </section>
+          <section class="calendar__times__numbers">
+            <ng-container *ngIf="hourActivated">
+              <span (click)="selecTimes(time)" *ngFor="let time of timesHours" 
+                  style="padding: 10px;">{{time}}</span>
+            </ng-container>
+            <ng-container *ngIf="!hourActivated">
+              <span (click)="selecTimes(time)" *ngFor="let time of timesMinAndSecs" 
+                    style="padding: 10px;">{{time}}</span>
+            </ng-container>
+          </section>
+            <section class="calendar__week__days">
+              <div *ngFor="let dia of diasSemana" class="dia-semana">{{ dia }}</div>
+            </section>
+            <section class="calendar__days">
+              <div *ngFor="let dia of generarDias(calendar.mes, calendar.anio)" 
+                  (click)="selectDate(dia.day, calendar.mes, calendar.anio, dia.index)"
+                  class="day" [ngClass]="{'last__month': dia.index === -1, 'actual__month': dia.index === 0, 'next__month': dia.index === 1}">
+                {{dia.day}}
+              </div>
+            </section>
+        <!-- </div> -->
+    </div>
 </div>
 
 

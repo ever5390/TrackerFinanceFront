@@ -7,6 +7,8 @@ import { DarshboardPageComponent } from './pages/darshboard/darshboard.component
 import { CalendarioComponent } from './utils/calendario/calendario.component';
 import { TransactionFormComponent } from './components/domain/transaction-form/transaction-form.component';
 import { AccountListComponent } from './components/domain/transaction-form/accounts/account-list/account-list.component';
+import { MessageBoxComponent } from './utils/message-box/message-box/message-box.component';
+import { Calendar2Component } from './utils/calendar2/calendar2.component';
 
 const routes: Routes = [
   {
@@ -28,6 +30,10 @@ const routes: Routes = [
   {
     path:'calendar',
     component:CalendarioComponent
+  },  
+  {
+    path:'calendar2',
+    component:Calendar2Component
   },
   {
     path:'transaction-register',
@@ -36,6 +42,10 @@ const routes: Routes = [
   {
     path:'accounts',
     component:AccountListComponent
+  },
+  {
+    path:'messagebox',
+    component:MessageBoxComponent
   }
 ];
 

@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http'
+import { CommonModule } from '@angular/common';
 
 
 import { AppRoutingModule } from './app-routing.module';
@@ -33,6 +34,9 @@ import { CalendarModule } from 'primeng/calendar';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TypesTransactionsComponent } from './components/domain/transaction-form/types-transactions/types-transactions.component';
 import { SearchComponent } from './utils/search/search.component';
+import { MessageBoxComponent } from './utils/message-box/message-box/message-box.component';
+import { MessageBoxService } from './services/message-box/message-box.service';
+import { Calendar2Component } from './utils/calendar2/calendar2.component';
 
 
 @NgModule({
@@ -60,10 +64,14 @@ import { SearchComponent } from './utils/search/search.component';
     DarshboardMovementsComponent,
     CalendarioComponent,
     TypesTransactionsComponent,
-    SearchComponent
+    SearchComponent,
+    MessageBoxComponent,
+    Calendar2Component
+    
 
   ],
   imports: [
+    CommonModule,
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
@@ -72,7 +80,7 @@ import { SearchComponent } from './utils/search/search.component';
     BrowserAnimationsModule,
     CalendarModule
   ],
-  providers: [AuthenticationService, 
+  providers: [AuthenticationService, MessageBoxService, 
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }],
   bootstrap: [AppComponent]
 })

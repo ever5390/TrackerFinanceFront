@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container" #contenedorDiv>
     <app-darshboard-header (sendOrderShowTransactionRegister)="receiveOrderShowTransactionRegister()"
                            (sendOrderCloseTransactionRegisterAndReloadRows)="receiveOrderCloseTransactionRegisterAndReloadRows()">
     </app-darshboard-header>
@@ -8,7 +8,8 @@
                                     [balanceReceivedIN]="movementResume.totalIN" 
                                     [balanceReceivedOUT]="movementResume.totalOUT"></app-darshboard-balance-resume>
     <app-darshboard-accounts (childEvent)="handleChildAccountListToParentDataReceived($event)"
-                            [orderResetReceived]="orderResetSend">
+                            [orderResetReceived]="orderResetSend"
+                            [orderReloadAccountReceived]="orderReloadAccountSend">
     </app-darshboard-accounts>
     <app-darshboard-filters (childEvent)="handleChildFiltersToParentDataReceived($event)"
                             (sendOrderToShowCalendar)="receiveOrderToShowCalendar($event)"
@@ -16,9 +17,21 @@
                             [receivedFinalDateCalendarReceived]="finalDateCalendarToSendPrintFilter">
     </app-darshboard-filters>
     <app-darshboard-movements [movementsReceived]="movementResume.movememts"></app-darshboard-movements>
-    
-    <app-calendario *ngIf="flagShowCalendar" [receivedOderDateCalendar]="requestCalendar"
+
+    <app-calendario *ngIf="flagShowCalendar" [receiveGetInitOrFinalDate]="requestGetInitOrFinalDate"
                     (sendDateSelectedFromCalendar)="receivedDateSelectedFromCalendar($event)"
     ></app-calendario>
 
+
+    <div id="IDFormularyTransaction" [style.top.px]="posicionTop" [style.height.px]="divHeight">
+        <app-transaction-form
+                (sendOrderClosePopUp)="receivedOrderClosePopUp()"
+                [receivedTransaction] = "transaction">
+        ></app-transaction-form>
+    </div>
+
+
+
 </div>
+
+<app-message-box></app-message-box>

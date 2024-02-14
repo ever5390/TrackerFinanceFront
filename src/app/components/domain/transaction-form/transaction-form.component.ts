@@ -1,10 +1,11 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
-import { Component, ElementRef, OnInit, ViewChild, inject } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild, inject } from '@angular/core';
 import { Action } from 'src/app/emuns/Action.enum';
 import { Type } from 'src/app/emuns/Type.enum';
 import { TransactionModel } from 'src/app/models/transaction/transaction.model';
 import { TransactionService } from 'src/app/services/transaction/transaction.service';
 import { AuthenticationService } from 'src/app/services/user/authentication.service';
+import { Utils } from 'src/app/utils/utils.component';
 
 @Component({
   selector: 'app-transaction-form',
@@ -14,6 +15,8 @@ import { AuthenticationService } from 'src/app/services/user/authentication.serv
 export class TransactionFormComponent  implements OnInit {
 
   @ViewChild('contenedorDiv') contenedorDiv!: ElementRef;
+  @Output() sendOrderClosePopUp = new EventEmitter<any>();
+  @Input("receivedTransaction") receivedTransaction: TransactionModel = new TransactionModel();
   posicionTop: number = -700; // Inicialmente fuera de la pantalla
   divHeight: number = 0; // Altura del div cuando está visible
 
@@ -284,7 +287,7 @@ export class TransactionFormComponent  implements OnInit {
   register() {
     this._transactionService.createByUserId(this.transaction, this.userId).subscribe({
       next: (response: TransactionModel) => {
-        console.log(response);
+        this.sendOrderClosePopUp.emit();
       },
       error: (error: any) => {
         console.log(error.error.message);
@@ -347,6 +350,30 @@ export class TransactionFormComponent  implements OnInit {
   saveChanges() {
     console.log(this.transaction);
     this.register();
+  }
+
+  getOut() {
+    this.sendOrderClosePopUp.emit();
+  }
+
+  reset() {
+    this.transaction = new TransactionModel();
+    this.showTextType = this.TEXT_TYPE_DEAULT;
+  }
+
+  flagShowCalendar: boolean = false;
+  dateRegister: Date = new Date();
+  receivedDateSelectedFromCalendar(dateTeceived: any) {
+    console.log("date: " + dateTeceived.dateSelected);
+    this.dateRegister = dateTeceived.dateSelected;
+    this.transaction.createAt = Utils.formatDateWithHour(this.dateRegister);
+    console.log("dateormat: " + this.transaction.createAt);
+
+    this.flagShowCalendar = false;
+  }
+
+  showCalendar() {
+    this.flagShowCalendar = true;
   }
 
 }

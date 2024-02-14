@@ -1,10 +1,10 @@
 <div class="container__block__register">
     <main  #contenedorDiv class="block__register">
         <article  class="block__amount__date__desc"> 
-            <input type="text" placeholder="00.00">
-            <div class="filter filter__per__calendar">
+            <input type="text" placeholder="00.00" [(ngModel)]="transaction.amount">
+            <div class="filter filter__per__calendar" (click)="showCalendar()">
                 <i class="far fa-calendar"></i>
-                <span>2024-03-02 10:02:10</span>
+                <span>{{dateRegister | date:'yyyy-MM-dd HH:mm:ss'}}</span>
             </div>
             <textarea name="" id="" cols="30" rows="2" [(ngModel)]="transaction.description"></textarea>
         </article>
@@ -42,8 +42,12 @@
             <p *ngIf="transaction.segment.id == 0">{{TEXT_REQUEST_GRUPO}}</p>
             <span class="link__show__comp"><i class="fas fa-external-link-alt"></i></span>
         </article>
-
-        <button type="button" (click)="saveChanges()">Registrar</button>
+        
+        <div class="button__group">
+            <button type="button" (click)="reset()"><i class="fas fa-trash-restore"></i></button>
+            <button type="button" (click)="saveChanges()">Registrar</button>
+            <button type="button" (click)="getOut()"><i class="fas fa-sign-out-alt"></i></button>
+        </div>
 
 
 
@@ -82,8 +86,10 @@
                                 [receivedTextHeaderForm] = "TEXT_REQUEST_GRUPO">
             >
             </app-segment-list>
-            
         </div>
+
+        <app-calendario *ngIf="flagShowCalendar" (sendDateSelectedFromCalendar)="receivedDateSelectedFromCalendar($event)"
+        ></app-calendario>
 
     </main>
 </div>

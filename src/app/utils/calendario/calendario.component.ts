@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, OnInit, Output, Renderer2 } from '@angular/core';
 
 @Component({
   selector: 'app-calendario',
@@ -8,21 +8,62 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 export class CalendarioComponent{
 
   @Output() sendDateSelectedFromCalendar = new EventEmitter<any>();
-  @Input("receivedOderDateCalendar") receivedOderDateCalendar = "";
+  @Input("receiveGetInitOrFinalDate") receiveGetInitOrFinalDate = "";
 
-  calendars: any[] = [];
+  // calendars: any[] = [];
+
   diasSemana: string[] = ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'];
   meses: string[] = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+  timesHours = [...Array(24).keys()].map(i => this.pad(i));
+  timesMinAndSecs = [...Array(60).keys()].map(i => this.pad(i));
+  hourActivated: boolean = true;
+  hour: string = "00";
+  minute: string = "00";
+  second: string = "00";
+  activateTime: string = "hour";
 
-  constructor() {
+  currentDate: Date = new Date();
+  calendar : any;
+
+  constructor(private _renderer: Renderer2, private elementRef: ElementRef) {
     // Inicializar los dos calendars con el mes y anio actual
     const fechaActual = new Date();
-    this.calendars.push({ mes: fechaActual.getMonth(), anio: fechaActual.getFullYear() });
-    //this.calendars.push({ mes: fechaActual.getMonth() + 1, anio: fechaActual.getFullYear() });
+    this.calendar = {mes: fechaActual.getMonth(), anio: fechaActual.getFullYear() }
+    // this.calendars.push({ mes: fechaActual.getMonth(), anio: fechaActual.getFullYear() });
   }
 
-  changeMonth(index: number, incremento: number): void {
-    const calendario = this.calendars[index];
+
+
+
+  activateBlockHour(activate: string) {
+    this.activateTime = activate
+    if(activate == "hour") this.hourActivated = true;
+    else  this.hourActivated = false;
+  }
+
+  selecTimes(timeSelected: string) {
+    switch (this.activateTime) {
+      case "hour":
+        this.hour = timeSelected;
+        break;
+      case "minute":
+        this.minute = timeSelected;
+        break;
+      case "second":
+        this.second = timeSelected;
+        break;   
+      default:
+        break;
+    }
+  }
+
+  pad(num: number): string {
+    return (num.toString().length < 2)?`0${num}`:`${num}`;
+  }
+
+  changeMonth(incremento: number): void {
+    // const calendario = this.calendars[index];
+    const calendario = this.calendar;
     calendario.mes += incremento;
     if (calendario.mes < 0) {
       calendario.mes = 11;
@@ -65,8 +106,16 @@ export class CalendarioComponent{
   }
 
 
-  selectDate(day: number, month: number, year: number) {
-    this.sendDateSelectedFromCalendar.emit({dateSelected: new Date(year, month, day), order: this.receivedOderDateCalendar});
+  date: Date = new Date();
+  selectDate(day: number, month: number, year: number, indexDay: number) {
+    this.date = new Date(year, month, day, parseInt(this.hour), parseInt(this.minute));
+    // console.log( "Date select total: " + new Date(year, month, day, parseInt(this.hour), parseInt(this.minute)));
+    // if(indexDay == 0) this.sendDateSelectedFromCalendar.emit({dateSelected: new Date(year, month, day, parseInt(this.hour), parseInt(this.minute)), order: this.receiveGetInitOrFinalDate});
   }
 
+  sendDateSelected() {
+    this.date = new Date(this.date.getFullYear(), this.date.getMonth(), this.date.getDate(), parseInt(this.hour), parseInt(this.minute));
+    console.log(" date select OK: " + this.date);
+    this.sendDateSelectedFromCalendar.emit({dateSelected: this.date, order: this.receiveGetInitOrFinalDate});
+  }
 }

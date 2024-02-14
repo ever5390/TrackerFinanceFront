@@ -35,4 +35,13 @@ export class Utils {
     return (num.toString().length < 2)?`0${num}`:`${num}`;
   }
 
+
+  static formatDateWithHour(date: Date): string {
+    // Formatear la fecha y hora en un formato similar a LocalDateTime
+    let fechaHoraFormateada = `${date.getFullYear()}-${this.pad(date.getMonth() + 1)}-${this.pad(date.getDate())}T${this.pad(date.getHours())}:${this.pad(date.getMinutes())}:${this.pad(date.getSeconds())}`;
+    
+    return fechaHoraFormateada;
+
+  }
+
 }

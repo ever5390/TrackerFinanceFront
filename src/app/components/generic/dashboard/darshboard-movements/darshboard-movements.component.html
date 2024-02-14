@@ -24,7 +24,7 @@
                     </div>
                 </div>
                 <div class="transaction__item__footer">
-                    <span *ngIf="transaction.status == 'LOAN'">{{transaction.status}}</span>
+                    <span *ngIf="transaction.type == 'LOAN'">{{transaction.status}}</span>
                     <span>{{transaction.createAt}}</span>
                 </div>
             </div>

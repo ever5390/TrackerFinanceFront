@@ -10,8 +10,9 @@ import { AuthenticationService } from 'src/app/services/user/authentication.serv
   styleUrls: ['./darshboard-accounts.component.css']
 })
 export class DarshboardAccountsComponent {
-
+  
   @Input("orderResetReceived") orderResetReceived: string = '';
+  @Input("orderReloadAccountReceived") orderReloadAccountReceived: boolean = false;
   @Output() childEvent = new EventEmitter<string>();
 
   userId: number = 0;
@@ -27,6 +28,9 @@ export class DarshboardAccountsComponent {
   }
 
   ngOnInit() {
+    if(this.orderReloadAccountReceived == true) {
+      this.getAllByUserId();
+    }
     this.getAllByUserId();
   }
 

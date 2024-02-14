@@ -1,0 +1,51 @@
+<div class="container__calendar">
+    <div class="calendar">
+        <!-- <div *ngFor="let calendar of calendars; let i = index" class="calendar"> -->
+          <section class="calendar__header">
+            <span>{{ meses[calendar.mes] }} {{ calendar.anio }}</span>
+            <button (click)="changeMonth(-1)"><i class="fas fa-chevron-left"></i></button>
+            <button (click)="changeMonth(1)"><i class="fas fa-chevron-right"></i></button>
+            <button (click)="sendDateSelected()" style="color: rgb(0, 117, 226);"><span>OK</span></button>
+          </section>
+          <section class="calendar__times">
+              <span>{{year}}</span>
+              <span>{{month}}</span>
+              <span>{{day}}</span>
+              <span class="time" (click)="activateBlockHour('hour')" [ngClass]="{'bgSelectedTime': hourOrMinuteActivated === 'hour'}">{{hour}}</span>
+              <span >:</span>
+              <span class="time" (click)="activateBlockHour('minute')" [ngClass]="{'bgSelectedTime': hourOrMinuteActivated === 'minute'}">{{minute}}</span>
+          </section>
+
+          <ng-container *ngIf="hourOrMinuteActivated != ''">
+            <section class="calendar__times__numbers">
+                <ng-container *ngIf = "hourOrMinuteActivated == 'hour'">
+                  <span (click)="selecTimes(time)" *ngFor="let time of timesHours" 
+                      style="padding: 10px;">{{time}}</span>
+                </ng-container>
+                <ng-container *ngIf = "hourOrMinuteActivated == 'minute'">
+                  <span (click)="selecTimes(time)" *ngFor="let time of timesMinAndSecs" 
+                        style="padding: 10px;">{{time}}</span>
+                </ng-container>
+              </section>
+          </ng-container>
+
+            <section class="calendar__week__days">
+              <div *ngFor="let dia of diasSemana" class="dia-semana">{{ dia }}</div>
+            </section>
+
+            <section class="calendar__days">
+              <div *ngFor="let dia of generarDias(calendar.mes, calendar.anio); let i = index;" 
+                  (click)="selectDate(dia.indicatorMonth, dia.day, calendar.mes, calendar.anio,  i)"
+                  class="day"
+                   [ngClass]="{'last__month': dia.indicatorMonth === -1, 'actual__month': dia.indicatorMonth === 0, 'next__month': dia.indicatorMonth === 1, 
+                             'bgToday': currentDate.getDate() == dia.day && currentDate.getMonth() == calendar.mes && currentDate.getFullYear() == calendar.anio,
+                             'bgSelectedDay': indexSelected == i && monthOfSelectedDay == calendar.mes && yearOfSelectedDay == calendar.anio}">
+                {{dia.day}}
+              </div>
+            </section>
+        <!-- </div> -->
+    </div>
+</div>
+
+
+  

@@ -1,7 +1,8 @@
-import { Component, inject } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnInit, Renderer2, ViewChild, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { ResumenMovementDto } from 'src/app/dto/movementDto/movement-resume-dto.model';
 import { TransactionFilters } from 'src/app/models/transaction-filters/transaction-filters.model';
+import { TransactionModel } from 'src/app/models/transaction/transaction.model';
 import { TransactionService } from 'src/app/services/transaction/transaction.service';
 import { AuthenticationService } from 'src/app/services/user/authentication.service';
 import { Utils } from 'src/app/utils/utils.component';
@@ -11,7 +12,17 @@ import { Utils } from 'src/app/utils/utils.component';
   templateUrl: './darshboard.component.html',
   styleUrls: ['./darshboard.component.css']
 })
-export class DarshboardPageComponent {
+export class DarshboardPageComponent implements OnInit  {
+
+  @ViewChild('contenedorDiv') contenedorDiv!: ElementRef;
+  @ViewChild('IDFormularyTransaction') IDFormularyTransaction: ElementRef | any;
+
+
+  posicionTop: number = -700; // Inicialmente fuera de la pantalla
+  divHeight: number = 0; // Altura del div cuando está visible
+
+  transaction: TransactionModel = new TransactionModel();
+
 
   orderResetSend: string ='default';
   filters: TransactionFilters = new TransactionFilters();
@@ -26,20 +37,47 @@ export class DarshboardPageComponent {
 
   //Calendar send && received
   
-  requestCalendar: string = '';
+  requestGetInitOrFinalDate: string = '';
   flagShowCalendar: boolean = false;
   initialDateCalendarSendPrintFilter: string = Utils.formatDateToInitialDate(new Date(),new Date().getDate() - 1,0, false);
   finalDateCalendarToSendPrintFilter: string = Utils.formatDateToActualDate(new Date(), false);
   initialDateCalendarReceived: Date = new Date();
   finalDateCalendarReceived: Date = new Date();
 
-  constructor(private _router: Router) {
-    
+  constructor(private _router: Router,private _renderer: Renderer2 ) {
     this.userId = this.oauthService.getIdFromToken();
   }
 
+
   ngOnInit(): void {
+    this.listenClickOut();
     this.getAllMovementsByUserId();
+  }
+
+  listenClickOut() {
+    this._renderer.listen('window','click', (e: Event)=> {
+      if( this.IDFormularyTransaction && e.target === this.IDFormularyTransaction.nativeElement){
+        this.receivedOrderClosePopUp();
+      }
+    });
+  }
+
+  receivedOrderClosePopUp() {
+    this.subirDiv();
+    this.getAllMovementsByUserId();
+  }
+
+  subirDiv() {
+    this.posicionTop = -700; // Mueve el div de vuelta arriba
+    setTimeout(() => {
+      this.divHeight = 0; // Establece la altura del div a cero después de un pequeño retraso
+    }, 100); // Ajusta el tiempo según sea necesario para permitir que la transición ocurra completamente
+  }
+
+  bajarDiv() {
+    this.orderReloadAccountSend = false;
+    this.posicionTop = 0; // Mueve el div hacia abajo
+    this.divHeight = this.contenedorDiv.nativeElement.clientHeight;
   }
 
   getAllMovementsByUserId() {
@@ -80,8 +118,8 @@ export class DarshboardPageComponent {
     this.getAllMovementsByUserId();
   }
 
-  receiveOrderToShowCalendar(event: any) {
-      this.requestCalendar = event;
+  receiveOrderToShowCalendar(rangeInitOrFinal: string) {
+      this.requestGetInitOrFinalDate = rangeInitOrFinal;
       this.flagShowCalendar = true;
   }
 
@@ -109,12 +147,15 @@ export class DarshboardPageComponent {
 
   //receive order to show transaction register
   flagShowTransactionRegister: boolean = false;
+  orderReloadAccountSend: boolean = false;
   receiveOrderShowTransactionRegister() {
     this.flagShowTransactionRegister = true;
-    this._router.navigate(['/transaction-register']);
+    this.bajarDiv();
+    // this._router.navigate(['/transaction-register']);
   }
 
   receiveOrderCloseTransactionRegisterAndReloadRows() {
+    this.orderReloadAccountSend = true;
     this.getAllMovementsByUserId();
   }
 

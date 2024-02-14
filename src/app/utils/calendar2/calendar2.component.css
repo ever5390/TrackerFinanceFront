@@ -1,0 +1,172 @@
+.container__calendar {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 0;
+    background-color: #ffffff25;
+  }
+    .calendar {
+      width: 350px;
+      box-sizing: border-box;
+      padding: 20px;
+      font-size: .9rem;
+      background-color: #fff;
+      border: 1px solid rgba(207, 207, 207, 0.418);
+    }
+    
+      .calendar__header {
+        display: grid;
+        align-items: center;
+        color: rgb(114, 114, 114);
+        grid-template-columns: 1fr 40px 40px 40px;
+        border-bottom: 1px solid rgb(240, 240, 240);
+        text-align: left;
+        margin-bottom: 10px;
+        padding: 0 0 10px 10px;
+        font-weight: bold;
+      }
+  
+        .calendar__header button {
+          border: none;
+          outline: none;
+          margin-left: 5px;
+          width: 35px;
+          height: 35px;
+          border-radius: 50%;
+          background-color: #fff;
+          color: rgba(114, 114, 114, 0.623);
+        }
+  
+        .calendar__header button:hover {
+          cursor: pointer;
+          color: #313131;
+          background-color: #aaaaaa60;
+        }
+  
+    .calendar__times {
+      border-bottom: 1px solid rgb(240, 240, 240);
+      padding-bottom: 10px;
+      color: rgb(114, 114, 114);
+    }
+  
+        .calendar__times span{
+          padding: 10px 0 10px 10px;
+          font-size: 15px;
+        }
+  
+            /* .calendar__times span {
+              padding: 10px 0 10px 10px;
+            } */
+  
+            .calendar__times span:hover{
+              cursor: pointer;
+            }
+  
+    .calendar__times__numbers {
+      width: 100%;
+      padding: 15px 0;
+      box-sizing: border-box;
+      overflow-x: scroll;
+    }
+  
+        .calendar__times__numbers span:hover{
+          background-color: rgba(114, 114, 114, 0.623);
+          cursor: pointer;
+          color: #fff;
+        }
+  
+        .calendar__times__numbers span:first-child {
+          padding-left: 0;
+        }
+  
+    .calendar__week__days {
+      font-size: .8rem;
+      margin: 20px 0;
+      text-align: center;
+      color: rgb(95, 95, 95);
+    }
+      
+        .calendar__days, .calendar__week__days {
+          display: grid;
+          grid-template-columns: repeat(7, 1fr);
+          gap: 5px;
+        }
+        
+        .day {
+          text-align: center;
+          padding: 11px 5px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          border-radius: 50%;
+        }
+  
+          .actual__month:hover {
+            cursor: pointer;
+            background-color: #313131;
+            color: #fff;
+          }
+  
+          .last__month {
+            color: #aaaaaa93;
+          }
+  
+          .actual__month {
+            /* Estilo para los días del mes actual */
+            color: rgb(128, 128, 128);
+            background-color: #fff;
+          }
+        
+          .next__month {
+            color: #aaaaaa93;
+          }
+    
+  
+          .bkg__Select__date {
+            background-color: #3a5e56;
+          }
+          
+/* :::: Sobrear el clickeado :::: */
+.bgSelectedDay {
+  background-color: #313131;
+  color: #fff;
+}
+
+/* :::: Sobrear el día con fecha de HOY :::: */
+
+.bgToday {
+  background-color: #ff0000;
+  color: #fff;
+}
+
+/* :::: Sobrear el block hora o minuto seleccionado :::: */
+
+.time {
+  position: relative;
+}
+
+/* .bgSelectedTime {
+  color: #fff;
+} */
+
+.bgSelectedTime::before {
+  content: "";
+  position: absolute;
+  top: 6px;
+  right: -4px;
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  background-color: rgba(114, 114, 114, 0.26);
+}
+
+      
+  @media screen and (max-width: 400px) {
+    .calendar {
+      width: 290px;
+      padding: 10px;
+    }
+  } 

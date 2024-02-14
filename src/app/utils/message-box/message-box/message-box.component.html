@@ -1,0 +1,26 @@
+<!-- <div class="container_popUp" *ngIf="agregarClase"> -->
+    <div class="popup center" [ngClass]="{'active': agregarClase}">
+        <div class="icon">
+            <i class="fa fa-check"></i>
+            <!-- <i class="fas fa-times"></i> -->
+            <!-- <i class="fas fa-recycle"></i> -->
+            <!-- <i class="fas fa-exclamation-triangle"></i> -->
+        </div>
+        <div class="title">
+            Succes!!
+        </div>
+        <div class="description">
+            {{showmessage}}
+        </div>
+        <div class="dismiss-btn" (click)="cambiarClase()">
+            <button id="dismiss-popup-btn">
+                Dismiss
+            </button>
+        </div>
+    </div>
+    <!-- <div class="center">
+        <button id="open-popup-btn" (click)="cambiarClase()">
+            Open Popup
+        </button>
+    </div> -->
+<!-- </div> -->

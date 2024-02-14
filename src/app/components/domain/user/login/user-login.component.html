@@ -1,11 +1,27 @@
-<form>
-    <div class="form-group">
-        <label for="username">Nombre de Usuario:</label>
-        <input type="text" id="username" name="username" [(ngModel)]="userLogin.username" required>
-    </div>
-    <div class="form-group">
-        <label for="password">Contraseña:</label>
-        <input type="password" id="password" name="password" [(ngModel)]="userLogin.password" required>
-    </div>
-    <button type="submit" (click)="onLogin()">Login</button>
-</form>
+<main>
+    <section class="section__login section__login__left">
+        <form>
+            <div class="section__login__header">
+                <h3>Sign into TrackerFinance</h3>
+            </div>
+            <p class="section__link">Or if dont have account, <b>Sign Up</b></p>
+            <div class="form-control">
+                <i class="fas fa-user"></i>
+                <!-- <label for="username">Nombre de Usuario:</label> -->
+                <input type="text" id="username" name="username" [(ngModel)]="userLogin.username" required>
+            </div>
+            <div class="form-control">
+                <i class="fas fa-key"></i>
+                <input type="password" id="password" name="password" [(ngModel)]="userLogin.password" required>
+            </div>
+            <div class="section__login__footer">
+                <button type="submit" (click)="onLogin()">Login</button>
+            </div>
+        </form>
+    </section>
+    <section class="section__login section__login__right">
+    </section>
+
+</main>
+
+
