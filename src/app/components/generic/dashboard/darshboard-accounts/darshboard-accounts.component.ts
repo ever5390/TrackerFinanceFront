@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output, inject } from '@angular/core';
 import { AccountModel } from 'src/app/models/account/account.model';
 import { AccountService } from 'src/app/services/account/account.service';
+import { LinksComponentsService } from 'src/app/services/links-components/links-components.service';
 import { AuthenticationService } from 'src/app/services/user/authentication.service';
 
 
@@ -12,7 +13,6 @@ import { AuthenticationService } from 'src/app/services/user/authentication.serv
 export class DarshboardAccountsComponent {
   
   @Input("orderResetReceived") orderResetReceived: string = '';
-  @Input("orderReloadAccountReceived") orderReloadAccountReceived: boolean = false;
   @Output() childEvent = new EventEmitter<string>();
 
   userId: number = 0;
@@ -22,16 +22,24 @@ export class DarshboardAccountsComponent {
   _oauthService = inject(AuthenticationService);
   _accountService = inject(AccountService);
 
-  constructor() {
+  constructor(private _linkServices: LinksComponentsService) {
     this.userId = this._oauthService.getIdFromToken();
-
   }
 
   ngOnInit() {
-    if(this.orderReloadAccountReceived == true) {
-      this.getAllByUserId();
-    }
+    this.reloadAccoubts();
     this.getAllByUserId();
+  }
+
+  reloadAccoubts() {
+    this._linkServices.getOrderReload$.subscribe({
+      next: (response: any) => {
+        this.getAllByUserId();
+      },
+      error: (error: any) => {
+        alert(error);
+      }
+    })
   }
 
   sendNameAccountToParentFilter(accountName: string) {

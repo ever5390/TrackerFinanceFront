@@ -48,7 +48,6 @@ export class DarshboardPageComponent implements OnInit  {
     this.userId = this.oauthService.getIdFromToken();
   }
 
-
   ngOnInit(): void {
     this.listenClickOut();
     this.getAllMovementsByUserId();
@@ -63,6 +62,7 @@ export class DarshboardPageComponent implements OnInit  {
   }
 
   receivedOrderClosePopUp() {
+    this.flagShowTransactionRegister = false;
     this.subirDiv();
     this.getAllMovementsByUserId();
   }
@@ -75,7 +75,6 @@ export class DarshboardPageComponent implements OnInit  {
   }
 
   bajarDiv() {
-    this.orderReloadAccountSend = false;
     this.posicionTop = 0; // Mueve el div hacia abajo
     this.divHeight = this.contenedorDiv.nativeElement.clientHeight;
   }
@@ -147,16 +146,10 @@ export class DarshboardPageComponent implements OnInit  {
 
   //receive order to show transaction register
   flagShowTransactionRegister: boolean = false;
-  orderReloadAccountSend: boolean = false;
   receiveOrderShowTransactionRegister() {
     this.flagShowTransactionRegister = true;
+    this.transaction = new TransactionModel();
     this.bajarDiv();
-    // this._router.navigate(['/transaction-register']);
-  }
-
-  receiveOrderCloseTransactionRegisterAndReloadRows() {
-    this.orderReloadAccountSend = true;
-    this.getAllMovementsByUserId();
   }
 
 }

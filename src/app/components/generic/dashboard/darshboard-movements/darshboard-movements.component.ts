@@ -1,6 +1,5 @@
 import { Component, Input } from '@angular/core';
 import { MovementDto } from 'src/app/dto/movementDto/movement-dto.model';
-import { ResumenMovementDto } from 'src/app/dto/movementDto/movement-resume-dto.model';
 
 @Component({
   selector: 'app-darshboard-movements',

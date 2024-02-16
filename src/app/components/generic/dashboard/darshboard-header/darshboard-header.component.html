@@ -4,8 +4,8 @@
             <i class="far fa-calendar"></i>
         </div>
         <div class="section__date__data">
-            <p>Bienvenido: {{fullName}}</p>
-            <p>{{ actualDate | date:'EEEE YYYY-mm-dd' }} {{ horaActual | date:'hh:mm:ss a' }}</p>
+            <p>Bienvenido: {{fullName | uppercase}}</p>
+            <p>{{ actualDate | date:'EEEE YYYY-MM-dd' }}  {{ horaActual | date:'hh:mm:ss a' }}</p>
         </div>
     </section>
     <section class="section__actions">

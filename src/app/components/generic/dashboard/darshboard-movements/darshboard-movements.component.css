@@ -9,6 +9,7 @@
 .transactions__item {
     margin-bottom: 10px;
     border-radius: 10px;
+    overflow: hidden;
     border: 1px solid rgba(204, 204, 204, 0.507);
 }
 

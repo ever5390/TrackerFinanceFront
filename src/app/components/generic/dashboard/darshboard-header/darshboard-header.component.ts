@@ -8,8 +8,6 @@ import { Component, EventEmitter, Output } from '@angular/core';
 export class DarshboardHeaderComponent {
   
   @Output() sendOrderShowTransactionRegister = new EventEmitter<any>();
-  @Output() sendOrderCloseTransactionRegisterAndReloadRows = new EventEmitter<any>();
-  // @Input("receivedInitialDateCalendarReceived") receivedInitialDateCalendarReceived: string = ""; 
 
   fullName: string = '';
   actualDate: Date = new Date();

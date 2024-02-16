@@ -1,8 +1,9 @@
-import { animate, state, style, transition, trigger } from '@angular/animations';
 import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild, inject } from '@angular/core';
 import { Action } from 'src/app/emuns/Action.enum';
 import { Type } from 'src/app/emuns/Type.enum';
 import { TransactionModel } from 'src/app/models/transaction/transaction.model';
+import { LinksComponentsService } from 'src/app/services/links-components/links-components.service';
+import { MessageBoxService } from 'src/app/services/message-box/message-box.service';
 import { TransactionService } from 'src/app/services/transaction/transaction.service';
 import { AuthenticationService } from 'src/app/services/user/authentication.service';
 import { Utils } from 'src/app/utils/utils.component';
@@ -49,8 +50,6 @@ export class TransactionFormComponent  implements OnInit {
   flagShowSegmentComponent: boolean = false;
   flagShowLoanAssocComponent: boolean = false;
 
-  transaction: TransactionModel = new TransactionModel();
-
   //tx type selected
   operationTypeSelected: string = "";
   
@@ -60,14 +59,13 @@ export class TransactionFormComponent  implements OnInit {
 
   userId: number = 0;
 
-  constructor() {
+  constructor(private _linkServices: LinksComponentsService, private _messageBoxService: MessageBoxService) {
+
     this.userId = this._oauthService.getIdFromToken();
     this.receiveTypeSelected("");
   }
+
   ngOnInit(): void {
-    setTimeout(() => {
-      //this.bajarDiv("category");
-    }, 200);
   }
 
   bajarDiv(popupShow: string) {
@@ -153,36 +151,36 @@ export class TransactionFormComponent  implements OnInit {
 
   private setterTypeAndCounterpartTextToShowByTxParamsByType() {
 
-    if (this.transaction.type === Type.DEFAULT)
+    if (this.receivedTransaction.type === Type.DEFAULT)
       this.showTextType = this.TEXT_TYPE_DEAULT;
 
-    if (this.transaction.type == Type.EXPENSE)
+    if (this.receivedTransaction.type == Type.EXPENSE)
       this.showTextType = this.TEXT_EXPENSE;
   
-    if (this.transaction.type == Type.INCOME)
+    if (this.receivedTransaction.type == Type.INCOME)
       this.showTextType = this.TEXT_INCOME;
     
-    if (this.transaction.type == Type.TRANSFERENCE)
+    if (this.receivedTransaction.type == Type.TRANSFERENCE)
       this.showTextType = this.TEXT_TRANSFERENCE;
   
-    if (this.transaction.type == Type.LOAN && this.transaction.action == Action.REALICÉ) {
+    if (this.receivedTransaction.type == Type.LOAN && this.receivedTransaction.action == Action.REALICÉ) {
       this.showTextType = this.TEXT_LOAN_SENDED;
       this.showTextCounterpart = this.TEXT_REQUEST_COUNTERPART_SENDED_LOAN;
       this.textMemberByTypetx = "Le prestaste a: ";
     }
 
-    if (this.transaction.type == Type.LOAN && this.transaction.action == Action.RECIBÍ) {
+    if (this.receivedTransaction.type == Type.LOAN && this.receivedTransaction.action == Action.RECIBÍ) {
       this.showTextType = this.TEXT_LOAN_RECEIVED;
       this.showTextCounterpart = this.TEXT_REQUEST_COUNTERPART_RECEIVED_LOAN;
       this.textMemberByTypetx = "Te prestó : ";
     }
 
-    if (this.transaction.type == Type.PAYMENT && this.transaction.action == Action.REALICÉ) {
+    if (this.receivedTransaction.type == Type.PAYMENT && this.receivedTransaction.action == Action.REALICÉ) {
       this.showTextType = this.TEXT_PAYMENT_SENDED;
       this.showTextCounterpart = this.TEXT_REQUEST_COUNTERPART_SENDED_PAYMENT;
     }
 
-    if (this.transaction.type == Type.PAYMENT && this.transaction.action == Action.RECIBÍ) {
+    if (this.receivedTransaction.type == Type.PAYMENT && this.receivedTransaction.action == Action.RECIBÍ) {
       this.showTextType = this.TEXT_PAYMENT_RECEIVED;
       this.showTextCounterpart = this.TEXT_REQUEST_COUNTERPART_RECEIVED_PAYMENT;
     }
@@ -192,32 +190,32 @@ export class TransactionFormComponent  implements OnInit {
   private setterTxParamasByTxTypeSelected(typeSelected: any) {
     switch (typeSelected.name) {
       case this.LOAN_RECEIVED:
-        this.transaction.type = Type.LOAN;
-        this.transaction.action = Action.RECIBÍ;
+        this.receivedTransaction.type = Type.LOAN;
+        this.receivedTransaction.action = Action.RECIBÍ;
         break;
       case this.LOAN_SENDED:
-        this.transaction.type = Type.LOAN;
-        this.transaction.action = Action.REALICÉ;
+        this.receivedTransaction.type = Type.LOAN;
+        this.receivedTransaction.action = Action.REALICÉ;
         break;
       case this.PAYMENT_RECEIVED:
-        this.transaction.type = Type.PAYMENT;
-        this.transaction.action = Action.RECIBÍ;
+        this.receivedTransaction.type = Type.PAYMENT;
+        this.receivedTransaction.action = Action.RECIBÍ;
         break;
       case this.PAYMENT_SENDED:
-        this.transaction.type = Type.PAYMENT;
-        this.transaction.action = Action.REALICÉ;
+        this.receivedTransaction.type = Type.PAYMENT;
+        this.receivedTransaction.action = Action.REALICÉ;
         break;
       case this.TRANSFERENCE:
-        this.transaction.type = Type.TRANSFERENCE;
-        this.transaction.action = Action.NOT_APPLICABLE;
+        this.receivedTransaction.type = Type.TRANSFERENCE;
+        this.receivedTransaction.action = Action.NOT_APPLICABLE;
         break;
       case this.EXPENSE:
-        this.transaction.type = Type.EXPENSE;
-        this.transaction.action = Action.REALICÉ;
+        this.receivedTransaction.type = Type.EXPENSE;
+        this.receivedTransaction.action = Action.REALICÉ;
         break;
       case this.INCOME:
-        this.transaction.type = Type.INCOME;
-        this.transaction.action = Action.RECIBÍ;
+        this.receivedTransaction.type = Type.INCOME;
+        this.receivedTransaction.action = Action.RECIBÍ;
         break;
       default:
         break;
@@ -276,7 +274,7 @@ export class TransactionFormComponent  implements OnInit {
   getByIdAndUserId(transactionId: number) {
     this._transactionService.getByIdAndUserId(transactionId, this.userId).subscribe({
       next: (response) => {
-        this.transaction = response;
+        this.receivedTransaction = response;
       },
       error: (error: any) => {
         alert(error.error.message);
@@ -285,8 +283,11 @@ export class TransactionFormComponent  implements OnInit {
   }
 
   register() {
-    this._transactionService.createByUserId(this.transaction, this.userId).subscribe({
+    this.receivedTransaction.createAt = Utils.formatDateWithHour(this.dateRegister);
+    this._transactionService.createByUserId(this.receivedTransaction, this.userId).subscribe({
       next: (response: TransactionModel) => {
+        this._messageBoxService.sendDateRequest({type:"success", message:"Registro Exitoso", isActive:true});
+        this._linkServices.sendOrderReaload(true);
         this.sendOrderClosePopUp.emit();
       },
       error: (error: any) => {
@@ -297,7 +298,7 @@ export class TransactionFormComponent  implements OnInit {
   }
 
   update() {
-    this._transactionService.updateByIdAndUserId(this.transaction.id, this.transaction, this.userId).subscribe({
+    this._transactionService.updateByIdAndUserId(this.receivedTransaction.id, this.receivedTransaction, this.userId).subscribe({
       next: (response: TransactionModel) => {
         console.log(response);
       },
@@ -320,24 +321,24 @@ export class TransactionFormComponent  implements OnInit {
   receivedItemSelected(itemSelected: any) {
     switch (itemSelected.type) {
       case "category":
-        this.transaction.category = itemSelected.object;
+        this.receivedTransaction.category = itemSelected.object;
         break;
       case "segment":
-        this.transaction.segment = itemSelected.object;
+        this.receivedTransaction.segment = itemSelected.object;
         break; 
       case "member":
-        this.transaction.member = itemSelected.object;
-        if(this.transaction.action == Action.REALICÉ) this.textMemberByTypetx = "Le prestaste a: ";
-        if(this.transaction.action == Action.RECIBÍ) this.textMemberByTypetx = "Te prestó : ";
+        this.receivedTransaction.member = itemSelected.object;
+        if(this.receivedTransaction.action == Action.REALICÉ) this.textMemberByTypetx = "Le prestaste a: ";
+        if(this.receivedTransaction.action == Action.RECIBÍ) this.textMemberByTypetx = "Te prestó : ";
         break; 
       case "pmo":
-        this.transaction.paymentMethod = itemSelected.object;
+        this.receivedTransaction.paymentMethod = itemSelected.object;
         break;
       case "pmd":
-        this.transaction.paymentMethodDestiny = itemSelected.object;
+        this.receivedTransaction.paymentMethodDestiny = itemSelected.object;
         break;
       case "loanAssoc":
-        this.transaction.idLoanAssoc = itemSelected.object;
+        this.receivedTransaction.idLoanAssoc = itemSelected.object;
         break;
       default:
         break;
@@ -348,7 +349,7 @@ export class TransactionFormComponent  implements OnInit {
 
 
   saveChanges() {
-    console.log(this.transaction);
+    console.log(this.receivedTransaction);
     this.register();
   }
 
@@ -357,18 +358,15 @@ export class TransactionFormComponent  implements OnInit {
   }
 
   reset() {
-    this.transaction = new TransactionModel();
+    this.receivedTransaction = new TransactionModel();
     this.showTextType = this.TEXT_TYPE_DEAULT;
   }
 
   flagShowCalendar: boolean = false;
   dateRegister: Date = new Date();
   receivedDateSelectedFromCalendar(dateTeceived: any) {
-    console.log("date: " + dateTeceived.dateSelected);
     this.dateRegister = dateTeceived.dateSelected;
-    this.transaction.createAt = Utils.formatDateWithHour(this.dateRegister);
-    console.log("dateormat: " + this.transaction.createAt);
-
+    this.receivedTransaction.createAt = Utils.formatDateWithHour(this.dateRegister);
     this.flagShowCalendar = false;
   }
 
@@ -377,3 +375,5 @@ export class TransactionFormComponent  implements OnInit {
   }
 
 }
+
+
