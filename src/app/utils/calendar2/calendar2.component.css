@@ -4,9 +4,11 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    position: absolute;
+    position: fixed;
     top: 0;
-    background-color: #ffffff25;
+    background-color: #f07979bd;
+    /* background-color: #ffffff25; */
+    z-index: 5;
   }
     .calendar {
       width: 350px;

@@ -1,38 +1,37 @@
 <section class="section__body">
     <div class="section__body__transactions">
-        <ng-template *ngIf="movementsReceived.length > 0 then templateRows else templateNotContent">
-            
-        </ng-template>
-    </div>
-
-    <ng-template #templateRows>
-        <ng-container *ngFor="let transaction of movementsReceived; let index = index;">
-            <div class="transactions__item">
-                <div class="transaction__item__header">
-                    <div class="item__header__description">
-                        <div class="header__description__icon">
+        <ng-container *ngIf="movementsReceived.length > 0; else containerNotContent">
+            <ng-container *ngFor="let transaction of movementsReceived; let index = index;">
+                <div class="transactions__item">
+                    <header class="item__header">
+                        <section class="item__header__icon">
+                            <i class="fas fa-ellipsis-v"></i> 
                             <i class="fal fa-random"></i>
-                        </div>
-                        <div class="header__description__title">
-                            <h5>{{transaction.headerTitle}}</h5>
-                            <p>{{transaction.description}}</p>
-                        </div>
-                    </div>
-                    <div class="item__header__amount">
-                        <span>{{transaction.amount | number:'.2' }}</span>
-                        <span>s/</span>
-                    </div>
+                        </section>
+                        <section class="item__header__data__container">
+                            <article class="item__header__title__amount">
+                                <h5>{{transaction.headerTitle}}</h5>
+                                <section class="header__amount">
+                                    <span>{{transaction.amount | number:'.2' }}</span>
+                                    <!-- <span>s/</span> -->
+                                </section>
+                            </article>
+                            <article class="header__description">{{transaction.description}}</article>
+                        </section>
+                    </header>
+                    <footer class="item__footer">
+                        <span>{{transaction.createAt | date:'EEEE YYYY-MM-dd hh:mm:ss' }}</span>
+                        <span style="color: red;" *ngIf="transaction.type == 'LOAN' && transaction.status == 'PENDING'">{{transaction.status | lowercase}}</span>
+                        <span style="color: green;" *ngIf="transaction.type == 'LOAN' && transaction.status != 'PENDING'" >{{transaction.status | lowercase}}</span>
+                    </footer>
                 </div>
-                <div class="transaction__item__footer">
-                    <span *ngIf="transaction.type == 'LOAN'">{{transaction.status}}</span>
-                    <span>{{transaction.createAt}}</span>
-                </div>
-            </div>
+            </ng-container>
         </ng-container>
-    </ng-template>
-
-    <ng-template #templateNotContent>
+    </div>
+    <ng-template #containerNotContent>
         No hay registros para el filtro seleccionado
     </ng-template>
+
+    <button (click)="showTransactionRegister()" class="section__actions__add__button"><i class="fas fa-plus"></i> Add transaction</button>
     
 </section>

@@ -4,9 +4,10 @@
 @import "primeng/resources/primeng.css";
 
 body, html {
-    font-family: 'Arial', sans-serif;
+    /* font-family: 'Arial', sans-serif; */
+    font-family: 'Raleway';
     color: #333;
-    background-color: beige;
+    /* background-color: beige; */
     margin: 0;
     padding: 0;
 }

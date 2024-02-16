@@ -10,4 +10,8 @@ export class DarshboardMovementsComponent {
 
   @Input("movementsReceived") movementsReceived: MovementDto[] = [];
 
+
+  showTransactionRegister() {
+   // this.sendOrderShowTransactionRegister.emit();
+  }
 }

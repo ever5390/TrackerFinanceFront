@@ -1,10 +1,30 @@
 .container {
     width: 90%;
-    height: 100vh;
     margin: 0 auto;
-    background: #fff;
     position: relative;
+    display: flex;
 }
+
+.section {
+    /* margin: 10px; */
+    height: 100%;
+    overflow-y: auto;
+}
+
+.section__resumen {
+    width: 55%;
+    padding: 20px;
+}
+
+.section__data__rows {
+    /* background-color: #7c47df2f; */
+    width: 45%;
+}
+
+
+
+
+
 
 #IDFormularyTransaction {
     width: 100%;
@@ -19,9 +39,27 @@
     /* align-items: center; */
 }
 
+@media screen and (max-width: 896px) {
+    .container {
+        flex-direction: column;
+    }
 
-@media screen and (max-width: 780px) {
+    .section__resumen {
+        width: 55%;
+        padding: 10px;
+    }
+/* 
+    .section__data__rows {
+        padding: 10px;
+    } */
+
+    .section {
+        width: 100%;
+    }
+}
+
+@media screen and (max-width: 1400px) {
     .container {
         width: 100%;
     }
-  }
+}

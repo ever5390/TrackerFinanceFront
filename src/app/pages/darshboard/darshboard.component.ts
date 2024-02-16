@@ -62,7 +62,6 @@ export class DarshboardPageComponent implements OnInit  {
   }
 
   receivedOrderClosePopUp() {
-    this.flagShowTransactionRegister = false;
     this.subirDiv();
     this.getAllMovementsByUserId();
   }
@@ -71,6 +70,7 @@ export class DarshboardPageComponent implements OnInit  {
     this.posicionTop = -700; // Mueve el div de vuelta arriba
     setTimeout(() => {
       this.divHeight = 0; // Establece la altura del div a cero después de un pequeño retraso
+      this.flagShowTransactionRegister = false;
     }, 100); // Ajusta el tiempo según sea necesario para permitir que la transición ocurra completamente
   }
 

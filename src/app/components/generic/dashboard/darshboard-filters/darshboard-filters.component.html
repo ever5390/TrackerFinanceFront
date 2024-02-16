@@ -1,3 +1,4 @@
+<h4>Filtros:</h4>
 <section class="section__filters">
     <div class="section__filters__dates">
         <div class="filter filter__today" (click)="sendToParentDateFilter('today')">
@@ -19,19 +20,16 @@
             <span (click)="initialSelectDate()">{{receivedInitialDateCalendarReceived}}</span>
             <span> - </span>
             <span (click)="finalSelectDate()">{{receivedFinalDateCalendarReceived}}</span>
-            <!-- <div class="card flex justify-content-center"> -->
-                <!-- <p-calendar [(ngModel)]="rangeDates" selectionMode="range" [readonlyInput]="true" class="ng-calendar"></p-calendar> -->
-            <!-- </div> -->
         </div>
     </div>
     <div class="section__filters__searching">
         <label class="searching__container">
             <i class="fas fa-search"></i>
             <input type="text" placeholder="Search...">
+            <i class="fas fa-funnel-dollar"></i>
         </label>
-        <div class="icon__show__aditional__filter">
-            <i class="fas fa-sort-amount-down"></i>
-            <span> Show Filters</span>
-        </div>
+        <!-- <div class="icon__show__aditional__filter">
+            <i class="fas fa-funnel-dollar"></i>
+        </div> -->
     </div>
 </section>

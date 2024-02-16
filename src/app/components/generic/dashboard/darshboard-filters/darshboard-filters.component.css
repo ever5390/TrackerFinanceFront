@@ -1,37 +1,49 @@
+h4 {
+    padding: 20px 0;
+    padding-bottom: 0;
+}
+
 .section__filters {
     width: 100%;
-    padding: 20px;
+    padding: 20px 0;
     padding-bottom: 10px;
-    display: flex;
+    /* display: flex; */
     font-size: .9rem;
+    /* flex-direction: column-reverse; */
     box-sizing: border-box;
-    justify-content: space-between;
+    /* justify-content: space-between; */
     border-bottom: 1px solid rgba(204, 204, 204, 0.507);
 }
 
 .filter {
     flex-shrink: 0;
     padding: 5px 10px;
-    border-radius: 5px;
     box-sizing: border-box;
-    border: 1px solid rgba(204, 204, 204, 0.507);
 }
 
 .section__filters__dates {
     display: flex;
+    justify-content: flex-start;
     align-items: center;
     flex-wrap: wrap;
+    width: 100%;
+    /* border: 1px solid rgba(204, 204, 204, 0.507); */
 }
 
     .filter__today {
-        width: 60px;
-        margin-right: 10px;
+        width: 70px;
         margin-bottom: 10px;
+        border-radius: 5px 0 0 5px;
+        border-width: 1px 0 1px 1px;
+        border-color: rgba(204, 204, 204, 0.507);
+        border-style: solid;
     }
 
     .filter__dropdown__per__days {
-        border-radius: 5px 0 0 5px;
         margin-bottom: 10px;
+        border-width: 1px;
+        border-color: rgba(204, 204, 204, 0.507);
+        border-style: solid;
     }
 
         .filter__dropdown__per__days i{
@@ -41,46 +53,47 @@
     .filter__per__calendar {
         border-radius: 0 5px 5px 0;
         margin-bottom: 10px;
+        border-width: 1px 1px 1px 0;
+        border-color: rgba(204, 204, 204, 0.507);
+        border-style: solid;
     }
         .filter__per__calendar i{
             margin-right: 10px;
         }
 
 .section__filters__searching {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-right: 10px;
     margin-bottom: 10px;
+    width: 100%;
 }
 
-    .searching__container {
+    label {
         padding: 5px 10px;
         box-sizing: border-box;
         border-radius: 5px;
-        display: flex;
+        display: grid;
+        grid-template-columns: 20px 1fr 40px;
         align-items: center;
         justify-content: space-between;
-        margin-right: 10px;
         border: 1px solid rgba(204, 204, 204, 0.507);
+        padding-right: 0;
     }
+
+        label .fa-funnel-dollar{
+            padding: 10px;
+            box-sizing: border-box;
+            border-left: 1px solid rgba(204, 204, 204, 0.507);
+        }
 
     .searching__container input{
         border: none;
         outline: none;
         margin-left: 10px;
         width: 100%;
+        padding: 10px 0;
+        font-size: .9rem;
     }
 
-    .icon__show__aditional__filter {
-        border: 1px solid rgba(204, 204, 204, 0.507);
-        padding: 5px 10px;
-        border-radius: 5px;
-        width: 150px;
-        flex: 0 0 auto;
-    }
-
-    .filter:hover, .icon__show__aditional__filter:hover {
+    .filter:hover, .fa-funnel-dollar:hover {
         cursor: pointer;
     }
 
@@ -127,35 +140,11 @@
     .dropdown-item:hover {
         background-color: #f0f0f0;
     }
-    
 
-@media screen and (max-width: 980px) {
 
-    .section__filters__dates {
-        width: 100%;
-    }
+/* @media screen and (max-width: 400px) {
 
-    .section__filters {
-        flex-direction: column;
-        justify-content: center;
-    }
-
-    .section__filters__searching {
-        /* background-color: aqua; */
-    }
-
-    .searching__container {
-        width: calc( 100% - 100px);
-    }
-}
-
-p-calendar {
-    border: none !important;
-}
-
-@media screen and (max-width: 400px) {
-
-    .section__filters {
+    .section__filters, h4 {
         padding: 10px;
     }
-}
+} */

@@ -1,5 +1,5 @@
 .section__show__accounts {
-    padding: 10px 20px;
+    padding: 10px 0;
     display: flex;
     border-bottom: 1px solid rgba(204, 204, 204, 0.507);
     overflow-x: auto;
@@ -35,10 +35,10 @@
         font-size: .9rem;
         padding: 10px;
     }
-
+/* 
     @media screen and (max-width: 400px) {
 
         .section__show__accounts {
             padding: 10px;
         }
-    }
+    } */
