@@ -1,150 +1,67 @@
-h4 {
-    padding: 20px 0;
-    padding-bottom: 0;
+.main__filters {
+    /* border: 1px solid red; */
 }
 
-.section__filters {
+.filter__container {
+    padding: 20px 0;
     width: 100%;
-    padding: 20px 0;
-    padding-bottom: 10px;
-    /* display: flex; */
-    font-size: .9rem;
-    /* flex-direction: column-reverse; */
-    box-sizing: border-box;
-    /* justify-content: space-between; */
-    border-bottom: 1px solid rgba(204, 204, 204, 0.507);
-}
-
-.filter {
-    flex-shrink: 0;
-    padding: 5px 10px;
-    box-sizing: border-box;
-}
-
-.section__filters__dates {
     display: flex;
-    justify-content: flex-start;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+}
+
+.filters {
+    flex: 0 0 auto;
+    margin-right: 10px;
+    display: flex;
+    flex-direction: column;
+    row-gap: 5px;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    border: 1px solid brown;
+    border-radius: 5px;
+}
+
+    .filters span {
+        font-size: .8rem;
+    }
+
+
+
+.filtered__elements {
+    display: flex;
     align-items: center;
     flex-wrap: wrap;
-    width: 100%;
-    /* border: 1px solid rgba(204, 204, 204, 0.507); */
 }
 
-    .filter__today {
-        width: 70px;
-        margin-bottom: 10px;
-        border-radius: 5px 0 0 5px;
-        border-width: 1px 0 1px 1px;
-        border-color: rgba(204, 204, 204, 0.507);
-        border-style: solid;
+    .elements {
+        font-size: .8rem;
+        border-radius: 5px;
+        padding: 5px 10px;
+        background-color: #e2e2e2;
+        border: 1px solid gray;
+        margin-right: 5px;
+        margin-bottom: 5px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
 
-    .filter__dropdown__per__days {
-        margin-bottom: 10px;
-        border-width: 1px;
-        border-color: rgba(204, 204, 204, 0.507);
-        border-style: solid;
-    }
-
-        .filter__dropdown__per__days i{
+        .item {
             margin-left: 10px;
         }
 
-    .filter__per__calendar {
-        border-radius: 0 5px 5px 0;
-        margin-bottom: 10px;
-        border-width: 1px 1px 1px 0;
-        border-color: rgba(204, 204, 204, 0.507);
-        border-style: solid;
-    }
-        .filter__per__calendar i{
-            margin-right: 10px;
+        .item__count {
+            padding-top: 2px;
+            text-align: center;
+            border-radius: 50%;
+            height: 20px;
+            width: 20px;
+            color: #fff;
+            background-color: gray;
         }
 
-.section__filters__searching {
-    margin-bottom: 10px;
-    width: 100%;
-}
-
-    label {
-        padding: 5px 10px;
-        box-sizing: border-box;
-        border-radius: 5px;
-        display: grid;
-        grid-template-columns: 20px 1fr 40px;
-        align-items: center;
-        justify-content: space-between;
-        border: 1px solid rgba(204, 204, 204, 0.507);
-        padding-right: 0;
-    }
-
-        label .fa-funnel-dollar{
-            padding: 10px;
-            box-sizing: border-box;
-            border-left: 1px solid rgba(204, 204, 204, 0.507);
+        .filters:hover, .elements:hover {
+            cursor: pointer;
         }
-
-    .searching__container input{
-        border: none;
-        outline: none;
-        margin-left: 10px;
-        width: 100%;
-        padding: 10px 0;
-        font-size: .9rem;
-    }
-
-    .filter:hover, .fa-funnel-dollar:hover {
-        cursor: pointer;
-    }
-
-    /* Estilo para el contenedor del dropdown */
-    .dropdown {
-        position: relative;
-        display: inline-block;
-    }
-    
-    /* Estilo para el botón del dropdown */
-    .dropdown-toggle {
-        cursor: pointer;
-        padding: 8px 12px;
-        border: 1px solid #ccc;
-        border-radius: 4px;
-        background-color: #fff;
-    }
-    
-    /* Estilo para el menú desplegable */
-    .dropdown-menu {
-        position: absolute;
-        top: 5px;
-        left: 0;
-        right: 0;
-        z-index: 1000;
-        display: none;
-        background-color: #fff;
-        border: 1px solid #ccc;
-        border-top: none;
-    }
-    
-    /* Estilo para mostrar el menú desplegable */
-    .dropdown-menu.show {
-        display: block;
-    }
-    
-    /* Estilo para las opciones del menú desplegable */
-    .dropdown-item {
-        padding: 8px 12px;
-        cursor: pointer;
-    }
-    
-    /* Estilo para las opciones del menú desplegable al pasar el ratón */
-    .dropdown-item:hover {
-        background-color: #f0f0f0;
-    }
-
-
-/* @media screen and (max-width: 400px) {
-
-    .section__filters, h4 {
-        padding: 10px;
-    }
-} */

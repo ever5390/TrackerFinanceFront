@@ -1,4 +1,15 @@
 <section class="section__body">
+    <h3>total elementos: {{totalMovements}}</h3>
+    <section class="filtered__elements" *ngIf="receiveItemFilteredToMovement.length > 0">
+        <ng-container *ngFor="let item of receiveItemFilteredToMovement;">
+            <article class="elements">
+                <span  (click)="removeFilter(item)"><i class="fas fa-times"></i></span>
+                <span class="item">{{item.itemSelected | lowercase}}</span>
+                <span class="item item__count">{{item.total}}</span>
+            </article>
+        </ng-container>
+    </section>
+
     <div class="section__body__transactions">
         <ng-container *ngIf="movementsReceived.length > 0; else containerNotContent">
             <ng-container *ngFor="let transaction of movementsReceived; let index = index;">

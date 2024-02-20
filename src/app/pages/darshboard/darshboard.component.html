@@ -1,32 +1,40 @@
 <main class="container" #contenedorDiv>
-
-    <section class="section section__resumen">
-        
-        <app-darshboard-header (sendOrderShowTransactionRegister)="receiveOrderShowTransactionRegister()"
-        >
-        </app-darshboard-header>
-       <app-darshboard-balance-resume (childEvent)="handleChildBalanceResumeToParentDataReceived($event)" 
-                        [nameTimeFilterReceived]="nameTimeFilter" 
-                        [nameAccountFilter]="filters.account" 
-                        [balanceReceivedIN]="movementResume.totalIN" 
-                        [balanceReceivedOUT]="movementResume.totalOUT"></app-darshboard-balance-resume>
-        <app-darshboard-accounts (childEvent)="handleChildAccountListToParentDataReceived($event)"
-                        [orderResetReceived]="orderResetSend"
-                >
-        </app-darshboard-accounts>
-        <app-darshboard-filters (childEvent)="handleChildFiltersToParentDataReceived($event)"
-                        (sendOrderToShowCalendar)="receiveOrderToShowCalendar($event)"
-                        [receivedInitialDateCalendarReceived]="initialDateCalendarSendPrintFilter"
-                        [receivedFinalDateCalendarReceived]="finalDateCalendarToSendPrintFilter">
-        </app-darshboard-filters>
-       
+    <section class="section__header">
+        <app-darshboard-header (sendOrderShowTransactionRegister)="receiveOrderShowTransactionRegister()"></app-darshboard-header>
     </section>
-
-    
-    <section class="section section__data__rows">
-        <app-darshboard-movements [movementsReceived]="movementResume.movememts"></app-darshboard-movements>
-    </section> 
-
+    <section class="section__body">
+        <section class="section section__resumen">
+            <app-darshboard-balance-resume (childEvent)="handleChildBalanceResumeToParentDataReceived($event)" 
+                             [nameTimeFilterReceived]="nameTimeFilter" 
+                             [nameAccountFilter]="filters.account" 
+                             [balanceReceivedIN]="movementResume.totalIN" 
+                             [balanceReceivedOUT]="movementResume.totalOUT">
+            </app-darshboard-balance-resume>
+             <app-darshboard-accounts (childEvent)="handleChildAccountListToParentDataReceived($event)"
+                             [orderResetReceived]="orderResetSend">
+             </app-darshboard-accounts>
+             <app-dashboard-searching (childEvent)="handleChildFiltersToParentDataReceived($event)"
+                             (sendOrderToShowCalendar)="receiveOrderToShowCalendar($event)"
+                             [receivedInitialDateCalendarReceived]="initialDateCalendarSendPrintFilter"
+                             [receivedFinalDateCalendarReceived]="finalDateCalendarToSendPrintFilter">
+             </app-dashboard-searching>
+             <app-darshboard-filters  *ngIf="flagShowFilters" 
+                                   [receivedFilters]="filter"
+                                   (sendItemSelectedByFiltered)="receivedItemSelectedByFiltered($event)">
+             </app-darshboard-filters>
+            
+         </section>
+     
+         
+         <section class="section section__data__rows">
+             <app-darshboard-movements [movementsReceived]="movementResume.movememts" 
+                                       [totalMovements]="movementResume.totalNumberElements"
+                                       [receiveItemFilteredToMovement]="sendItemFilteredToMovement"
+                                       (sendItemRemoveToFilterFromMovement)="receiveItemRemoveToFilterFromMovement($event)"
+             >
+            </app-darshboard-movements>
+         </section> 
+    </section>
 
     <div id="IDFormularyTransaction" [style.top.px]="posicionTop" [style.height.px]="divHeight">
         <app-transaction-form *ngIf="flagShowTransactionRegister"

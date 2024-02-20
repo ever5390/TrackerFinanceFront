@@ -16,6 +16,12 @@ export class TransactionService {
 
   constructor() { }
 
+
+  getAllByUserId(userId: number): Observable<TransactionModel[]> {
+    const url = `${this.hostApi}/user/${userId}/transactions`;
+    return this.httpClient.get<TransactionModel[]>(url);
+  }
+
   createByUserId(TransactionRequest: TransactionModel, userId: number): Observable<TransactionModel> {
     const url = `${this.hostApi}/user/${userId}/transactions`;
     return this.httpClient.post<TransactionModel>(url, TransactionRequest);

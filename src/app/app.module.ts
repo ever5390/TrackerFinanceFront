@@ -37,6 +37,7 @@ import { SearchComponent } from './utils/search/search.component';
 import { MessageBoxComponent } from './utils/message-box/message-box/message-box.component';
 import { MessageBoxService } from './services/message-box/message-box.service';
 import { Calendar2Component } from './utils/calendar2/calendar2.component';
+import { DashboardSearchingComponent } from './components/generic/dashboard/dashboard-searching/dashboard-searching.component';
 
 
 @NgModule({
@@ -66,7 +67,8 @@ import { Calendar2Component } from './utils/calendar2/calendar2.component';
     TypesTransactionsComponent,
     SearchComponent,
     MessageBoxComponent,
-    Calendar2Component
+    Calendar2Component,
+    DashboardSearchingComponent
     
 
   ],

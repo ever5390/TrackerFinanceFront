@@ -1,6 +1,8 @@
-import { AfterViewInit, Component, ElementRef, OnInit, Renderer2, ViewChild, inject } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, ElementRef, OnInit, Renderer2, ViewChild, inject } from '@angular/core';
+import { MovementDto } from 'src/app/dto/movementDto/movement-dto.model';
 import { ResumenMovementDto } from 'src/app/dto/movementDto/movement-resume-dto.model';
+import { Item } from 'src/app/interfaces/ItemFiltered.interface';
+import { Filter } from 'src/app/models/filter/filter.model';
 import { TransactionFilters } from 'src/app/models/transaction-filters/transaction-filters.model';
 import { TransactionModel } from 'src/app/models/transaction/transaction.model';
 import { TransactionService } from 'src/app/services/transaction/transaction.service';
@@ -17,12 +19,10 @@ export class DarshboardPageComponent implements OnInit  {
   @ViewChild('contenedorDiv') contenedorDiv!: ElementRef;
   @ViewChild('IDFormularyTransaction') IDFormularyTransaction: ElementRef | any;
 
-
   posicionTop: number = -700; // Inicialmente fuera de la pantalla
   divHeight: number = 0; // Altura del div cuando está visible
 
   transaction: TransactionModel = new TransactionModel();
-
 
   orderResetSend: string ='default';
   filters: TransactionFilters = new TransactionFilters();
@@ -34,7 +34,6 @@ export class DarshboardPageComponent implements OnInit  {
   transactionService = inject(TransactionService);
   oauthService = inject(AuthenticationService);
 
-
   //Calendar send && received
   
   requestGetInitOrFinalDate: string = '';
@@ -44,7 +43,7 @@ export class DarshboardPageComponent implements OnInit  {
   initialDateCalendarReceived: Date = new Date();
   finalDateCalendarReceived: Date = new Date();
 
-  constructor(private _router: Router,private _renderer: Renderer2 ) {
+  constructor(private _renderer: Renderer2 ) {
     this.userId = this.oauthService.getIdFromToken();
   }
 
@@ -83,7 +82,8 @@ export class DarshboardPageComponent implements OnInit  {
     this.transactionService.readAllResumeByUserIdAndFilters(this.userId, this.filters).subscribe({
       next: (data: ResumenMovementDto) => {
         this.movementResume = data;
-        console.log(this.movementResume);
+        this.filter = [];
+        this.filterData();
       },
       error: (error: any) => {
         console.error(error.error.message);
@@ -104,6 +104,8 @@ export class DarshboardPageComponent implements OnInit  {
     this.filters.startDate = dates.initialDate;
     this.filters.endDate = dates.finalDate;
     this.nameTimeFilter = dates.text;
+
+    this.flagShowFilters = false;
     this.getAllMovementsByUserId();
   }
 
@@ -142,8 +144,6 @@ export class DarshboardPageComponent implements OnInit  {
     
   }
 
-
-
   //receive order to show transaction register
   flagShowTransactionRegister: boolean = false;
   receiveOrderShowTransactionRegister() {
@@ -152,5 +152,192 @@ export class DarshboardPageComponent implements OnInit  {
     this.bajarDiv();
   }
 
+
+  filter : Filter[] = [];
+  flagShowFilters: boolean = false;
+  filterData() {
+    this.flagShowFilters = true;
+
+    // Realizar el filtro y conteo
+    this.obtenerConteoPorParametro('category');
+    this.obtenerConteoPorParametro('segment');
+    this.obtenerConteoPorParametro('paymentMethod');
+    this.obtenerConteoPorParametro('type');
+    this.obtenerConteoPorParametro('action');
+
+    console.log(this.filter);
+  }
+
+  obtenerConteoPorParametro(parametro: string) {
+    const filterItem = new Filter();
+    const conteo: Item[] = [];
+    this.movementResume.movememts.forEach((entidad: MovementDto) => {
+        let valor: string | null = null;
+        switch (parametro) {
+          case 'category':
+            valor =  entidad.category;
+            break;
+          case 'segment':
+            valor =  entidad.segment;
+            break;     
+          case 'paymentMethod':
+            valor =  entidad.paymentMethod;
+            break;
+          case 'type':
+            valor =  entidad.type;
+            break;
+          case 'action':
+            valor =  entidad.action;
+            break;  
+          default:
+            break;
+        }
+
+        if (valor != null && valor != "") {
+          const itemIndex = conteo.findIndex(item => item.name === valor);
+          if (itemIndex !== -1) {
+            conteo[itemIndex].total++;
+          } else {
+            conteo.push({ name: valor, itemSelected: "", total: 1 });
+          }
+        }
+    });
+
+    if(conteo.length > 0) {
+      filterItem.item = parametro;
+      filterItem.itemList = conteo;
+      this.filter.push(filterItem);
+    }
+
+  }
+
+  sendItemFilteredToMovement: Item[] = [];
+  itemFilteredSelected: Item = {name:"", itemSelected:"", total:0};
+
+  receivedItemSelectedByFiltered(paramItemFilterSelected: any) {
+    this.setterFilterToBlockFiltersShow(paramItemFilterSelected);
+    this.setterFilteredToMovements(paramItemFilterSelected);
+    this.getAllMovementsByUserId();
+    //this.updateCountFiltersBlock();
+  }
+
+  updateCountFiltersBlock() {
+    this.filter.forEach(elFilter => {
+      this.sendItemFilteredToMovement.forEach(elFilterBlock => {
+        if(elFilter.item == elFilterBlock.name){
+          elFilter.itemList.forEach(itemFilter => {
+            elFilterBlock.total = itemFilter.total;
+          })
+        }
+      });
+    });
+  }
+
+  private setterFilteredToMovements(paramItemFilterSelected: any) {
+    switch (paramItemFilterSelected.name) {
+      case 'category':
+        this.filters.category = paramItemFilterSelected.itemSelected;
+        break;
+      case 'segment':
+        this.filters.segment = paramItemFilterSelected.itemSelected;
+        break;
+      case 'paymentMethod':
+        this.filters.paymentMethod = paramItemFilterSelected.itemSelected;
+        break;
+      case 'type':
+        this.filters.type = paramItemFilterSelected.itemSelected;
+        break;
+      case 'action':
+        this.filters.action = paramItemFilterSelected.itemSelected;
+        break;
+      default:
+        break;
+    }
+  }
+
+  private removeFilteredToMovements(paramItemFilterSelected: any) {
+    switch (paramItemFilterSelected.name) {
+      case 'category':
+        this.filters.category = "";
+        break;
+      case 'segment':
+        this.filters.segment = "";
+        break;
+      case 'paymentMethod':
+        this.filters.paymentMethod = "";
+        break;
+      case 'type':
+        this.filters.type = "";
+        break;
+      case 'action':
+        this.filters.action = "";
+        break;
+      default:
+        break;
+    }
+  }
+
+  private setterFilterToBlockFiltersShow(paramItemFilterSelected: any) {
+    let itemFilteredSelected: Item = { name: "", itemSelected: "", total: 0 };
+    itemFilteredSelected.name = paramItemFilterSelected.name;
+    itemFilteredSelected.itemSelected = paramItemFilterSelected.itemSelected;
+    itemFilteredSelected.total = paramItemFilterSelected.total;
+
+    let exist = false;
+    this.sendItemFilteredToMovement.forEach(el => {
+      if (el.name == itemFilteredSelected.name) {
+        el.itemSelected = itemFilteredSelected.itemSelected;
+        el.total = itemFilteredSelected.total;
+        exist = true;
+      }
+    });
+
+    if (!exist) this.sendItemFilteredToMovement.push(itemFilteredSelected);
+  }
+
+  receiveItemRemoveToFilterFromMovement(itemFilterRemove: any) {
+    console.log("remove");
+    this.sendItemFilteredToMovement = this.sendItemFilteredToMovement.filter(el => el.name != itemFilterRemove.name);
+    this.removeFilteredToMovements(itemFilterRemove);
+    this.getAllMovementsByUserId();
+  }
+  
+  // obtenerConteoPorParametro(parametro: string) {
+  //   const filterItem = new Filter();
+  //   const conteo = new Map<any, number>();
+
+  //   this.movementResume.movememts.forEach((entidad: MovementDto) => {
+  //       let valor = null;
+  //       switch (parametro) {
+  //         case 'category':
+  //           valor =  entidad.category;
+  //           break;
+  //         case 'segment':
+  //           valor =  entidad.segment;
+  //           break;     
+  //         case 'paymentMethod':
+  //           valor =  entidad.paymentMethod;
+  //           break;
+  //         case 'type':
+  //           valor =  entidad.type;
+  //           break;
+  //         case 'action':
+  //           valor =  entidad.action;
+  //           break;  
+  //         default:
+  //           break;
+  //       }
+
+  //       if(valor != null && valor != "") conteo.set(valor, (conteo.get(valor) || 0) + 1);
+
+  //   });
+
+  //   if(conteo.size > 0) {
+  //     filterItem.item = parametro;
+  //     filterItem.itemList = conteo;
+  //   }
+
+  //   this.filter.push(filterItem);
+  // }
 }
 

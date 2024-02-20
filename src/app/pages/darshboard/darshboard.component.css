@@ -2,56 +2,48 @@
     width: 90%;
     margin: 0 auto;
     position: relative;
+}
+
+.section__body {
     display: flex;
 }
 
 .section {
-    /* margin: 10px; */
-    height: 100%;
     overflow-y: auto;
 }
 
 .section__resumen {
     width: 55%;
-    padding: 20px;
+    height: calc( 100vh - 82px );
+    padding: 0 20px;
 }
 
 .section__data__rows {
-    /* background-color: #7c47df2f; */
     width: 45%;
 }
-
-
-
 
 
 
 #IDFormularyTransaction {
     width: 100%;
     height: 100vh;
-    /* overflow-y: auto; */
     background-color: #e7e7e72d;
     position: absolute;
     top: -700px; /* Inicialmente fuera de la pantalla */
     transition: all 0.5s ease; /* Agrega transición para el efecto de desplazamiento */
     display: flex;
     justify-content: center;
-    /* align-items: center; */
 }
 
 @media screen and (max-width: 896px) {
-    .container {
+    .section__body {
         flex-direction: column;
     }
 
     .section__resumen {
         width: 55%;
-        padding: 10px;
+        padding: 0 10px;
     }
-/* 
-    .section__data__rows {
-        padding: 10px;
-    } */
 
     .section {
         width: 100%;
