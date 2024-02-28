@@ -1,0 +1,42 @@
+aside {
+    width: 100%;
+    border-right: 1px solid #ccc;
+    font-size: small;
+    height: calc(100vh - 50px);
+    padding-top: 20px;
+    overflow-y: auto;
+}
+
+label {
+    display: block;
+    padding: 10px 20px;
+    color: #000000;
+}
+
+label.item {
+    margin: 5px 0;
+}
+
+i {
+    color: #585858;
+}
+
+label i{
+    margin-right: 20px;
+    width: 10px;
+}
+
+ul li {
+    padding: 8px 20px;
+    padding-left: 40px;
+    list-style: none;
+}
+
+ul li i {
+    width: 20px;
+}
+
+label:not(.item):hover, li:hover {
+    cursor: pointer;
+    background-color: #cccccc3b;
+}

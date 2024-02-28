@@ -1,0 +1,33 @@
+<div class="container__formulary">
+    <div class="form__container">
+        <div class="form__header">
+            Crear  <i (click)="closeFormularyPopUp()" class="fas fa-times"></i>
+        </div>
+        <div class="form__body">
+            <div class="form__control">
+                <i class="fas fa-sitemap"></i>
+                <input type="text" name="" placeholder="Escribe el nombre de tu cuenta .." id="">
+                <span>active</span>
+            </div>
+            <div class="form__control__balance fcbalance">
+                <span> Balance (S./)</span>
+                <input type="text" placeholder="00.00 ..." name="" id="">
+            </div>
+            <div class="form__control__body">
+                <p>Asocie distintas formas de pago (Opcional)</p>
+                <app-search></app-search>
+                <div class="form__body__list">
+                    <label for="{{i}}_checkbox" *ngFor="let item of [1,2,3,4,5]; let i = index;">
+                        <input type="checkbox" name="checkbox" id="{{i}}_checkbox">
+                        <i class="fas fa-layer-group"></i> 
+                        Ninguna
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div class="form__footer">
+            <button type="button">Crear</button>
+            <button (click)="closeFormularyPopUp()" type="button">Cancel</button>
+        </div>
+    </div>
+</div>

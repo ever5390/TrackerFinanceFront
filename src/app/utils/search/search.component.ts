@@ -25,29 +25,19 @@ export class SearchComponent implements OnInit {
   }
 
   searchActivateFunction() {
-    //Deprecated in v.6 , deleting in futures versions
-    // this.search.valueChanges.pipe(
-    //   debounceTime(200) // Cuando pare de escribir pasen 300 ms recíen enviará .
-    // ).subscribe((value:string) => {
-    //       this.listaShared = this.dataStructureListReceived.lista.filter(item => {
-    //         return item.name.toUpperCase().includes(value.toUpperCase()) 
-    //       }
-    //       );                    
-    //   }
-    // )
       this.subject.pipe(
         debounceTime(100)
       ).subscribe((searchText:any) => {
-        this.dataListToProcessAndEmitToFather = this.receivedDataFromFather.filter(item => {
-              return item.name.toUpperCase().includes(searchText.toUpperCase()) 
-            }
-          );
-          if(this.dataListToProcessAndEmitToFather.length == 0) {
-            this.noData =true;
-          } else {
-            this.noData = false;
-          }
-          this.sendDataFromSearchToFather.emit({data:this.dataListToProcessAndEmitToFather, text:searchText});                   
+        // this.dataListToProcessAndEmitToFather = this.receivedDataFromFather.filter(item => {
+        //       return item.name.toUpperCase().includes(searchText.toUpperCase()) 
+        //     }
+        //   );
+        //   if(this.dataListToProcessAndEmitToFather.length == 0) {
+        //     this.noData =true;
+        //   } else {
+        //     this.noData = false;
+        //   }
+        //   this.sendDataFromSearchToFather.emit({data:this.dataListToProcessAndEmitToFather, text:searchText});                   
         }
       )
   }

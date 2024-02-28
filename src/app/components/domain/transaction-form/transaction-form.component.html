@@ -1,12 +1,12 @@
 <div class="container__block__register">
     <main  #contenedorDiv class="block__register">
         <article  class="block__amount__date__desc"> 
-            <input type="text" placeholder="00.00" [(ngModel)]="receivedTransaction.amount">
+            <!-- <input type="text" placeholder="00.00" [(ngModel)]="receivedTransaction.amount">
             <div class="filter filter__per__calendar" (click)="showCalendar()">
                 <i class="far fa-calendar"></i>
                 <span>{{dateRegister | date:'yyyy-MM-dd HH:mm:ss'}}</span>
             </div>
-            <textarea name="" id="" cols="30" rows="2" [(ngModel)]="receivedTransaction.description"></textarea>
+            <textarea name="" id="" cols="30" rows="2" [(ngModel)]="receivedTransaction.description"></textarea> -->
         </article>
         <article (click)="bajarDiv('type')" class="block block__transaction">
             <p>{{showTextType}}</p>
@@ -55,7 +55,7 @@
         
         <div id="miDiv" [style.top.px]="posicionTop" [style.height.px]="divHeight">
             <i class="fas fa-long-arrow-alt-left back__arrow" (click)="subirDiv()"></i>
-
+<!-- 
             <app-types-transactions [operationTypesReceived]="operationTypes"
                                     [receivedTextHeaderForm] = "showTextType"
                                     (sendTypeSelected)="receiveTypeSelected($event)" *ngIf="flagShowTypeComponent">
@@ -86,10 +86,10 @@
                                 [receivedTextHeaderForm] = "TEXT_REQUEST_GRUPO">
             >
             </app-segment-list>
-        </div>
-
+        
+</div>
         <app-calendar2 *ngIf="flagShowCalendar" (sendDateSelectedFromCalendar)="receivedDateSelectedFromCalendar($event)"
-        ></app-calendar2>
-
+        ></app-calendar2> -->
+    </div>
     </main>
 </div>

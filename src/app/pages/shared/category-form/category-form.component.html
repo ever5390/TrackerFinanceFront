@@ -1,0 +1,29 @@
+<div class="container__formulary">
+    <div class="form__container">
+        <div class="form__header">
+            Crear  <i (click)="closeFormularyPopUp()" class="fas fa-times"></i>
+        </div>
+        <div class="form__body">
+            <div class="form__control">
+                <i class="fas fa-sitemap"></i>
+                <input type="text" name="" placeholder="Escribe el nombre de tu categoría.." id="">
+                <span>active</span>
+            </div>
+            <div class="form__control__body">
+                <p>Seleccione un grupo para asociar</p>
+                <app-search></app-search>
+                <div class="form__body__list">
+                    <label *ngFor="let item of [1,2,3,4,5]">
+                        <input type="radio" name="option" >
+                        <i class="fas fa-layer-group"></i> 
+                        Sin grupo
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div class="form__footer">
+            <button type="button">Crear</button>
+            <button (click)="closeFormularyPopUp()" type="button">Cancel</button>
+        </div>
+    </div>
+</div>

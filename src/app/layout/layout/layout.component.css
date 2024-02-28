@@ -5,8 +5,14 @@ main {
 
 section {
     width: 100%;
+    /* background-color: rgb(4, 184, 34); */
     height: calc(100vh - 50px);
     overflow-y: auto;
+}
+
+article {
+    max-width: 1400px;
+    margin: 0 auto;
     /* background-color: bisque; */
 }
 

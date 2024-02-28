@@ -1,0 +1,161 @@
+/* ::::: formulary ::::: */
+
+.container__formulary {
+    width: 100%;
+    height: 100%;
+    background-color: #cccccc2a;
+    position: fixed;
+    top: 0;
+    left: 0;
+}
+
+.form__container {
+    margin: auto;
+    margin-top: 20px;
+    max-width: 450px;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    border-radius: 10px;
+}
+
+.form__container .form__header,
+.form__container .form__body,
+.form__container .form__footer {
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.form__container .form__header {
+    border-bottom: 1px solid #ccc;
+    font-size: 1.1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.form__header .fa-times {
+    transition: all .2s ease-in-out;
+}
+
+.form__header .fa-times:hover {
+    cursor: pointer;
+    transform: rotate(90deg);
+}
+
+.form__container .form__footer {
+    border-top: 1px solid #ccc;
+    text-align: right;
+}
+    .form__footer button {
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        background-color: #fff;
+        padding: 8px 20px;
+        margin-left: 10px;
+    }
+    .form__footer button:last-child {
+        border: none;
+        border-radius: 5px;
+        background-color: #1e8d49;
+        color: #fff;
+    }
+    .form__footer button:hover {
+        cursor: pointer;
+        outline: 1px solid green;
+    }
+
+
+.form__body .form__control {
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    padding: 5px 10px;
+    display: grid;
+    box-sizing: border-box;
+    grid-template-columns: 25px calc(100% - 75px) 50px;
+    align-items: center;
+}
+
+.form__body .form__control span{
+    padding: 8px;
+    border-radius: 12px;
+    background-color: #2be472b0;
+    color: #fff;
+    text-align: center;
+    font-size: .8rem;
+}
+
+.form__control__body p {
+    padding: 10px 10px 0 10px;
+}
+
+.form__body__list label {
+    border-bottom: 1px solid #ccc;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.form__body__list label i{
+    margin: 0 10px;
+    margin-top: 5px;
+}
+
+.form__control__body p:last-child {
+    padding: 10px;
+    border-bottom: 0px solid #ccc;
+}
+
+.form__body__list {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    /* height: 150px; */
+    max-height: calc(100vh - 430px);
+    overflow-y: auto;
+}
+
+.form__body__list label{
+    padding: 10px;
+    margin-bottom: 5px;
+    display: flex;
+    justify-content: flex-start;
+}
+
+::placeholder {
+    font-size: 1rem;
+}
+
+input[type="text"] {
+    border: none;
+    outline: none;
+    padding-left: 10px;
+    font-size: 1rem;
+}
+
+
+
+
+/* ::: Balance :::*/
+
+
+.form__control__balance {
+    height: 40px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    margin: 10px 0;
+}
+
+.form__control__balance img{
+    width: 100%;
+    padding: 10px;
+}
+
+.fcbalance {
+    display: grid;
+    grid-template-columns: 1fr 100px;
+    align-items: center;
+    overflow: hidden;
+}
+
+.fcbalance span{
+    padding-left: 10px;
+}

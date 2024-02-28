@@ -1,0 +1,66 @@
+main {
+    padding: 10px 20px;
+    border-radius: 10px;
+}
+
+header {
+    font-size: .87rem;
+    width: 100%;
+    display: flex;
+    overflow-x: auto;
+}
+
+header .item {
+    flex: 0 0 auto;
+    border-bottom: 1px solid #cccccc7c;
+    display: inline-block;
+    padding: 10px;
+    margin-bottom: 10px;
+    color: rgba(0, 0, 0, 0.527);
+}
+
+header .item:hover {
+    color: black;
+    border-bottom: 2px solid rgb(19, 218, 19) !important;
+    cursor: pointer;
+}
+
+.item__selected {
+    border-bottom: 2px solid rgb(19, 218, 19) !important;
+}
+
+    .item span {
+       margin-left: 10px;
+    }
+
+section {
+    display: grid;
+    align-items: center;
+    grid-template-columns: 1fr 190px;
+}
+
+.item__buttons {
+    display: flex;
+    justify-content: flex-end;
+    padding-top: 10px;
+    font-size: .9rem;
+}
+
+article .item {
+    display: inline-block;
+    padding: 10px;
+    margin-bottom: 10px;
+    text-align: right;
+    color: rgb(25, 196, 102);
+}
+
+article .item:hover {
+    cursor: pointer;
+    color: rgb(37, 107, 69);
+}
+
+@media screen and (max-width: 960px) {
+    main{
+        padding: 10px 5px;
+    }
+}

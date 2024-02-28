@@ -4,7 +4,7 @@ import { CategoryService } from 'src/app/services/category/category.service';
 import { AuthenticationService } from 'src/app/services/user/authentication.service';
 
 @Component({
-  selector: 'app-category-form',
+  selector: 'app-category-form-last',
   templateUrl: './category-form.component.html',
   styleUrls: ['./category-form.component.css']
 })
