@@ -6,5 +6,9 @@ import { Component } from '@angular/core';
   styleUrls: ['./data-resume.component.css']
 })
 export class DataResumeComponent {
+  orderCloseormularyPopUp: boolean = false;
 
+  receiveOrderCloseFormularyPopUp() {
+    this.orderCloseormularyPopUp = false;
+  }
 }

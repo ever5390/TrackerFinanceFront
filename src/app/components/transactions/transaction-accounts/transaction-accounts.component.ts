@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 
 @Component({
   selector: 'app-transaction-accounts',
@@ -6,5 +6,9 @@ import { Component } from '@angular/core';
   styleUrls: ['./transaction-accounts.component.css']
 })
 export class TransactionAccountsComponent {
+  @Output() sendOrderCloseFormularyPopUp = new EventEmitter<any>();
 
+  closeFormularyPopUp() {
+    this.sendOrderCloseFormularyPopUp.emit();
+  }
 }

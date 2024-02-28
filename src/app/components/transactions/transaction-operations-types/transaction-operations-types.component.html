@@ -1,1 +1,83 @@
-<p>transaction-operations-types works!</p>
+<div class="container__formulary">
+    <div class="form__header">
+        Seleccione la Operación a realizar<i (click)="closeFormularyPopUp()" class="fas fa-times"></i>
+    </div>
+    <div class="form__body">
+        <ng-container>
+            <div class="form__control" (click)="sendItemSelectedMethod('Gasto')">
+                <span> 
+                    <img src="../../../../assets/icons/credit-card_4021605.png" alt="">
+                    Gasto:
+                </span>
+                <div class="detail__form__control">
+                    <!-- <span>S/. 1850.00</span> -->
+                    <i class="fas fa-angle-right"></i>
+                </div>
+            </div>
+            <div class="form__control" (click)="sendItemSelectedMethod('Ingreso')">
+                <span> 
+                    <img src="../../../../assets/icons/credit-card_4021605.png" alt="">
+                    Ingreso:
+                </span>
+                <div class="detail__form__control">
+                    <!-- <span>S/. 1850.00</span> -->
+                    <i class="fas fa-angle-right"></i>
+                </div>
+            </div>
+            <div class="form__control" (click)="sendItemSelectedMethod('Transferencia')">
+                <span> 
+                    <img src="../../../../assets/icons/credit-card_4021605.png" alt="">
+                    Transferencia:
+                </span>
+                <div class="detail__form__control">
+                    <!-- <span>S/. 1850.00</span> -->
+                    <i class="fas fa-angle-right"></i>
+                </div>
+            </div>
+            <div class="form__control" (click)="sendItemSelectedMethod('Préstamo realizado')">
+                <span> 
+                    <img src="../../../../assets/icons/credit-card_4021605.png" alt="">
+                    Préstamo realizado:
+                </span>
+                <div class="detail__form__control">
+                    <!-- <span>S/. 1850.00</span> -->
+                    <i class="fas fa-angle-right"></i>
+                </div>
+            </div>
+            <div class="form__control" (click)="sendItemSelectedMethod('Préstamo recibido')">
+                <span> 
+                    <img src="../../../../assets/icons/credit-card_4021605.png" alt="">
+                    Préstamo recibido:
+                </span>
+                <div class="detail__form__control">
+                    <!-- <span>S/. 1850.00</span> -->
+                    <i class="fas fa-angle-right"></i>
+                </div>
+            </div>
+            <div class="form__control" (click)="sendItemSelectedMethod('Pago realizado')">
+                <span> 
+                    <img src="../../../../assets/icons/credit-card_4021605.png" alt="">
+                    Pago realizado:
+                </span>
+                <div class="detail__form__control">
+                    <!-- <span>S/. 1850.00</span> -->
+                    <i class="fas fa-angle-right"></i>
+                </div>
+            </div>
+            <div class="form__control" (click)="sendItemSelectedMethod('Pago recibido')">
+                <span> 
+                    <img src="../../../../assets/icons/credit-card_4021605.png" alt="">
+                    Pago recibido:
+                </span>
+                <div class="detail__form__control">
+                    <!-- <span>S/. 1850.00</span> -->
+                    <i class="fas fa-angle-right"></i>
+                </div>
+            </div>
+        </ng-container>        
+    </div>
+    <div class="form__footer">
+        <button (click)="closeFormularyPopUp()" type="button">Salir</button>
+        <button type="button">Crear</button>
+    </div>
+</div>

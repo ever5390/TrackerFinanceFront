@@ -6,6 +6,7 @@ import { SegmentModel } from "../segment/segment.model";
 import { Action } from "src/app/emuns/Action.enum";
 import { Block } from "src/app/emuns/Block.enum";
 import { Status } from "src/app/emuns/Status.enum";
+import { AccountModel } from "../account/account.model";
 
 export class TransactionModel {
   constructor(
@@ -14,6 +15,8 @@ export class TransactionModel {
     public description: string = '',
     public createAt: string = '',
     public type: Type = Type.DEFAULT,
+    public account: AccountModel = new AccountModel(),
+    public accountDestiny: AccountModel  = new AccountModel(),
     public paymentMethod: PaymentMethodModel = new PaymentMethodModel(),
     public paymentMethodDestiny: PaymentMethodModel  = new PaymentMethodModel(),
     public category: CategoryModel = new CategoryModel(),

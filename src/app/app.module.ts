@@ -53,6 +53,7 @@ import { TransactionAccountsComponent } from './components/transactions/transact
 import { TransactionOperationsTypesComponent } from './components/transactions/transaction-operations-types/transaction-operations-types.component';
 import { TransactionTagsComponent } from './components/transactions/transaction-tags/transaction-tags.component';
 import { TransactionRecurrencyComponent } from './components/transactions/transaction-recurrency/transaction-recurrency.component';
+import { TransactionCounterpartComponent } from './components/transactions/transaction-counterpart/transaction-counterpart.component';
 // import { TransactionFormComponent } from './components/domain/transaction-form/transaction-form.component';
 
 
@@ -98,7 +99,8 @@ import { TransactionRecurrencyComponent } from './components/transactions/transa
     TransactionAccountsComponent,
     TransactionOperationsTypesComponent,
     TransactionTagsComponent,
-    TransactionRecurrencyComponent
+    TransactionRecurrencyComponent,
+    TransactionCounterpartComponent
     
 
   ],

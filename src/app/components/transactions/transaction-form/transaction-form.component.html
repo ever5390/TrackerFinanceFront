@@ -4,27 +4,40 @@
             Crear transacción<i (click)="closeFormularyPopUp()" class="fas fa-times"></i>
         </div>
         <div class="form__body">
-            <div class="form__control">
+            <div (click)="showPopUpByItem('operation')" class="form__control">
                 <span> 
                     <img src="../../../../assets/icons/credit-card_4021605.png" alt="">
                     Operación:
                 </span>
                 <div class="detail__form__control">
-                    <span>Gasto</span>
+                    <span *ngIf="transaction.type == 'DEFAULT'">Seleccione</span>
+                    <span *ngIf="transaction.type != 'DEFAULT'">{{operationTypeReceived.name}}</span>
                     <i class="fas fa-angle-right"></i>
                 </div>
             </div>
-            <div class="form__control">
+            <div *ngIf="transaction.type == 'LOAN'" (click)="showPopUpByItem('counterpart')" class="form__control">
                 <span> 
                     <img src="../../../../assets/icons/credit-card_4021605.png" alt="">
-                    Quien te prestó?:
+                    <span *ngIf="transaction.action == 'RECIBÍ'">¿Quien te prestó?</span>
+                    <span *ngIf="transaction.action == 'REALICÉ'">¿A quien le prestaste?</span>
                 </span>
                 <div class="detail__form__control">
-                    <span>Cinthia Eduardo Ortiz</span>
+                    <span>{{transaction.member.name}}</span>
                     <i class="fas fa-angle-right"></i>
                 </div>
             </div>
-            <div class="form__control balance">
+            <div *ngIf="transaction.type == 'PAYMENT'" (click)="showPopUpByItem('counterpart')" class="form__control">
+                <span> 
+                    <img src="../../../../assets/icons/credit-card_4021605.png" alt="">
+                    <span *ngIf="transaction.action == 'RECIBÍ'">¿Quien te pagó?</span>
+                    <span *ngIf="transaction.action == 'REALICÉ'">¿A quien le pagaste?</span>
+                </span>
+                <div class="detail__form__control">
+                    <span>{{transaction.member.name}}</span>
+                    <i class="fas fa-angle-right"></i>
+                </div>
+            </div>
+            <div  class="form__control balance">
                 <span> 
                     <img src="../../../../assets/icons/credit-card_4021605.png" alt="">
                     Monto (S./):
@@ -37,47 +50,51 @@
                 </span>
                 <input type="text" placeholder="Compras mercado semanal.." name="" id="">
             </div>
-            <div class="form__control">
+            <div (click)="showPopUpByItem('account')" class="form__control">
                 <span> 
                     <img src="../../../../assets/icons/credit-card_4021605.png" alt="">
                     Cuenta:
                 </span>
                 <div class="detail__form__control">
-                    <span>BCP</span>
+                    <span *ngIf="transaction.account.id == 0">Seleccione</span>
+                    <span *ngIf="transaction.account.id != 0">{{transaction.account.name}}</span>
                     <i class="fas fa-angle-right"></i>
                 </div>
             </div>
-            <div class="form__control">
+            <div *ngIf="transaction.type == 'TRANSFERENCE'" (click)="showPopUpByItem('accountDestiny')"class="form__control">
                 <span> 
                     <img src="../../../../assets/icons/credit-card_4021605.png" alt="">
                     Cuenta destino:
                 </span>
                 <div class="detail__form__control">
-                    <span>BBVA</span>
+                    <span *ngIf="transaction.account.id == 0">Seleccione</span>
+                    <span *ngIf="transaction.account.id != 0">{{transaction.account.name}}</span>
                     <i class="fas fa-angle-right"></i>
                 </div>
             </div>
-            <div class="form__control">
+            <div *ngIf="transaction.type != 'TRANSFERENCE'" (click)="showPopUpByItem('category')" class="form__control">
                 <span> 
                     <img src="../../../../assets/icons/credit-card_4021605.png" alt="">
                     Categoría:
                 </span>
                 <div class="detail__form__control">
-                    <span>mercado</span>
+                    <span *ngIf="transaction.category.id == 0">Seleccione</span>
+                    <span *ngIf="transaction.category.id != 0">{{transaction.category.name}}</span>
                     <i class="fas fa-angle-right"></i>
                 </div>
             </div>
-            <div class="form__control">
+            <div *ngIf="transaction.type != 'TRANSFERENCE'" (click)="showPopUpByItem('tags')" class="form__control">
                 <span> 
                     <img src="../../../../assets/icons/credit-card_4021605.png" alt="">
                     Tags(Opcional)
                 </span>
                 <div class="detail__form__control">
-                    <span>#kfc #mercado</span>
+                    <span *ngIf="transaction.category.id == 0">Seleccione</span>
+                    <span *ngIf="transaction.category.id != 0">{{transaction.category.name}}</span>
                     <i class="fas fa-angle-right"></i>
                 </div>
             </div>
-            <div class="form__control">
+            <div *ngIf="transaction.type != 'TRANSFERENCE'" (click)="showPopUpByItem('recurrency')" class="form__control">
                 <span> 
                     <img src="../../../../assets/icons/credit-card_4021605.png" alt="">
                     Recurrencia
@@ -94,9 +111,16 @@
             <button type="button">Crear</button>
         </div>
 
-
-
-        
-        <app-transaction-categories></app-transaction-categories>
+        <app-transaction-operations-types *ngIf="shouldShowComponent('operation')" 
+            (sendOrderCloseFormularyPopUp)="closeAllPopUpsByItem()"
+            (sendItemSelected)="receiveTypeOperationItemSelected($event)"
+            >
+        </app-transaction-operations-types>
+        <app-transaction-categories *ngIf="shouldShowComponent('category')" (sendOrderCloseFormularyPopUp)="closeAllPopUpsByItem()"></app-transaction-categories>
+        <app-transaction-accounts *ngIf="shouldShowComponent('account')" (sendOrderCloseFormularyPopUp)="closeAllPopUpsByItem()"></app-transaction-accounts>
+        <app-transaction-accounts *ngIf="shouldShowComponent('accountDestiny')" (sendOrderCloseFormularyPopUp)="closeAllPopUpsByItem()"></app-transaction-accounts>
+        <app-transaction-tags *ngIf="shouldShowComponent('tags')" (sendOrderCloseFormularyPopUp)="closeAllPopUpsByItem()"></app-transaction-tags>
+        <app-transaction-counterpart *ngIf="shouldShowComponent('counterpart')" (sendOrderCloseFormularyPopUp)="closeAllPopUpsByItem()"></app-transaction-counterpart>
+    
     </div>
 </div>

@@ -5,7 +5,7 @@
                 <h3>Total Balance</h3>
                 <p><i class="far fa-calendar-alt"></i> Desde: 2024-02-10 Hasta:2024-02-26</p>
             </div>
-            <button>+ Add Transaction</button>
+            <button (click)="orderCloseormularyPopUp = true;">+ Add Transaction</button>
         </header>
         <section>
             <article>
@@ -28,4 +28,7 @@
     </main >
 
  </div>
+
+ <app-transaction-form *ngIf="orderCloseormularyPopUp" (sendOrderCloseFormularyPopUp)="receiveOrderCloseFormularyPopUp()"></app-transaction-form>
+
 
