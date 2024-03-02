@@ -37,15 +37,16 @@
               <div *ngFor="let dia of generarDias(calendar.mes, calendar.anio); let i = index;" 
                   (click)="selectDate(dia.indicatorMonth, dia.day, calendar.mes, calendar.anio,  i)"
                   class="day"
-                   [ngClass]="{'last__month': dia.indicatorMonth === -1, 'actual__month': dia.indicatorMonth === 0, 'next__month': dia.indicatorMonth === 1, 
-                             'bgToday': currentDate.getDate() == dia.day && currentDate.getMonth() == calendar.mes && currentDate.getFullYear() == calendar.anio,
-                             'bgSelectedDay': indexSelected == i && monthOfSelectedDay == calendar.mes && yearOfSelectedDay == calendar.anio}">
+                   [ngClass]="{
+                        'last__month': dia.indicatorMonth === -1, 
+                        'actual__month': dia.indicatorMonth === 0, 
+                        'next__month': dia.indicatorMonth === 1, 
+                        'bgToday': currentDate.getDate() == dia.day && currentDate.getMonth() == calendar.mes && currentDate.getFullYear() == calendar.anio,
+                        'bgSelectedDay': indexSelected == i && monthOfSelectedDay == calendar.mes && yearOfSelectedDay == calendar.anio
+                    }">
                 {{dia.day}}
               </div>
             </section>
         <!-- </div> -->
     </div>
 </div>
-
-
-  

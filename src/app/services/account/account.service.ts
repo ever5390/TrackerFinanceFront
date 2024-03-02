@@ -16,28 +16,28 @@ export class AccountService {
   constructor() { }
 
   
-  createByUserId(accountRequest: AccountModel, userId: number): Observable<AccountModel> {
-    const url = `${this.hostApi}/user/${userId}/accounts`;
+  createByUserId(accountRequest: AccountModel, workspaceId: number): Observable<AccountModel> {
+    const url = `${this.hostApi}/workspace/${workspaceId}/accounts`;
     return this.httClient.post<AccountModel>(url, accountRequest);
   }
 
-  readAllByUserId(userId: number): Observable<AccountModel[]> {
-    const url = `${this.hostApi}/user/${userId}/accounts`;
+  readAllByUserId(workspaceId: number): Observable<AccountModel[]> {
+    const url = `${this.hostApi}/workspace/${workspaceId}/accounts`;
     return this.httClient.get<AccountModel[]>(url);
   }
 
-  updateByIdAndUserId(id: number, accountRequest: AccountModel, userId: number): Observable<AccountModel> {
-    const url = `${this.hostApi}/user/${userId}/accounts/${id}`;
+  updateByIdAndUserId(id: number, accountRequest: AccountModel, workspaceId: number): Observable<AccountModel> {
+    const url = `${this.hostApi}/workspace/${workspaceId}/accounts/${id}`;
     return this.httClient.put<AccountModel>(url, accountRequest);
   }
 
-  deleteByIdAndUserId(id: number, userId: number): Observable<void> {
-    const url = `${this.hostApi}/user/${userId}/accounts/${id}`;
+  deleteByIdAndUserId(id: number, workspaceId: number): Observable<void> {
+    const url = `${this.hostApi}/workspace/${workspaceId}/accounts/${id}`;
     return this.httClient.delete<void>(url);
   }
 
-  getByIdAndUserId(id: number, userId: number): Observable<AccountModel> {
-    const url = `${this.hostApi}/user/${userId}/accounts/${id}`;
+  getByIdAndUserId(id: number, workspaceId: number): Observable<AccountModel> {
+    const url = `${this.hostApi}/workspace/${workspaceId}/accounts/${id}`;
     return this.httClient.get<AccountModel>(url);
   }
 

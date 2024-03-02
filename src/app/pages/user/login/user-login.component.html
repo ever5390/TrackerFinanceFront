@@ -1,0 +1,27 @@
+<main>
+    <section class="section__login section__login__left">
+        <form>
+            <div class="section__login__header">
+                <h3>Incia sesión TrackerFinance</h3>
+            </div>
+            <p class="section__link">Si no tiene cuenta aún, <a routerLink="/register"><b>Regístrate</b></a></p>
+            <div class="form-control">
+                <i class="fas fa-user"></i>
+                <!-- <label for="username">Nombre de Usuario:</label> -->
+                <input type="text" id="username" name="username" [(ngModel)]="userLogin.username" required>
+            </div>
+            <div class="form-control">
+                <i class="fas fa-key"></i>
+                <input type="password" id="password" name="password" [(ngModel)]="userLogin.password" required>
+            </div>
+            <div class="section__login__footer">
+                <button type="submit" (click)="onLogin()">Iniciar Sesión</button>
+            </div>
+        </form>
+    </section>
+    <section class="section__login section__login__right">
+    </section>
+
+</main>
+
+

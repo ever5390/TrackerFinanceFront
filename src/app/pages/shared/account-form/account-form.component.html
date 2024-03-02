@@ -6,28 +6,19 @@
         <div class="form__body">
             <div class="form__control">
                 <i class="fas fa-sitemap"></i>
-                <input type="text" name="" placeholder="Escribe el nombre de tu cuenta .." id="">
-                <span>active</span>
+                <input type="text" name="" [(ngModel)]="account.name" placeholder="Escribe el nombre de tu cuenta .." id="">
+                <span>{{account.active}}</span>
             </div>
             <div class="form__control__balance fcbalance">
                 <span> Balance (S./)</span>
-                <input type="text" placeholder="00.00 ..." name="" id="">
+                <input type="text" placeholder="00.00 ..." [(ngModel)]="account.currentBalance" name="" id="">
             </div>
-            <div class="form__control__body">
-                <p>Asocie distintas formas de pago (Opcional)</p>
-                <app-search></app-search>
-                <div class="form__body__list">
-                    <label for="{{i}}_checkbox" *ngFor="let item of [1,2,3,4,5]; let i = index;">
-                        <input type="checkbox" name="checkbox" id="{{i}}_checkbox">
-                        <i class="fas fa-layer-group"></i> 
-                        Ninguna
-                    </label>
-                </div>
-            </div>
+            <app-payment-method-form (sendPaymentsMethodsSelected)="receivePaymentsMethodsSelected($event)"></app-payment-method-form>
         </div>
         <div class="form__footer">
-            <button type="button">Crear</button>
             <button (click)="closeFormularyPopUp()" type="button">Cancel</button>
+            <button *ngIf="idAccountReceived==0" (click)="createAccount()" type="button">Crear</button>
+            <button *ngIf="idAccountReceived!=0" (click)="updateAccount()" type="button">Actualizar</button>
         </div>
     </div>
 </div>

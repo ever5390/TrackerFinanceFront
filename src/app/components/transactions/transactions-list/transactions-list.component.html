@@ -1,71 +1,98 @@
-<ng-container *ngFor="let item of [1,2,3,4,5,6]">
-    <div class="tx__item">
+<ng-container *ngIf="receivedTransactions.length>0; else templateNoData">
+    <div *ngFor="let item of receivedTransactions" class="tx__item">
         <div class="tx__item__header">
             <div class="txih__left">
                 <div class="txihl__data">
                     <img src="../../../../assets/icons/discount-svgrepo-com.png" alt="" srcset="">
                     <div class="txihld__main">
-                        <p>Gustitos alquiler</p>
+                        <p *ngIf="item.subCategory">{{item.subCategory.name}}</p>
                         <label>
                             <i class="far fa-user"></i>
-                            <span>Cinthia</span>
+                            <span>User: {{item.responsableUser.firstname}}</span>
                         </label>
                         <label class="showWebTime">
                             <i class="far fa-clock"></i>
-                            <span>2024-02-29 10:20 PM</span>
+                            <span>{{item.createAt  | date: 'YYYY-MMM-dd hh:mm'}}</span>
                         </label>
-                        <label class="showWeb">
+                        <label class="showWeb" *ngIf="item.paymentMethod && item.paymentMethod.id != 0 && item.type != 'TRANSFERENCE'">
                             <i class="fas fa-wallet"></i>
-                            <span>Yape</span>
+                            <span>{{item.paymentMethod.name}}</span>
                         </label>
-                        <label class="showWeb">
+                        <label *ngIf="item.type != 'TRANSFERENCE'"class="showWeb">
                             <i class="fas fa-credit-card"></i>
-                            <span>BCP</span>
+                            <span>{{item.account.name}}</span>
                         </label>
-                        <label class="showWeb">
+                        <!-- <label *ngIf="item.tags.length > 0" class="showWeb">
                             <i class="fas fa-tags"></i>
-                            <span>#kfc #anticucho</span>
-                        </label>
+                            <span *ngFor="let tag of item.tags">#{{tag.name}}</span>
+                        </label> -->
                     </div>
                 </div>
             </div>
             <div class="txih__right">
                 <div class="txihr__amount">
-                    <span>S/.</span>
-                    <span>85.00</span>
+                    <span *ngIf="item.block == 'IN'">+ S./ </span>
+                    <span *ngIf="item.block == 'OUT'">- S./ </span>
+                    <span>{{item.amount}}</span>
                 </div>
-                <div class="txihr__status">
-                    <span>pending</span>
+                <div *ngIf="item.type == 'LOAN'" class="txihr__status">
+                    <span style="color:#fff; background-color: red;" *ngIf="item.status == 'PENDING'">pendiente s./ {{item.remaining}}</span>
+                    <span style="color:#fff; background-color: rgb(47, 170, 47);" *ngIf="item.status == 'PAYED'">pagado</span>
                 </div>
             </div>
         </div>
         <div class="tx__item__body">
-            <div class="txihl__data showMovil">
-                <label>
+            <div *ngIf="item.type != 'TRANSFERENCE'" class="txihl__data showMovil">
+                <label *ngIf="item.paymentMethod && item.paymentMethod.id != 0">
                     <i class="fas fa-wallet"></i>
-                    <span>Yape</span>
+                    <span>{{item.paymentMethod.name}}</span>
                 </label>
                 <label>
                     <i class="fas fa-credit-card"></i>
-                    <span>BCP</span>
+                    <span>{{item.account.name}}</span>
                 </label>
             </div>
             <div class="txib__data">
-                <p>Lorem ipsum dolor sit amet ci officia dolorum rerum architecto itaque.</p>
+                <p *ngIf="item.type != 'TRANSFERENCE'">
+                    <span [ngStyle]="{'color': setTypeTransaction(item.type, item.action).color}">{{setTypeTransaction(item.type, item.action).name}}: </span>
+                    <span *ngIf="item.type == 'LOAN'">
+                        <span *ngIf="item.action == 'REALICÉ'">Se prestó a : <i>{{item.counterpart.name}}</i>, con motivo de: </span>
+                        <span *ngIf="item.action == 'RECIBÍ'">Me prestó : <i>{{item.counterpart.name}}</i>, con motivo de: </span>
+                    </span>
+                
+                    <span *ngIf="item.type == 'PAYMENT'">
+                        <span *ngIf="item.action == 'REALICÉ'">Se pagó a : <i>{{item.counterpart.name}}</i>, con motivo de: </span>
+                        <span *ngIf="item.action == 'RECIBÍ'">Me pagó : <i>{{item.counterpart.name}}</i>, con motivo de: </span>
+                    </span>
+                    {{item.description}}
+                    <span *ngFor="let tag of item.tags">  | #{{tag.name}}</span>
+                </p>
+                <p *ngIf="item.type == 'TRANSFERENCE'">
+                    {{setFormatTextTransference(item.account, item.accountDestiny)}}
+                    {{item.description}}
+                    <span *ngFor="let tag of item.tags"> | #{{tag.name}}</span>
+                </p>
             </div>
         </div>
         <div class="tx__item__footer">
             <label class="showMovilTime">
                 <i class="far fa-clock"></i>
-                <span>2024-02-29 10:20 PM</span>
+                <span>{{item.createAt  | date: 'yyyy-mmm-dd hh:mm'}}</span>
             </label>
             <label>
                 <i class="far fa-trash-alt"></i>
-                <i class="fas fa-edit"></i>
+                <i (click)="showUpdateTransaction(item.id)" class="fas fa-edit"></i>
             </label>
         </div>
     </div>
 </ng-container>
+
+<ng-template #templateNoData>
+    <div class="no_data">
+        <p>Sin operaciones aún? , <a (click)="showUpdateTransaction(0)">Ingresa tu primer registro</a></p>
+        <!-- <img src="../../../../assets/icons/9264885.jpg" alt="" srcset=""> -->
+    </div>
+</ng-template>
 
 
 

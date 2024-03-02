@@ -1,0 +1,21 @@
+<div class="container__formulary">
+    <div class="form__container">
+        <div class="form__header">
+            Crear  <i (click)="closeFormularyPopUp()" class="fas fa-times"></i>
+        </div>
+        <div class="form__body">
+            <div class="form__control">
+                <i class="fas fa-sitemap"></i>
+                <input type="text" name="" [(ngModel)]="subCategory.name" placeholder="Escribe el nombre de tu categoría.." id="">
+                <span>{{subCategory.active}}</span>
+            </div>
+            <app-groupcategory-form (sendGroupSelected)="receiveGroupSelected($event)"></app-groupcategory-form>
+        </div>
+        <div class="form__footer">
+            <button (click)="closeFormularyPopUp()" type="button">Cancel</button>
+            <button *ngIf="idCategoryReceived==0" (click)="create()" type="button">Crear</button>
+            <button *ngIf="idCategoryReceived!=0" (click)="update()" type="button">Actualizar</button>
+
+        </div>
+    </div>
+</div>

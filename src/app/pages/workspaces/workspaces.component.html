@@ -1,0 +1,21 @@
+<app-header></app-header>
+<main>
+    <section>
+        <article class="add" (click)="create()">
+            <i class="fas fa-plus"></i>
+        </article>
+        <ng-container *ngFor="let item of workspaces">
+            <article (click)="selectWorkspace(item.id)">
+                <header>
+                    <img src="../../../assets/icons/groceries-grocery-svgrepo-com.svg" alt="">
+                    <div class="details">
+                        <h3>{{item.name}}</h3>
+                        <span><i class="fas fa-circle"></i> {{item.active}}</span>
+                    </div>
+                </header>
+            </article>
+        </ng-container>
+    </section>
+</main>
+<app-workspace-form  *ngIf="orderCloseormularyPopUp" (sendOrderCloseFormularyPopUp)="receiveOrderCloseFormularyPopUp()"></app-workspace-form>
+

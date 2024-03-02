@@ -53,8 +53,6 @@ export class AuthenticationService {
     this.token = token;
     this.loadToken();
     this.tokenDecode = this.getDecodedAccessToken(this.getToken());
-    localStorage.setItem("fullName",this.tokenDecode.name + " " + this.tokenDecode.lastName);
-
   }
 
   public loadToken(): void {
@@ -73,11 +71,31 @@ export class AuthenticationService {
     }
   }
 
-  getIdFromToken() {
+  getIdFromToken():any {
     this.loadToken();
     this.tokenDecode = this.getDecodedAccessToken(this.getToken());
     if(this.tokenDecode != null) {
-      return this.tokenDecode.userId;
+      return this.tokenDecode.id;
     }
+  }
+
+  getParamasFromToken():any {
+    this.loadToken();
+    this.tokenDecode = this.getDecodedAccessToken(this.getToken());
+    if(this.tokenDecode != null) {
+      return this.tokenDecode;
+    }
+  }
+
+  public getUserId(): number {
+    return this.getParamasFromToken().userId;
+  }
+
+  public getUserNanme(): string {
+    return this.getParamasFromToken().name;
+  }
+
+  public getEmail(): string {
+    return this.getParamasFromToken().email;
   }
 }

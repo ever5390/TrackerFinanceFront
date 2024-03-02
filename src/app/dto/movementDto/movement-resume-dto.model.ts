@@ -1,11 +1,11 @@
-import { MovementDto } from "./movement-dto.model";
+import { TransactionModel } from "src/app/models/transaction/transaction.model";
 
 export class ResumenMovementDto {
     constructor(
-        public totalNumberElements: number = 0,
         public totalIN: number = 0,
         public totalOUT: number = 0,
-        public reason: string = '',
-        public movememts: MovementDto[] = []
+        public totalTheyOweMe: number = 0,
+        public totalIOweYou: number = 0,
+        public movememts: TransactionModel[] = []
     ){}
 }

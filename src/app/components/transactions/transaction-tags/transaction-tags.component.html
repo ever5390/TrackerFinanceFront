@@ -1,25 +1,42 @@
 <div class="container__formulary">
-    <div class="form__header">
-        Seleccione los tags que requiera (Opcional)<i (click)="closeFormularyPopUp()" class="fas fa-times"></i>
-    </div>
-    <div class="form__body">
-        <ng-container *ngFor="let item of [1,2,3,4,5,6,7,8,9]; let i = index;">
-            <label for="{{i}}-tagid">
-                <div class="form__control">
-                    <span> 
-                        <img src="../../../../assets/icons/credit-card_4021605.png" alt="">
-                        Operación:
-                    </span>
-                    <div class="detail__form__control">
-                        <!-- <span>S/. 1850.00</span> -->
-                        <input type="checkbox" name="checkBox" id="{{i}}-tagid">
+    <div class="form__container">
+        <div class="form__header">
+            Seleccione los tags que requiera (Opcional)<i (click)="closeFormularyPopUp()" class="fas fa-times"></i>
+        </div>
+        <div class="form__body">
+            <app-search [receivedDataFromFather]="tags" (sendDataFromSearchToFather)="receiveDataFromSearch($event)"></app-search>
+            <ng-container *ngIf="tags && tags.length > 0; else template;">
+                <label for="{{i}}_checkbox" *ngFor="let item of tags; let i = index;">
+                    <div class="form__control">
+                        <span> 
+                            <img src="../../../../assets/icons/credit-card_4021605.png" alt="">
+                            {{item.name}}
+                        </span>
+                        <div class="detail__form__control">
+                            <input type="checkbox" 
+                                name="checkbox"
+                                id="{{i}}_checkbox"
+                                [checked] = "item.isChecked"
+                                [value] = "item.id"
+                                (change)="onChangeCategory($event)"
+                            >
+                        </div>
                     </div>
-                </div>
-            </label>
-        </ng-container>        
-    </div>
-    <div class="form__footer">
-        <button (click)="closeFormularyPopUp()" type="button">Salir</button>
-        <button type="button">Crear</button>
+                </label>
+            </ng-container>        
+        </div>
+        <div class="form__footer">
+            <button (click)="closeFormularyPopUp()" type="button">Salir</button>
+            <button (click)="sendItemSelectedMethod()" type="button">Guardar Seleccionados</button>
+        </div>
     </div>
 </div>
+
+<ng-template #template>
+    <div *ngIf="this.newTag.name == ''" class="no__content">Actualmente no cuentas con tags, agrega las que desees a tus movimientos,
+        te ayudarán a tener una mejor claridad de las cosas. ;)
+    </div>
+    <div *ngIf="this.newTag.name != ''"  class="no__content">
+        <button (click)="create()" type="button">Agregar nueva forma de pago( opcional)</button>
+    </div>
+ </ng-template>

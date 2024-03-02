@@ -20,24 +20,26 @@ export class SearchComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    this.dataListToProcessAndEmitToFather = this.receivedDataFromFather;
-    this.searchActivateFunction();
+    // setTimeout(() => {
+      this.dataListToProcessAndEmitToFather = this.receivedDataFromFather;
+      this.searchActivateFunction();
+    // }, 5000);
   }
 
   searchActivateFunction() {
       this.subject.pipe(
         debounceTime(100)
       ).subscribe((searchText:any) => {
-        // this.dataListToProcessAndEmitToFather = this.receivedDataFromFather.filter(item => {
-        //       return item.name.toUpperCase().includes(searchText.toUpperCase()) 
-        //     }
-        //   );
-        //   if(this.dataListToProcessAndEmitToFather.length == 0) {
-        //     this.noData =true;
-        //   } else {
-        //     this.noData = false;
-        //   }
-        //   this.sendDataFromSearchToFather.emit({data:this.dataListToProcessAndEmitToFather, text:searchText});                   
+        this.dataListToProcessAndEmitToFather = this.receivedDataFromFather.filter(item => {
+              return item.name.toUpperCase().includes(searchText.toUpperCase()) 
+            }
+          );
+          if(this.dataListToProcessAndEmitToFather.length == 0) {
+            this.noData =true;
+          } else {
+            this.noData = false;
+          }
+          this.sendDataFromSearchToFather.emit({data:this.dataListToProcessAndEmitToFather, text:searchText});                   
         }
       )
   }

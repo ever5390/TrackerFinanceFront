@@ -1,0 +1,50 @@
+main {
+    width: 100%;
+    height: calc(100vh - 50px);
+}
+
+section {
+    width: 90%;
+    max-width: 1200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    margin: auto;
+}
+
+article {
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    overflow: hidden;
+    padding: 20px;
+    font-size: .9rem;
+}
+
+article img {
+    width: 30px;
+    height: 30px;
+    display: inline-block;
+    margin-right: 20px;
+}
+
+header  {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+article.add {
+    padding: 30px;
+    display: flex;
+    justify-content: center;
+    box-sizing: border-box;
+}
+
+article:hover {
+    cursor:pointer;
+    outline: 1px solid #ccc;
+    box-sizing: border-box;
+}

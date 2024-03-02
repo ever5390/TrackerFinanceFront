@@ -1,23 +1,34 @@
 <div class="container__formulary">
-    <div class="form__header">
-        Seleccione quien te realizó el préstamo<i (click)="closeFormularyPopUp()" class="fas fa-times"></i>
-    </div>
-    <div class="form__body">
-        <ng-container *ngFor="let item of [1,2,3,4,5,6,7,8,9];">
-            <div class="form__control">
-                <span> 
-                    <img src="../../../../assets/icons/credit-card_4021605.png" alt="">
-                    Carlos Santana:
-                </span>
-                <div class="detail__form__control">
-                    <span>S/. 1850.00</span>
-                    <i class="fas fa-angle-right"></i>
+    <div class="form__container">
+        <div class="form__header">
+            Seleccione quien te realizó el préstamo<i (click)="closeFormularyPopUp()" class="fas fa-times"></i>
+        </div>
+        <div class="form__body">
+            <app-search [receivedDataFromFather]="counterparts" (sendDataFromSearchToFather)="receiveDataFromSearch($event)"></app-search>
+            <ng-container *ngIf="counterparts && counterparts.length > 0; else template;">
+                <div (click)="itemSelected(item)" class="form__control" *ngFor="let item of counterparts;">
+                    <span> 
+                        <img src="../../../../assets/icons/credit-card_4021605.png" alt="">
+                        {{item.name}}
+                    </span>
+                    <div class="detail__form__control">
+                        <!-- <span>S/. 1850.00</span> -->
+                        <i class="fas fa-angle-right"></i>
+                    </div>
                 </div>
-            </div>
-        </ng-container>        
-    </div>
-    <div class="form__footer">
-        <button (click)="closeFormularyPopUp()" type="button">Salir</button>
-        <button type="button">Crear</button>
+            </ng-container>        
+        </div>
+        <!-- <div class="form__footer">
+            <button (click)="closeFormularyPopUp()" type="button">Salir</button>
+            <button type="button">Crear</button>
+        </div> -->
     </div>
 </div>
+
+<ng-template #template>
+    <div *ngIf="textSearch == ''" class="no__content">Actualmente no tienes registrados a personas que te hayas realizado una transacción
+    </div>
+    <div *ngIf="textSearch != ''"  class="no__content">
+        <button (click)="createCounterpart()" type="button">Agregalo a tu lista, :D </button>
+    </div>
+ </ng-template>

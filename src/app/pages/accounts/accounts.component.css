@@ -133,9 +133,16 @@ article.new__item:hover {
 
         footer .dropdown {
             display: flex;
-            justify-content: space-between;
+            justify-content: flex-start;
             align-items: center;
             padding: 5px 0;
+        }
+
+        footer .dropdown span{
+            padding: 5px 10px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            margin-right: 5px;
         }
 
 

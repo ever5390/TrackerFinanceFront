@@ -16,27 +16,27 @@ export class MemberService {
   constructor() { }
 
   createByUserId(memberRequest: MemberModel, userId: number): Observable<MemberModel> {
-    const url = `${this.hostApi}/user/${userId}/members`;
+    const url = `${this.hostApi}/workspace/${userId}/members`;
     return this.httClient.post<MemberModel>(url, memberRequest);
   }
 
   readAllByUserId(userId: number): Observable<MemberModel[]> {
-    const url = `${this.hostApi}/user/${userId}/members`;
+    const url = `${this.hostApi}/workspace/${userId}/members`;
     return this.httClient.get<MemberModel[]>(url);
   }
 
   updateByIdAndUserId(id: number, memberRequest: MemberModel, userId: number): Observable<MemberModel> {
-    const url = `${this.hostApi}/user/${userId}/members/${id}`;
+    const url = `${this.hostApi}/workspace/${userId}/members/${id}`;
     return this.httClient.put<MemberModel>(url, memberRequest);
   }
 
   deleteByIdAndUserId(id: number, userId: number): Observable<void> {
-    const url = `${this.hostApi}/user/${userId}/members/${id}`;
+    const url = `${this.hostApi}/workspace/${userId}/members/${id}`;
     return this.httClient.delete<void>(url);
   }
 
   getByIdAndUserId(id: number, userId: number): Observable<MemberModel> {
-    const url = `${this.hostApi}/user/${userId}/members/${id}`;
+    const url = `${this.hostApi}/workspace/${userId}/members/${id}`;
     return this.httClient.get<MemberModel>(url);
   }
 }

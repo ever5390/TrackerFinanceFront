@@ -1,3 +1,10 @@
-<app-data-resume></app-data-resume>
+<app-data-resume [resumenMovementDto]="resumenMovementDto" (sendOrderShowFormularyPopUp)="receiveOrderCloseFormularyPopUp($event)"></app-data-resume>
 <app-search-transactions></app-search-transactions>
-<app-transactions-list></app-transactions-list>
+<app-transactions-list 
+    [receivedTransactions]="transactions"
+    (sendOrderShowFormularyPopUp)="receiveOrderCloseFormularyPopUp($event)"></app-transactions-list>
+
+<app-transaction-form *ngIf="orderCloseormularyPopUp" 
+    [IdTransactionReceived]="idTransactionToSendUpdate" 
+    (sendReloadTransactionsOrderFromFormularyTx)="receivedReloadTransactionsOrderFromFormularyTx()"
+    (sendOrderCloseFormularyPopUp)="receiveOrderCloseFormularyPopUp($event)"></app-transaction-form>

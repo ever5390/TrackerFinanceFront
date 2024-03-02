@@ -1,0 +1,35 @@
+<main>
+    <section class="section__login section__login__left">
+        <div class="form__container">
+            <div class="section__login__header">
+                <h3>Hola, Crea tu cuenta y empieza con  TrackerFinance ;)</h3>
+            </div>
+            <p class="section__link">Y tienes una cuenta?, <b routerLink="/login">Inicia sesión</b></p>
+    
+            <form [formGroup]="formulario" (ngSubmit)="onSubmit()">
+                <div class="form-control">
+                    <i class="far fa-user"></i>
+                    <input placeholder="ingrese un usuario" type="text" id="username" name="username" formControlName="username" required>
+                </div>
+                <div class="form-control">
+                    <i class="fas fa-key"></i>
+                    <input placeholder="ingrese una contraseña" type="password" id="password" name="password" formControlName="password" required>
+                </div>
+                <div class="form-control">
+                    <i class="far fa-smile"></i>
+                    <input placeholder="ingrese su nombre" type="text" id="firstname" name="firstname" formControlName="firstname" required>
+                </div>
+                <div class="form-control">
+                    <i class="far fa-envelope"></i>
+                    <input placeholder="ingrese un correo válido" type="text" id="email" name="email" formControlName="email" required>
+                </div>
+                <button type="submit">Registrarse</button>
+            </form>
+        </div>
+
+    </section>
+
+    <section class="section__login section__login__right">
+    </section>
+</main>
+

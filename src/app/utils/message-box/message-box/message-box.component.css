@@ -25,9 +25,9 @@
     opacity: 0;
     top: -200%;
     transform: translate(-50%, -50%) scale(0.5);
-    transition: opacity 300ms ease-in-out,
-                top 1000ms ease-in-out,
-                transform 100ms ease-in-out;
+    transition: opacity 50ms ease-in-out,
+                top 20ms ease-in-out,
+                transform 20ms ease-in-out;
 }
 
 .popup.active {

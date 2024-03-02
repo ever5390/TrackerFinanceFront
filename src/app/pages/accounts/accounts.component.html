@@ -1,40 +1,48 @@
-
 <main>
     <h3>Configuración de cuentas</h3>
     <section>
-        <article class="new__item" (click)="orderCloseormularyPopUp = true">
+        <article class="new__item" (click)="orderShowPopUp = true">
             <i class="fas fa-plus"></i> Crear nuevo
         </article>
-        <ng-container *ngFor="let item of [1,2,3,4,5,6,7,8,9,10,11]">
+        <ng-container *ngFor="let item of accounts">
             <article>
                 <header>
                     <img src="../../../assets/icons/key-card_9055685.png" alt="">
                     <div class="details">
                         <div class="details__data">
-                            <h3>BCP </h3>
+                            <h3>{{item.name}} </h3>
                             <label>
-                                <span>S./ 1,596.36</span>
-                                <i (click)="showMaskAsctions()" class="fas fa-ellipsis-v"></i>
+                                <span>S./ {{item.currentBalance | number:'.2-2' }}</span>
+                                <i (click)="showMaskAsctions(item)" class="fas fa-ellipsis-v"></i>
                             </label>
                         </div>
-                        <span><i class="fas fa-circle"></i> Active</span>
+                        <span><i class="fas fa-circle"></i> {{item.active}}</span>
                     </div>
                 </header>
                 <footer>
-                    <div class="dropdown">
-                        <span>No agrupado</span>
-                        <span><i class="fas fa-chevron-down"></i></span>
-                    </div>
+                    <ng-container *ngIf="item.paymentMethods.length > 0; else template">
+                        <div class="dropdown"  >
+                            <span *ngFor="let subItem of item.paymentMethods">{{subItem.name}}</span>
+                        </div>
+                    </ng-container> 
                 </footer>
 
-                <div class="article__mask__actions" [ngClass]="{'show__block': flagShowMaskAsctions}">
+                <div class="article__mask__actions" [ngClass]="{'show__block': flagShowMaskAsctions && item.selected}">
                     <i class="far fa-trash-alt"></i>
-                    <i (click)="orderCloseormularyPopUp = true" class="far fa-edit"></i>
-                    <i (click)="showMaskAsctions()" class="fas fa-times"></i>
+                    <i (click)="updateAccount(item.id)" class="far fa-edit"></i>
+                    <i (click)="showMaskAsctions(item)" class="fas fa-times"></i>
                 </div>
             </article>
         </ng-container>
     </section>
 
-    <app-account-form *ngIf="orderCloseormularyPopUp" (sendOrderCloseFormularyPopUp)="receiveOrderCloseFormularyPopUp()"></app-account-form>
+    <app-account-form *ngIf="orderShowPopUp" 
+        [idAccountReceived]="accountIdToSendUpdate"
+        (sendOrderCloseFormularyPopUp)="receiveOrderCloseFormularyPopUp()">
+    </app-account-form>
+    
 </main>
+
+<ng-template #template>
+   <span>Agregue formas de pago (Opcional)</span>
+</ng-template>

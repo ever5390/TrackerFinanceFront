@@ -169,7 +169,6 @@ export class Calendar2Component {
   }
 
   sendDateSelected() {
-    console.log(" date select OK: " + this.dateReceived);
     this.sendDateSelectedFromCalendar.emit({dateSelected: this.dateReceived, order: this.receiveGetInitOrFinalDate});
   }
 }

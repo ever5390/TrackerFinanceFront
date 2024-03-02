@@ -11,6 +11,7 @@ export class TransactionFilters {
         public account: string = '',
         public paymentMethod: string = '',
         public block: string = '',
-        public action: string = ''
+        public action: string = '',
+        public user: string = ''
     ) {}
 }

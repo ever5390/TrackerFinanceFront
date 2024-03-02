@@ -17,42 +17,46 @@ export class TransactionService {
   constructor() { }
 
 
-  getAllByUserId(userId: number): Observable<TransactionModel[]> {
-    const url = `${this.hostApi}/user/${userId}/transactions`;
+  getAllByUserId(workspaceId: number): Observable<TransactionModel[]> {
+    const url = `${this.hostApi}/workspace/${workspaceId}/transactions`;
     return this.httpClient.get<TransactionModel[]>(url);
   }
 
-  createByUserId(TransactionRequest: TransactionModel, userId: number): Observable<TransactionModel> {
-    const url = `${this.hostApi}/user/${userId}/transactions`;
+  getAllLoanByUserId(type: string, status: string, workspaceId: number): Observable<TransactionModel[]> {
+    const url = `${this.hostApi}/workspace/${workspaceId}/transactions/loans-pending?type=${type}&status=${status}`;
+    return this.httpClient.get<TransactionModel[]>(url);
+  }
+
+  createByUserId(TransactionRequest: TransactionModel, workspaceId: number): Observable<TransactionModel> {
+    const url = `${this.hostApi}/workspace/${workspaceId}/transactions`;
     return this.httpClient.post<TransactionModel>(url, TransactionRequest);
   }
 
-  readAllResumeByUserId(userId: number): Observable<ResumenMovementDto> {
-    const url = `${this.hostApi}/user/${userId}/transactions/resume`;
+  readAllResumeByUserId(workspaceId: number): Observable<ResumenMovementDto> {
+    const url = `${this.hostApi}/workspace/${workspaceId}/transactions/resume`;
     return this.httpClient.get<ResumenMovementDto>(url);
   }
 
-  updateByIdAndUserId(id: number, TransactionRequest: TransactionModel, userId: number): Observable<TransactionModel> {
-    const url = `${this.hostApi}/user/${userId}/transactions/${id}`;
+  updateByIdAndUserId(id: number, TransactionRequest: TransactionModel, workspaceId: number): Observable<TransactionModel> {
+    const url = `${this.hostApi}/workspace/${workspaceId}/transactions/${id}`;
     return this.httpClient.put<TransactionModel>(url, TransactionRequest);
   }
 
-  deleteByIdAndUserId(id: number, userId: number): Observable<void> {
-    const url = `${this.hostApi}/user/${userId}/transactions/${id}`;
+  deleteByIdAndUserId(id: number, workspaceId: number): Observable<void> {
+    const url = `${this.hostApi}/workspace/${workspaceId}/transactions/${id}`;
     return this.httpClient.delete<void>(url);
   }
 
-  getByIdAndUserId(id: number, userId: number): Observable<TransactionModel> {
-    const url = `${this.hostApi}/user/${userId}/transactions/${id}`;
+  getByIdAndUserId(id: number, workspaceId: number): Observable<TransactionModel> {
+    const url = `${this.hostApi}/workspace/${workspaceId}/transactions/${id}`;
     return this.httpClient.get<TransactionModel>(url);
   }
 
-  readAllResumeByUserIdAndFilters(userId: number, filters: TransactionFilters): Observable<ResumenMovementDto> {
-    let url = `${this.hostApi}/user/${userId}/transactions/filters`;
+  readAllResumeByUserIdAndFilters(workspaceId: number, filters: TransactionFilters): Observable<ResumenMovementDto> {
+    let url = `${this.hostApi}/workspace/${workspaceId}/transactions/filters`;
     if (filters) {
-      url += `?startDate=${filters.startDate}&endDate=${filters.endDate}&type=${filters.type}&status=${filters.status}&category=${filters.category}&description=${filters.description}&segment=${filters.segment}&account=${filters.account}&paymentMethod=${filters.paymentMethod}&block=${filters.block}&action=${filters.action}`;
+      url += `?startDate=${filters.startDate}&endDate=${filters.endDate}&type=${filters.type}&status=${filters.status}&category=${filters.category}&description=${filters.description}&segment=${filters.segment}&account=${filters.account}&paymentMethod=${filters.paymentMethod}&block=${filters.block}&action=${filters.action}&user=${filters.user}`;
     }
-    console.log(url);
     return this.httpClient.get<ResumenMovementDto>(url);
   }
 }

@@ -1,0 +1,54 @@
+.form__control__body p {
+    padding: 10px 10px 0 10px;
+}
+
+.form__body__list label {
+    border-bottom: 1px solid #ccc;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.form__body__list label i{
+    margin: 0 10px;
+    margin-top: 5px;
+}
+
+.form__control__body p:last-child {
+    padding: 10px;
+    border-bottom: 0px solid #ccc;
+}
+
+.form__body__list {
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    /* height: 150px; */
+    max-height: calc(100vh - 430px);
+    overflow-y: auto;
+}
+
+.form__body__list label{
+    padding: 10px;
+    margin-bottom: 5px;
+    display: flex;
+    justify-content: flex-start;
+}
+
+.no__content {
+    padding: 10px;
+    font-size: .9rem;
+}
+
+.no__content button {
+    width: 100%;
+    padding: 10px;
+    border-radius: 10px;
+    color: #fff;
+    background-color: #9c9696;
+    border: none;
+}
+
+.no__content button:hover {
+    cursor: pointer;
+    background-color: #707070;
+}

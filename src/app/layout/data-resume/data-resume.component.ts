@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { ResumenMovementDto } from 'src/app/dto/movementDto/movement-resume-dto.model';
 
 @Component({
   selector: 'app-data-resume',
@@ -6,9 +7,15 @@ import { Component } from '@angular/core';
   styleUrls: ['./data-resume.component.css']
 })
 export class DataResumeComponent {
+
+  @Input("resumenMovementDto") dataBalanceResume: ResumenMovementDto = new ResumenMovementDto();
   orderCloseormularyPopUp: boolean = false;
 
-  receiveOrderCloseFormularyPopUp() {
-    this.orderCloseormularyPopUp = false;
+  @Output() sendOrderShowFormularyPopUp = new EventEmitter<any>();
+
+
+  showFormTransaction() {
+    this.sendOrderShowFormularyPopUp.emit(0);
   }
+
 }

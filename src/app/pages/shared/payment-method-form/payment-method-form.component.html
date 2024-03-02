@@ -1,0 +1,29 @@
+<div class="form__control__body">
+    <p>Asocie distintas formas de pago (Opcional)</p>
+    <app-search [receivedDataFromFather]="paymentMethods" (sendDataFromSearchToFather)="receiveDataFromSearch($event)"></app-search>
+    <div class="form__body__list">
+        <ng-container *ngIf="paymentMethods && paymentMethods.length > 0; else template;">
+            <label for="{{i}}_checkbox" *ngFor="let item of paymentMethods; let i = index;">
+                <input type="checkbox" 
+                    name="checkbox"
+                    id="{{i}}_checkbox"
+                    [checked] = "item.isChecked"
+                    [value] = "item.id"
+                    (change)="onChangeCategory($event)"
+                    >
+                <i class="fas fa-layer-group"></i> 
+                {{item.name}}
+            </label>
+        </ng-container>
+    </div>
+</div>
+
+<ng-template #template>
+    <div *ngIf="paymentSearched == ''" class="no__content">Actualmente no cuentas con formas de pago :( . <br>
+        Puede agregar algunas para asociarlas a las cuentas que desee, por ejemplo, para BCP tenemos pagos por yape, por la misma appBCP e incluso el uso de su misma tarjeta :) , es opcional.
+        Para hacerlo escriba el nombre del que desee en el buscador y presionar guardar :D
+    </div>
+    <div *ngIf="paymentSearched != ''"  class="no__content">
+        <button (click)="create()" type="button">Agregar nueva forma de pago( opcional)</button>
+    </div>
+ </ng-template>

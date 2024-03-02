@@ -47,7 +47,7 @@
             }
 
             label span{
-                padding: 0 10px;
+                padding: 0 5px;
                 color: #555555c2;
             }
             
@@ -68,7 +68,7 @@
     }
     .txihr__status span {
         padding: 3px 12px;
-        font-size: .8rem;
+        font-size: .7rem;
         color: rgba(255, 0, 0, 0.699);
         background-color: rgba(252, 213, 213, 0.527);
         border-radius: 8px;
@@ -108,6 +108,30 @@
     .showMovilTime {
         display: none;
     }
+
+
+    .no_data {
+        width: 100%;
+        height: calc(100vh - 500px);
+        text-align: center;
+        border: 1ox solid red;
+        /* background: #000; */
+    }
+
+    .no_data a {
+        text-decoration: underline;
+        color: blueviolet;
+    }
+
+    .no_data a:hover {
+       cursor: pointer;
+    }
+
+    .no_data img{
+        width: 20%;
+        display: inline-block;
+    }
+
 
 @media screen and (max-width: 960px) {
 
@@ -154,7 +178,7 @@
     }
 
     .txib__data {
-        display: none;
+        /* display: none; */
     }
 
     .txib__data p{

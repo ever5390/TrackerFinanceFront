@@ -1,0 +1,26 @@
+<div class="container__formulary">
+    <div class="form__container">
+        
+        <div class="form__header">
+            Seleccione el préstamo asociado al registro de pago que está por realizar<i (click)="closeFormularyPopUp()" class="fas fa-times"></i>
+        </div>
+        <div class="form__body">
+            <ng-container *ngFor="let item of transactionsLoan;">
+                <div (click)="itemSelected(item)" class="form__control">
+                    <span> 
+                        <img src="../../../../assets/icons/credit-card_4021605.png" alt="">
+                        COD: {{item.id}} {{item.description}}
+                    </span>
+                    <div class="detail__form__control">
+                        <span></span>
+                        <i class="fas fa-angle-right"></i>
+                    </div>
+                </div>
+            </ng-container>        
+        </div>
+        <div class="form__footer">
+            <button (click)="closeFormularyPopUp()" type="button">Salir</button>
+        </div>
+
+    </div>
+</div>
