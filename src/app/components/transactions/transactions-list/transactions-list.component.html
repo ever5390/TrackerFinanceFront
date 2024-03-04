@@ -20,7 +20,7 @@
                         </label>
                         <label *ngIf="item.type != 'TRANSFERENCE'"class="showWeb">
                             <i class="fas fa-credit-card"></i>
-                            <span>{{item.account.name}}</span>
+                            <span>{{item.account.name}} ({{item.account.cardType!.name | lowercase}})</span>
                         </label>
                         <!-- <label *ngIf="item.tags.length > 0" class="showWeb">
                             <i class="fas fa-tags"></i>
@@ -35,7 +35,9 @@
                     <span *ngIf="item.block == 'OUT'">- S./ </span>
                     <span>{{item.amount}}</span>
                 </div>
-                <div *ngIf="item.type == 'LOAN'" class="txihr__status">
+                <div *ngIf="item.type == 'LOAN' 
+                    || (item.type == 'EXPENSE' && item.account.cardType && item.account.cardType.fixedParameter == true) 
+                    || (item.type == 'TRANSFERENCE' && item.account.cardType && item.account.cardType.fixedParameter == true)" class="txihr__status">
                     <span style="color:#fff; background-color: red;" *ngIf="item.status == 'PENDING'">pendiente s./ {{item.remaining}}</span>
                     <span style="color:#fff; background-color: rgb(47, 170, 47);" *ngIf="item.status == 'PAYED'">pagado</span>
                 </div>
@@ -49,38 +51,43 @@
                 </label>
                 <label>
                     <i class="fas fa-credit-card"></i>
-                    <span>{{item.account.name}}</span>
+                    <span>{{item.account.name}} ({{item.account.cardType!.name | lowercase}})</span>
                 </label>
             </div>
             <div class="txib__data">
-                <p *ngIf="item.type != 'TRANSFERENCE'">
-                    <span [ngStyle]="{'color': setTypeTransaction(item.type, item.action).color}">{{setTypeTransaction(item.type, item.action).name}}: </span>
+                <p>
+                    <span *ngIf="item.type == 'TRANSFERENCE'">{{setFormatTextTransference(item.account, item.accountDestiny)}}</span>
+                    <span *ngIf="item.type != 'TRANSFERENCE'" [ngStyle]="{'color': setTypeTransaction(item.type, item.action).color}">{{setTypeTransaction(item.type, item.action).name}}: </span>
                     <span *ngIf="item.type == 'LOAN'">
-                        <span *ngIf="item.action == 'REALICÉ'">Se prestó a : <i>{{item.counterpart.name}}</i>, con motivo de: </span>
-                        <span *ngIf="item.action == 'RECIBÍ'">Me prestó : <i>{{item.counterpart.name}}</i>, con motivo de: </span>
+                        <span *ngIf="item.action == 'REALICÉ'">Se prestó a : <i>{{item.counterpart.name}}</i></span>
+                        <span *ngIf="item.action == 'RECIBÍ'">Me prestó : <i>{{item.counterpart.name}}</i></span>
                     </span>
-                
                     <span *ngIf="item.type == 'PAYMENT'">
-                        <span *ngIf="item.action == 'REALICÉ'">Se pagó a : <i>{{item.counterpart.name}}</i>, con motivo de: </span>
-                        <span *ngIf="item.action == 'RECIBÍ'">Me pagó : <i>{{item.counterpart.name}}</i>, con motivo de: </span>
+                        <ng-container *ngIf="item.transactionLoanAssocToPay!.remaining > 0">
+                            <span *ngIf="item.transactionLoanAssocToPay!.type == 'LOAN' && item.action == 'REALICÉ'">Pagué una parte de un <a (click)="showTransactionAssoc(item.transactionLoanAssocToPay!.id)"><i>{{setTypeTransaction(item.transactionLoanAssocToPay!.type, item.transactionLoanAssocToPay!.action).name}} (pendiente: {{item.transactionLoanAssocToPay!.remaining}}) COD: OPE{{item.transactionLoanAssocToPay!.id}}</i></a></span>
+                            <span *ngIf="item.transactionLoanAssocToPay!.type == 'LOAN' && item.action == 'RECIBÍ'">Me pagaron una parte de un <a (click)="showTransactionAssoc(item.transactionLoanAssocToPay!.id)"><i>{{setTypeTransaction(item.transactionLoanAssocToPay!.type, item.transactionLoanAssocToPay!.action).name}} (pendiente: {{item.transactionLoanAssocToPay!.remaining}}) COD: OPE{{item.transactionLoanAssocToPay!.id}}</i></a></span>
+                            <span *ngIf="item.transactionLoanAssocToPay!.type == 'TRANSFERENCE'">Pagué parte de una dedua de la tarjeta de crédito de <a (click)="showTransactionAssoc(item.transactionLoanAssocToPay!.id)"><i>{{item.transactionLoanAssocToPay!.account.name}} (pendiente: {{item.transactionLoanAssocToPay!.remaining}}) COD: OPE{{item.transactionLoanAssocToPay!.id}}</i></a></span>
+                            <span *ngIf="item.transactionLoanAssocToPay!.type == 'EXPENSE'">Pagué parte de un gasto de la tarjeta de crédito de <a (click)="showTransactionAssoc(item.transactionLoanAssocToPay!.id)"><i>{{item.transactionLoanAssocToPay!.account.name}} (pendiente: {{item.transactionLoanAssocToPay!.remaining}}) COD: OPE{{item.transactionLoanAssocToPay!.id}}</i></a></span>
+                        </ng-container>
+                        <ng-container *ngIf="item.transactionLoanAssocToPay!.remaining == 0">
+                            <span *ngIf="item.transactionLoanAssocToPay!.type == 'LOAN' && item.action == 'REALICÉ'">Pagué por completo un <a (click)="showTransactionAssoc(item.transactionLoanAssocToPay!.id)"><i>{{setTypeTransaction(item.transactionLoanAssocToPay!.type, item.transactionLoanAssocToPay!.action).name}} COD: OPE{{item.transactionLoanAssocToPay!.id}}</i></a></span>
+                            <span *ngIf="item.transactionLoanAssocToPay!.type == 'LOAN' && item.action == 'RECIBÍ'">Me pagaron por completo un <a (click)="showTransactionAssoc(item.transactionLoanAssocToPay!.id)"><i>{{setTypeTransaction(item.transactionLoanAssocToPay!.type, item.transactionLoanAssocToPay!.action).name}} COD: OPE{{item.transactionLoanAssocToPay!.id}}</i></a></span>
+                            <span *ngIf="item.transactionLoanAssocToPay!.type == 'TRANSFERENCE'">Pagué por completo una dedua de la tarjeta de crédito de <a (click)="showTransactionAssoc(item.transactionLoanAssocToPay!.id)"><i>{{item.transactionLoanAssocToPay!.account.name}} COD: OPE{{item.transactionLoanAssocToPay!.id}}</i></a></span>
+                            <span *ngIf="item.transactionLoanAssocToPay!.type == 'EXPENSE'">Pagué por completo un gasto de la tarjeta de crédito de <a (click)="showTransactionAssoc(item.transactionLoanAssocToPay!.id)"><i>{{item.transactionLoanAssocToPay!.account.name}} COD: OPE{{item.transactionLoanAssocToPay!.id}}</i></a></span>    
+                        </ng-container>
                     </span>
-                    {{item.description}}
+                    <span *ngIf="item.description"> con motivo:  {{item.description}}</span>
                     <span *ngFor="let tag of item.tags">  | #{{tag.name}}</span>
-                </p>
-                <p *ngIf="item.type == 'TRANSFERENCE'">
-                    {{setFormatTextTransference(item.account, item.accountDestiny)}}
-                    {{item.description}}
-                    <span *ngFor="let tag of item.tags"> | #{{tag.name}}</span>
                 </p>
             </div>
         </div>
         <div class="tx__item__footer">
             <label class="showMovilTime">
                 <i class="far fa-clock"></i>
-                <span>{{item.createAt  | date: 'yyyy-mmm-dd hh:mm'}}</span>
+                <span>{{item.createAt  | date: 'YYYY-MMM-dd hh:mm'}}</span>
             </label>
             <label>
-                <i class="far fa-trash-alt"></i>
+                <i (click)="TransactionDelete(item.id)" class="far fa-trash-alt"></i>
                 <i (click)="showUpdateTransaction(item.id)" class="fas fa-edit"></i>
             </label>
         </div>

@@ -1,0 +1,23 @@
+<div class="form__control__body">
+    <p>Seleccione un grupo para asociar</p>
+    <app-search [receivedDataFromFather]="cardTypes" (sendDataFromSearchToFather)="receiveDataFromSearch($event)"></app-search>
+    <div class="form__body__list">
+        <ng-container *ngIf="cardTypes && cardTypes.length > 0; else template;">
+            <label *ngFor="let item of cardTypes">
+                <input type="radio" name="option"
+                [(ngModel)]="cardTypeSelected" [value]="item" (ngModelChange)="onItemChange()">
+                <i class="fas fa-layer-group"></i> 
+                {{item.name}}
+
+            </label>
+        </ng-container>
+    </div>
+</div>
+
+<ng-template #template>
+    <div *ngIf="cardTypeSearch == ''" class="no__content">Actualmente no cuentas con tipos de tarjetas. Puedes agrupar las categorías si deseas, es opcional :D
+    </div>
+    <div *ngIf="cardTypeSearch != ''"  class="no__content">
+        <button (click)="create()" type="button">Agregar nueva forma de pago( opcional)</button>
+    </div>
+ </ng-template>

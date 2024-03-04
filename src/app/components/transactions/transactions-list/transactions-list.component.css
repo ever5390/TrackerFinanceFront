@@ -118,10 +118,19 @@
         /* background: #000; */
     }
 
-    .no_data a {
+    a {
+        color: rgba(81, 81, 155, 0.795);
+        text-decoration: underline;
+    }
+
+    a:hover {
+        cursor: pointer;
+    }
+
+    /* .no_data a {
         text-decoration: underline;
         color: blueviolet;
-    }
+    } */
 
     .no_data a:hover {
        cursor: pointer;

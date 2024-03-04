@@ -14,8 +14,10 @@ export class TransactionCategoriesComponent {
   _subCategoryService = inject(SubCategoryService);
   subcategories: SubCategoryModel[] = [];
   itemsSearched: SubCategoryModel[] = [];
-
+  subCategory: SubCategoryModel = new SubCategoryModel();
   workspaceId: number = 0;
+  orderShowPopUp: boolean = false;
+
 
   constructor() {
     this.workspaceId = parseInt(localStorage.getItem("workspaceId") || '0');
@@ -41,5 +43,22 @@ export class TransactionCategoriesComponent {
 
   closeFormularyPopUp() {
     this.sendOrderCloseFormularyPopUp.emit();
+  }
+
+  receiveDataFromSearch(event: any) {
+    this.subCategory.name = event.text;
+
+    this.subcategories = event.data;
+    if( event.text == '')
+      this.subcategories = this.itemsSearched;
+  }
+
+  showFormulary() {
+    this.orderShowPopUp = true;
+  }
+
+  receiveOrderCloseFormularyPopUp() {
+    this.orderShowPopUp = false;
+    this.getAll();
   }
 }

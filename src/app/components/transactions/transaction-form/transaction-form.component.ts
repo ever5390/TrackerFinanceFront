@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { PaymentMethodModel } from 'src/app/models/payment-method/payment-method.model';
 import { TransactionModel } from 'src/app/models/transaction/transaction.model';
 import { TransactionService } from 'src/app/services/transaction/transaction.service';
@@ -10,8 +10,8 @@ import { Utils } from 'src/app/utils/utils.component';
   templateUrl: './transaction-form.component.html',
   styleUrls: ['./transaction-form.component.css']
 })
-export class TransactionFormComponent {
-  @Input("IdTransactionReceived") IdTransactionReceived: number = 0;
+export class TransactionFormComponent implements OnInit{
+  @Input("receiveOrdershowFormulary") receiveOrdershowFormulary: any;
   @Output() sendOrderCloseFormularyPopUp = new EventEmitter<any>();
   @Output() sendReloadTransactionsOrderFromFormularyTx = new EventEmitter<any>();
   
@@ -38,11 +38,16 @@ export class TransactionFormComponent {
 
   constructor(private _transactionService: TransactionService) {
     this.workspaceId = parseInt(localStorage.getItem("workspaceId") || '0');
+  }
 
-    if(this.IdTransactionReceived != 0) {
+  ngOnInit(): void {
+    this.transaction.setTransactionLoanAssocToPay(new TransactionModel());
+    if(this.receiveOrdershowFormulary.id != 0) {
       this.getByIdAndUserId();
     }
   }
+
+  
 
   receiveTypeOperationItemSelected(itemSelectedType: any) {
     this.operationTypeReceived = itemSelectedType;
@@ -54,7 +59,7 @@ export class TransactionFormComponent {
   // ::::: BEGIN :::: metodos para abrir y cerrar los popUps
 
   closeFormularyPopUp() {
-    this.sendOrderCloseFormularyPopUp.emit(0);
+    this.sendOrderCloseFormularyPopUp.emit({id:0, order:'close'});
   }
 
   closeAllPopUpsByItem() {
@@ -64,6 +69,7 @@ export class TransactionFormComponent {
   }
 
   showPopUpByItem(item: string) {
+
     this.itemSelected = item;
     this.itemsPopUps.forEach( i => {
       i.show = false;
@@ -72,7 +78,16 @@ export class TransactionFormComponent {
     });
   }
 
-  shouldShowComponent(componentName: string): boolean {
+  putClassByEdit(componentName: string): boolean {
+    //Case Edit :: block item
+    if(this.transaction.id != 0 && (componentName=="account" || componentName=="accountDestiny" || componentName=="transactionLoan" || componentName=="operation")) return true;
+    return false;
+  }
+
+  shouldShowComponent(componentName: string): boolean | null{
+    
+    if(this.putClassByEdit(componentName)) return null;
+
     const item = this.itemsPopUps.find(item => item.name === componentName);
     return item ? item.show : false;
   }
@@ -80,10 +95,12 @@ export class TransactionFormComponent {
   // ::::: END :::: metodos para abrir y cerrar los popUps
 
   getByIdAndUserId() {
-    this._transactionService.getByIdAndUserId(this.IdTransactionReceived, this.workspaceId).subscribe({
+    this._transactionService.getByIdAndUserId(this.receiveOrdershowFormulary.id, this.workspaceId).subscribe({
       next: (response) => {
         this.transaction = response;
-        this.operationTypeReceived = this.optionConst.filter(item => item.original == this.transaction.type);
+        this.dateToShow = new Date(this.transaction.createAt);
+        this.accountIdSendToPaymentMethodPopUp = this.transaction.account.id;
+        this.operationTypeReceived = this.optionConst.find(item => item.original === this.transaction.type);
       },
       error: (error: any) => {
         alert(error.error.message);
@@ -149,7 +166,6 @@ export class TransactionFormComponent {
         this.transaction.paymentMethod = event.object;
         break; 
       case "transactionLoan":
-        console.log("LOAN REC");
         this.transaction.setTransactionLoanAssocToPay(new TransactionModel());
         this.transaction.transactionLoanAssocToPay = event.object;
         console.log(this.transaction.transactionLoanAssocToPay?.id);
@@ -163,6 +179,12 @@ export class TransactionFormComponent {
 
   dateToShow: Date = new Date();
   receivedDateSelectedFromCalendar(objectDateReceived: any) {
+
+    if(objectDateReceived == undefined) {
+      this.closeAllPopUpsByItem();
+      return;
+    }
+
     this.dateToShow = objectDateReceived.dateSelected;
     this.transaction.createAt = Utils.formatDateWithHour(objectDateReceived.dateSelected);
     this.closeAllPopUpsByItem();

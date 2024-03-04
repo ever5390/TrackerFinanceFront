@@ -109,6 +109,10 @@ input[type="text"] {
     margin: 10px 0;
 }
 
+.form__control__balance:hover {
+    cursor: pointer;
+}
+
 .form__control__balance img{
     width: 100%;
     padding: 10px;
@@ -119,8 +123,16 @@ input[type="text"] {
     justify-content: space-between;
     align-items: center;
     overflow: hidden;
+    padding-right: 10px;
 }
 
 .fcbalance span{
     padding-left: 10px;
+    display: flex;
+    align-items: center;
 }
+
+.fcbalance span i{
+    margin-left: 10px;
+}
+

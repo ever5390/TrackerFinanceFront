@@ -44,4 +44,11 @@ export class Utils {
 
   }
 
+
+  static formatDate(dateToFormat: Date): string {
+    const fechaLocal = dateToFormat;
+    // Formatear la fecha y hora en un formato similar a LocalDateTime
+    return `${fechaLocal.getFullYear()}-${this.pad(fechaLocal.getMonth() + 1)}-${this.pad(fechaLocal.getDate())}T${this.pad(fechaLocal.getHours())}:${this.pad(fechaLocal.getMinutes())}:${this.pad(fechaLocal.getSeconds())}`;
+  }
+
 }

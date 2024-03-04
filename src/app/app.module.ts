@@ -43,6 +43,7 @@ import { GroupCategoryFormComponent } from './pages/shared/groupCategory-form/gr
 import { ErrorInterceptor } from './auth/interceptor/interceptor-401.error.interceptor';
 import { TransactionPaymentMethodComponent } from './components/transactions/transaction-payment-method/transaction-payment-method.component';
 import { TransactionLoanAssocComponent } from './components/transactions/transaction-loan-assoc/transaction-loan-assoc.component';
+import { CardTypeFormComponent } from './pages/shared/card-type-form/card-type-form.component';
 
 @NgModule({
   declarations: [
@@ -77,7 +78,8 @@ import { TransactionLoanAssocComponent } from './components/transactions/transac
     WorkspaceFormComponent,
     GroupCategoryFormComponent,
     TransactionPaymentMethodComponent,
-    TransactionLoanAssocComponent
+    TransactionLoanAssocComponent,
+    CardTypeFormComponent
   ],
   imports: [
     CommonModule,

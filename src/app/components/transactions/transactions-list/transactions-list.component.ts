@@ -13,6 +13,7 @@ import { AccountModel } from 'src/app/models/account/account.model';
 export class TransactionsListComponent {
   @Input("receivedTransactions") receivedTransactions : TransactionModel[] = [];
   @Output() sendOrderShowFormularyPopUp = new EventEmitter<any>();
+  @Output() sendConfirmDelete = new EventEmitter<any>();
 
   orderCloseormularyPopUp: boolean = false;
 
@@ -30,6 +31,7 @@ export class TransactionsListComponent {
 
   constructor(){
     this.workspaceId = parseInt(localStorage.getItem("workspaceId") || '0');
+    console.log(this.receivedTransactions);
   }
 
   receiveOrderCloseFormularyPopUp() {
@@ -38,7 +40,7 @@ export class TransactionsListComponent {
   }
 
   showUpdateTransaction(idTransactionToSendUpdate: number) {
-    this.sendOrderShowFormularyPopUp.emit(idTransactionToSendUpdate);
+    this.sendOrderShowFormularyPopUp.emit({id:idTransactionToSendUpdate, order:(idTransactionToSendUpdate==0)?'new':'update'});
   }
 
   setTypeTransaction(typeRec : string, actionRec: string): any{
@@ -50,13 +52,32 @@ export class TransactionsListComponent {
     let type = "Transferencia: ";
     let text = "Desde " + account.name + " hacia " + accountDestiny.name + ": ";
     if(account.name.toLocaleUpperCase() == "EFECTIVO") {
-      type = "Retiro: "
+      type = "DEPÓSITO: "
     }
     if(accountDestiny.name.toLocaleUpperCase() == "EFECTIVO") {
-      type = "Depósito: "
+      type = "RETIRO: "
     }
 
     return type + text;
+  }
+
+  TransactionDelete(idTransactionToDelete: number) {
+    this._transactionService.deleteByIdAndUserId(idTransactionToDelete, this.workspaceId).subscribe({
+      next: () => {
+        alert("Operación eliminada correctamente");
+        this.sendConfirmDelete.emit();
+      },
+      error: (error: any) => {
+        console.log(error);
+        alert(error.error.text);
+        this.sendConfirmDelete.emit();
+      }
+    });
+  }
+
+  showTransactionAssoc(transactionLoanAssocId: number) {
+    this.sendOrderShowFormularyPopUp.emit({id:transactionLoanAssocId, order:'visualization'});
+
   }
 
 }

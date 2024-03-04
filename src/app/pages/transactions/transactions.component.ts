@@ -5,6 +5,7 @@ import { TransactionFilters } from 'src/app/models/transaction-filters/transacti
 import { TransactionModel } from 'src/app/models/transaction/transaction.model';
 import { TransactionService } from 'src/app/services/transaction/transaction.service';
 import { AuthenticationService } from 'src/app/services/user/authentication.service';
+import { Utils } from 'src/app/utils/utils.component';
 
 @Component({
   selector: 'app-transactions',
@@ -26,7 +27,7 @@ export class TransactionsComponent {
   filters: TransactionFilters = new TransactionFilters();
 
   workspaceId: number = 0;
-  idTransactionToSendUpdate: number = 0;
+  sendOrdershowFormulary: number = 0;
 
   optionConst : any[] = optionItemsConst; 
 
@@ -35,13 +36,23 @@ export class TransactionsComponent {
     this.getAllByUserId();
   }
 
-  receiveOrderCloseFormularyPopUp(idTransaction: any) {
-    this.idTransactionToSendUpdate = idTransaction;
+  receivedDeleteConfirm() {
+    this.getAllByUserId();
+  }
+
+  receiveOrderCloseFormularyPopUp(event: any) {
+    this.sendOrdershowFormulary = event;
     this.orderCloseormularyPopUp = !this.orderCloseormularyPopUp;
   }
 
   receivedReloadTransactionsOrderFromFormularyTx() {
     this.orderCloseormularyPopUp = !this.orderCloseormularyPopUp;
+    this.getAllByUserId();
+  }
+
+  receiveDateRangeSelected(dateRange: any) {
+    this.filters.startDate = Utils.formatDate(dateRange.beginDate);
+    this.filters.endDate = Utils.formatDate(dateRange.endDate);
     this.getAllByUserId();
   }
   

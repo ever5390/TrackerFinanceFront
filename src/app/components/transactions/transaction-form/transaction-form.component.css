@@ -80,12 +80,24 @@
     align-items: center;
     justify-content: space-between;
     margin: 10px 0;
-
+    position: relative;
 }
 
-.form__control:hover, .form__control__tag:hover  {
+.form__control__tag:hover  {
     cursor: pointer;
     outline: 1px solid #5c5c5c;
+}
+
+.form__control:hover{
+    cursor: pointer;
+    outline: 1px solid #5c5c5c;
+}
+
+
+.form__control__out__hover:hover{
+    cursor:default;
+    outline: none;
+    
 }
 
 ::placeholder {
@@ -158,4 +170,16 @@ input[type="text"] {
     border: 1px solid #1e8d49;
     margin: 5px 5px 0 0;
     font-size: .7rem;
+}
+
+
+/*:: disabled block ::*/
+.block__disabled__item {
+    width: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    background-color: #cccccc4d;
 }

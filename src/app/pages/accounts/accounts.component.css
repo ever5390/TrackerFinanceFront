@@ -88,6 +88,12 @@ article.new__item:hover {
         width: 100%;
     }
 
+    header .details label {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
     header .details i:hover {
         cursor: pointer;
         font-weight: bold;

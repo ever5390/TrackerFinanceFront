@@ -1,6 +1,5 @@
 <div class="container__calendar">
     <div class="calendar">
-        <!-- <div *ngFor="let calendar of calendars; let i = index" class="calendar"> -->
           <section class="calendar__header">
             <span>{{ meses[calendar.mes] }} {{ calendar.anio }}</span>
             <button (click)="changeMonth(-1)"><i class="fas fa-chevron-left"></i></button>
@@ -34,19 +33,35 @@
             </section>
 
             <section class="calendar__days">
+              <div *ngFor="let dia of generarLastMonthDays(calendar.mes, calendar.anio); let i = index;" 
+                  (click)="selectDate(dia.indicatorMonth, dia.day, calendar.mes, calendar.anio,  i)"
+                  class="day"
+                  [ngClass]="{
+                        'last__month': dia.indicatorMonth === -1
+                    }">
+                {{dia.day}}
+              </div>
               <div *ngFor="let dia of generarDias(calendar.mes, calendar.anio); let i = index;" 
                   (click)="selectDate(dia.indicatorMonth, dia.day, calendar.mes, calendar.anio,  i)"
                   class="day"
                    [ngClass]="{
-                        'last__month': dia.indicatorMonth === -1, 
                         'actual__month': dia.indicatorMonth === 0, 
-                        'next__month': dia.indicatorMonth === 1, 
                         'bgToday': currentDate.getDate() == dia.day && currentDate.getMonth() == calendar.mes && currentDate.getFullYear() == calendar.anio,
                         'bgSelectedDay': indexSelected == i && monthOfSelectedDay == calendar.mes && yearOfSelectedDay == calendar.anio
                     }">
                 {{dia.day}}
               </div>
+              <div *ngFor="let dia of generarNextMonthDays(calendar.mes, calendar.anio); let i = index;" 
+                  (click)="selectDate(dia.indicatorMonth, dia.day, calendar.mes, calendar.anio,  i)"
+                  class="day"
+                  [ngClass]="{
+                        'next__month': dia.indicatorMonth === 1
+                    }">
+                {{dia.day}}
+              </div>
             </section>
-        <!-- </div> -->
+            <footer>
+              <button (click)="closeFormularyPopUp()" type="button">Volver</button>
+            </footer>
     </div>
 </div>

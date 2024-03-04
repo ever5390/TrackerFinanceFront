@@ -13,9 +13,9 @@ export class CounterpartsService {
 
   constructor() { }
 
-  createByUserId(category: CounterPartModel, workspaceId: number): Observable<CounterPartModel> {
+  createByUserId(counterPart: CounterPartModel, workspaceId: number): Observable<CounterPartModel> {
     const url = `${this.hostApi}/workspace/${workspaceId}/counterparts`;
-    return this._httpClient.post<CounterPartModel>(url, category);
+    return this._httpClient.post<CounterPartModel>(url, counterPart);
   }
 
   readAllByUserId(workspaceId: number): Observable<CounterPartModel[]> {
@@ -23,9 +23,9 @@ export class CounterpartsService {
     return this._httpClient.get<CounterPartModel[]>(url);
   }
 
-  updateByIdAndUserId(id: number, category: CounterPartModel, workspaceId: number): Observable<CounterPartModel> {
+  updateByIdAndUserId(id: number, counterPart: CounterPartModel, workspaceId: number): Observable<CounterPartModel> {
     const url = `${this.hostApi}/workspace/${workspaceId}/counterparts/${id}`;
-    return this._httpClient.put<CounterPartModel>(url, category);
+    return this._httpClient.put<CounterPartModel>(url, counterPart);
   }
 
   deleteByIdAndUserId(id: number, workspaceId: number): Observable<void> {

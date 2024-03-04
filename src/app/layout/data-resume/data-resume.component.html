@@ -2,10 +2,43 @@
     <main>
         <header>
             <div class="details__header">
-                <h3>Total Balance</h3>
-                <p><i class="far fa-calendar-alt"></i> Desde: 2024-02-10 Hasta:2024-02-26</p>
+
+                <div class="filter__options">
+                    <div class="option">
+                        {{textByItemSelect}}
+                    </div>
+                    <div class="option">
+                        <input type="number" [(ngModel)]="cant">
+                    </div>
+                    <div class="option">
+                        <span><i class="fas fa-chevron-down"></i></span>
+                        {{itemSelectShow}}
+                        <div class="dropdowns">
+                            <ng-container *ngFor="let option of uniqueOptions">
+                                <p (click)="showItemSelected(option)">
+                                    {{option.optionShow}}
+                                </p>
+                            </ng-container>
+                        </div>
+                    </div>
+                    <div (click)="sendDateRange()" class="option">
+                        Filtrar
+                    </div>
+                </div>
+                <div class="calendar__range">
+                    <span (click)="showCalendar('beginDate')">                    
+                        <i class="far fa-calendar-alt"></i> 
+                        {{beginDate | date : 'YYY-MM-dd'}}
+                    </span>
+                    <span> - </span>
+                    <span (click)="showCalendar('endDate')">
+                        {{endDate | date : 'YYY-MM-dd'}}
+                        <i class="far fa-calendar-alt"></i> 
+                    </span>
+                    <span (click)="filtrar()"><i class="far fa-check-circle"></i></span>
+                </div>
             </div>
-            <button (click)="showFormTransaction()">+ Add Transaction</button>
+            <button class="add__button" (click)="showFormTransaction()">+ Add Transaction</button>
             <!-- <button (click)="orderCloseormularyPopUp = true;">+ Add Transaction</button> -->
         </header>
         <section>
@@ -30,6 +63,8 @@
 
  </div>
 
- <!-- <app-transaction-form *ngIf="orderCloseormularyPopUp" (sendOrderCloseFormularyPopUp)="receiveOrderCloseFormularyPopUp()"></app-transaction-form> -->
+ <app-calendar2 *ngIf="flagShowCalendar" 
+ (sendDateSelectedFromCalendar)="receivedDateSelectedFromCalendar($event)"
+ ></app-calendar2>
 
 

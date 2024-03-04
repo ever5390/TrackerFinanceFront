@@ -1,3 +1,4 @@
+import { CardType } from "../cardType/cardType.model";
 import { PaymentMethodModel } from "../payment-method/payment-method.model";
 
 export class AccountModel {
@@ -7,6 +8,7 @@ export class AccountModel {
         public icon: string = '',
         public color: string = '',
         public active: boolean = true,
+        public cardType: CardType = new CardType(),
         public paymentMethods: PaymentMethodModel[] = [],
         public currentBalanceText: string = "",
         public currentBalance: number = 0.0,

@@ -1,7 +1,13 @@
 <div class="container__formulary">
     <div class="form__container">
-        <div class="form__header">
+        <div *ngIf="transaction.id == 0" class="form__header">
             Crear transacción<i (click)="closeFormularyPopUp()" class="fas fa-times"></i>
+        </div>
+        <div *ngIf="transaction.id != 0 && receiveOrdershowFormulary.order == 'update'" class="form__header">
+            Actualizar transacción<i (click)="closeFormularyPopUp()" class="fas fa-times"></i>
+        </div>
+        <div *ngIf="transaction.id != 0 && receiveOrdershowFormulary.order == 'visualization'" class="form__header">
+            Detalle de transacción pagada<i (click)="closeFormularyPopUp()" class="fas fa-times"></i>
         </div>
         <div class="form__body">
             <div (click)="showPopUpByItem('calendar')" class="form__control">
@@ -14,7 +20,7 @@
                     <i class="fas fa-angle-right"></i>
                 </div>
             </div>
-            <div (click)="showPopUpByItem('operation')" class="form__control">
+            <div (click)="showPopUpByItem('operation')" class="form__control" [ngClass]="{'form__control__out__hover':putClassByEdit('operation')}" >
                 <span> 
                     <img src="../../../../assets/icons/credit-card_4021605.png" alt="">
                     Operación:
@@ -24,17 +30,21 @@
                     <span *ngIf="transaction.type != 'DEFAULT'">{{operationTypeReceived.name}}</span>
                     <i class="fas fa-angle-right"></i>
                 </div>
+
+                <div *ngIf="transaction.id != 0" class="block__disabled__item"></div>
             </div>
-            <div *ngIf="transaction.type == 'PAYMENT'" (click)="showPopUpByItem('transactionLoan')" class="form__control">
+            <div *ngIf="transaction.type == 'PAYMENT'" (click)="showPopUpByItem('transactionLoan')" class="form__control" [ngClass]="{'form__control__out__hover':putClassByEdit('transactionLoan')}" >
                 <span> 
                     <img src="../../../../assets/icons/credit-card_4021605.png" alt="">
-                    A qué préstamo hace referencia este pago:
+                    A qué deuda hace referencia este pago:
                 </span>
                 <div class="detail__form__control">
                     <span *ngIf="transaction.transactionLoanAssocToPay?.id == 0">Seleccione</span>
-                    <span *ngIf="transaction.transactionLoanAssocToPay?.id != 0">COD: #{{transaction.transactionLoanAssocToPay?.id}} {{transaction.transactionLoanAssocToPay?.description}}</span>
+                    <span *ngIf="transaction.transactionLoanAssocToPay?.id != 0">Cod: OPE{{transaction.transactionLoanAssocToPay?.id}} {{transaction.transactionLoanAssocToPay?.account?.name}} Pendiente: S./ {{transaction.transactionLoanAssocToPay?.remaining}}</span>
                     <i class="fas fa-angle-right"></i>
                 </div>
+
+                <div *ngIf="transaction.id != 0" class="block__disabled__item"></div>
             </div>
             <div *ngIf="transaction.type == 'LOAN'" (click)="showPopUpByItem('counterpart')" class="form__control">
                 <span> 
@@ -54,7 +64,8 @@
                     <span *ngIf="transaction.action == 'REALICÉ'">¿A quien le pagaste?</span>
                 </span>
                 <div class="detail__form__control">
-                    <span>{{transaction.counterpart.name}}</span>
+                    <span *ngIf="!transaction.counterpart">No registrado</span>
+                    <span *ngIf="transaction.counterpart">{{transaction.counterpart.name}}</span>
                     <i class="fas fa-angle-right"></i>
                 </div>
             </div>
@@ -65,22 +76,35 @@
                 </span>
                 <input type="text" placeholder="00.00" [(ngModel)]="transaction.amount"  name="" id="">
             </div>
+            <div *ngIf="transaction.id != 0 
+                        && (((transaction.type == 'TRANSFERENCE' || transaction.type == 'EXPENSE') && transaction.account.cardType.fixedParameter) 
+                        || transaction.type == 'LOAN')" class="form__control balance">
+                <span> 
+                    <img src="../../../../assets/icons/credit-card_4021605.png" alt="">
+                   <span style="color: red;" *ngIf="transaction.remaining > 0">Deuda pendiente:</span>
+                   <span style="color: green;" *ngIf="transaction.remaining == 0">Deuda pagada</span>
+                </span>
+                <span  *ngIf="transaction.remaining > 0"> S./ {{transaction.remaining}}</span>
+                <span  style="color: green;" *ngIf="transaction.remaining == 0"><i class="far fa-check-circle"></i></span>
+            </div>
             <div class="form__control">
                 <span> <img src="../../../../assets/icons/credit-card_4021605.png" alt="">
                     Motivo:
                 </span>
                 <input type="text" [(ngModel)]="transaction.description" placeholder="Compras mercado semanal.." name="" id="">
             </div>
-            <div (click)="showPopUpByItem('account')" class="form__control">
+            <div (click)="showPopUpByItem('account')" class="form__control" [ngClass]="{'form__control__out__hover':putClassByEdit('account')}" >
                 <span> 
                     <img src="../../../../assets/icons/credit-card_4021605.png" alt="">
                     Cuenta:
                 </span>
                 <div class="detail__form__control">
                     <span *ngIf="transaction.account.id == 0">Seleccione</span>
-                    <span *ngIf="transaction.account.id != 0">{{transaction.account.name}}</span>
+                    <span *ngIf="transaction.account.id != 0">{{transaction.account.name}} S./ {{transaction.account.currentBalance}}</span>
                     <i class="fas fa-angle-right"></i>
                 </div>
+
+                <div *ngIf="transaction.id != 0" class="block__disabled__item"></div>
             </div>
             <div *ngIf="transaction.type != 'TRANSFERENCE' && transaction.account && transaction.account.paymentMethods.length > 0" (click)="showPopUpByItem('paymentMethod')" class="form__control">
                 <span> 
@@ -88,21 +112,23 @@
                     Forma de pago(Opcional):
                 </span>
                 <div class="detail__form__control">
-                    <span *ngIf="transaction.paymentMethod.id == 0">Seleccione</span>
-                    <span *ngIf="transaction.paymentMethod.id != 0">{{transaction.paymentMethod.name}}</span>
+                    <span *ngIf="transaction.paymentMethod == null || transaction.paymentMethod.id == 0">Seleccione</span>
+                    <span *ngIf="transaction.paymentMethod != null && transaction.paymentMethod.id != 0">{{transaction.paymentMethod.name}}</span>
                     <i class="fas fa-angle-right"></i>
                 </div>
             </div>
-            <div *ngIf="transaction.type == 'TRANSFERENCE'" (click)="showPopUpByItem('accountDestiny')"class="form__control">
+            <div *ngIf="transaction.type == 'TRANSFERENCE'" (click)="showPopUpByItem('accountDestiny')" class="form__control" [ngClass]="{'form__control__out__hover':putClassByEdit('accountDestiny')}" >
                 <span> 
                     <img src="../../../../assets/icons/credit-card_4021605.png" alt="">
                     Cuenta destino:
                 </span>
                 <div class="detail__form__control">
                     <span *ngIf="transaction.account.id == 0">Seleccione</span>
-                    <span *ngIf="transaction.account.id != 0">{{transaction.accountDestiny.name}}</span>
+                    <span *ngIf="transaction.account.id != 0">{{transaction.accountDestiny.name}} S./ {{transaction.accountDestiny.currentBalance}}</span>
                     <i class="fas fa-angle-right"></i>
                 </div>
+
+                <div *ngIf="transaction.id != 0" class="block__disabled__item"></div>
             </div>
             <div *ngIf="transaction.type != 'TRANSFERENCE'" (click)="showPopUpByItem('subcategory')" class="form__control">
                 <span> 
@@ -144,7 +170,8 @@
         </div>
         <div class="form__footer">
             <button (click)="closeFormularyPopUp()" type="button">Salir</button>
-            <button (click)="create()" type="button">Crear</button>
+            <button *ngIf="transaction.id == 0" (click)="create()" type="button">Crear</button>
+            <button *ngIf="transaction.id != 0 && receiveOrdershowFormulary.order == 'update'" (click)="update()" type="button">Actualizar</button>
         </div>
 
     </div>

@@ -13,6 +13,9 @@ export class SubCategoryFormComponent {
 
   @Output() sendOrderCloseFormularyPopUp = new EventEmitter<any>();
   @Input("idCategoryReceived") idCategoryReceived : number = 0;
+ 
+  @Input("nameSearchedReceive") nameSearchedReceive : string = '';
+
   _oauthService = inject(AuthenticationService);
   _subCategoryService = inject(SubCategoryService);
   
@@ -25,6 +28,11 @@ export class SubCategoryFormComponent {
   }
 
   ngOnInit(): void {
+
+    if(this.nameSearchedReceive != '') {
+      this.subCategory.name = this.nameSearchedReceive;
+    }
+
     if(this.idCategoryReceived != 0) {
       this.getByIdAndUserId(this.idCategoryReceived);
     }

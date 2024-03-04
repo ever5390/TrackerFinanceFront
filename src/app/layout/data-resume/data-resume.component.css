@@ -23,11 +23,21 @@ header {
         margin: 0 0 10px 0;
     }
 
-    .details__header p i {
+    .details__header .option__range__select {
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        margin-bottom: 10px;
+
+        display: flex;
+        align-items: center;
+        /* justify-content: space-around; */
+    }
+
+    .details__header i {
         margin-right: 5px;
     }
 
-    header button {
+    header button.add__button {
         border-radius: 5px;
         border: none;
         background-color: rgb(25, 196, 102);
@@ -35,7 +45,7 @@ header {
         color: #FFF;
     }
 
-    header button:hover {
+    header button.add__button:hover {
         cursor: pointer;
         background-color: rgb(37, 107, 69);
     }
@@ -65,7 +75,7 @@ article {
     article label {
         display: block;
         margin-bottom: 10px;
-        font-size: 1.2rem;
+        font-size: 1.4rem;
     }
 
         article span {
@@ -79,9 +89,110 @@ article {
             margin-right: 5px;
         }
 
+.details__header .calendar__range {
+    border: 1px solid #ccc;
+    padding: 8px 10px;
+    border-radius: 5px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.details__header .calendar__range .fa-calendar-alt {
+    margin-left: 10px;
+}
+
+.details__header .calendar__range .fa-chevron-down {
+    margin-left: 10px;
+}
+
+/* nav filter*/
+.filter__options {
+    display: flex;
+    align-items: center;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    justify-content: space-around;
+    margin-bottom: 10px;
+}
+
+.option {
+    padding: 5px 10px;
+    font-size: .8rem;
+}
+
+.option .fa-chevron-down {
+    margin-right: 20px;
+}
+
+.option:last-child{
+    border-left: 1px solid #ccc;
+    background-color: rgb(25, 196, 102);
+    border-radius: 5px;
+    margin-right: 3px;
+    color: #FFF;
+}
+
+.option:nth-child(2){
+    padding: 0;
+    border-left: 1px solid #ccc;
+    border-right: 1px solid #ccc;
+}
+
+.option input {
+    height: 30px;
+    width: 50px;
+    font-size: 1rem;
+    border: none;
+    outline: none;
+}
+
+.option:nth-child(3) {
+    position: relative;
+}
+
+.option:nth-child(3):hover, 
+.option:nth-child(2):hover,
+.option:last-child:hover {
+    cursor: pointer;
+}
+
+.option:nth-child(3):hover .dropdowns{
+    height: 110px;
+}
+
+    .dropdowns {
+        height: 0px;
+        overflow: hidden;
+        transition: all .3s;
+        position: absolute;
+        top: 27px;
+        left: -1px;
+        width: 100%;
+        background-color: #fff;
+        text-align: right;
+        border-top: 1px solid #ccc;
+    }
+
+        .dropdowns p {
+            border-bottom: 1px solid #ccc;
+            border-left: 1px solid #ccc;
+            border-right: 1px solid #ccc;
+            padding: 5px 10px;
+        }
+
+        .dropdowns p:hover {
+            background-color: #cccccc36;
+            cursor: pointer;
+        }
+
+        .dropdowns p:last-child {
+            border-radius: 0 0 5px 5px;
+        }
 
 
-
+.fa-check-circle {
+    margin-left: 10px;
+}
 
 @media screen and (max-width: 960px) {
     main {
@@ -89,25 +200,12 @@ article {
     }
 }
         
-@media screen and (max-width: 680px) {
-
-    article label {
-        font-size: 1rem;
-    }
-
-}
-
-@media screen and (max-width: 480px) {
+@media screen and (max-width: 780px) {
 
     header {
         flex-direction: column;
         align-items: flex-start;
         margin-bottom: 0;
-    }
-
-    section {
-        padding: 20px;
-        padding-top: 0;
     }
 
     header {
@@ -117,7 +215,40 @@ article {
 
     header button {
         margin-top: 10px;
+        /* width: 100%; */
+    }
+
+}
+
+@media screen and (max-width: 680px) {
+
+    article label {
+        font-size: 1.2rem;
+    }
+
+}
+
+@media screen and (max-width: 480px) {
+
+    section {
+        padding: 20px;
+        padding-top: 0;
+    }
+
+    .details__header {
         width: 100%;
+    }
+
+    .details__header .calendar__range {
+        width: 100%;
+    }
+
+    header button {
+        width: 100%;
+    }
+
+    .option .fa-chevron-down {
+        margin-right: 5px;
     }
 
 }

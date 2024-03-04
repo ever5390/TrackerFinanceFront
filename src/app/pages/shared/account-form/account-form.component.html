@@ -13,7 +13,13 @@
                 <span> Balance (S./)</span>
                 <input type="text" placeholder="00.00 ..." [(ngModel)]="account.currentBalance" name="" id="">
             </div>
-            <app-payment-method-form (sendPaymentsMethodsSelected)="receivePaymentsMethodsSelected($event)"></app-payment-method-form>
+            <div class="form__control__balance fcbalance" (click)="flagShowFormCardType = true;">
+                <span> Tipo de Tarjeta:</span>
+                <span *ngIf="!account.cardType || account.cardType.id == 0">Selecione <i class="fas fa-angle-right"></i></span>
+                <span *ngIf="account.cardType && account.cardType.id != 0">{{account.cardType.name}}</span>
+            </div>
+            <app-card-type-form *ngIf="flagShowFormCardType" (sendCardTypeSelected)="receiveCardTypeSelected($event)"></app-card-type-form>
+            <app-payment-method-form *ngIf="!flagShowFormCardType" (sendPaymentsMethodsSelected)="receivePaymentsMethodsSelected($event)"></app-payment-method-form>
         </div>
         <div class="form__footer">
             <button (click)="closeFormularyPopUp()" type="button">Cancel</button>

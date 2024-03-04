@@ -119,9 +119,8 @@ export class Calendar2Component {
     return new Date(anio, mes + 1, 0).getDate(); //número de día del mes [1..28,29,30 ó 31]
   }
 
-  generarDias(mes: number, anio: number): any[] {
+  generarLastMonthDays(mes: number, anio: number): any[] {
     const primerDia = new Date(anio, mes, 1).getDay(); //Día de la semana [1...7]
-    const totalDias = this.getDiasEnMes(mes, anio);
     const dias: any[] = [];
 
     const ultimoDiaMesAnterior = this.getDiasEnMes(mes - 1, anio);
@@ -131,18 +130,30 @@ export class Calendar2Component {
       dias.push({indicatorMonth:-1, day: i.toString()});
     }
 
+    return dias;
+  }
+
+  generarDias(mes: number, anio: number): any[] {
+    const totalDias = this.getDiasEnMes(mes, anio);
+    const dias: any[] = [];
+
     // Añadir los días del mes
     for (let i = 1; i <= totalDias; i++) {
       dias.push({indicatorMonth:0, day: i.toString()});
     }
 
+    return dias;
+  }
+
+  generarNextMonthDays(mes: number, anio: number): any[] {
+    const totalDias = this.getDiasEnMes(mes, anio);
+    const dias: any[] = [];
     const ultimoDia = new Date(anio, mes, totalDias).getDay();
 
     // Añadir los últimos días del mes anterior
     for (let i = 1; i < 7- ultimoDia; i++) {
       dias.push({indicatorMonth:1, day: i.toString()});
     }
-
     return dias;
   }
 
@@ -170,5 +181,9 @@ export class Calendar2Component {
 
   sendDateSelected() {
     this.sendDateSelectedFromCalendar.emit({dateSelected: this.dateReceived, order: this.receiveGetInitOrFinalDate});
+  }
+
+  closeFormularyPopUp() {
+    this.sendDateSelectedFromCalendar.emit();
   }
 }

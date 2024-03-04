@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output, inject } from '@angular/core';
 import { AccountModel } from 'src/app/models/account/account.model';
+import { CardType } from 'src/app/models/cardType/cardType.model';
 import { PaymentMethodModel } from 'src/app/models/payment-method/payment-method.model';
 import { AccountService } from 'src/app/services/account/account.service';
 import { AuthenticationService } from 'src/app/services/user/authentication.service';
@@ -20,6 +21,8 @@ export class AccountFormComponent implements OnInit{
 
   workspaceId: number = 0;
 
+  flagShowFormCardType: boolean = false;
+
   constructor(){
     this.workspaceId = parseInt(localStorage.getItem("workspaceId") || '0');
   }
@@ -32,6 +35,11 @@ export class AccountFormComponent implements OnInit{
 
   closeFormularyPopUp() {
     this.sendOrderCloseFormularyPopUp.emit();
+  }
+
+  receiveCardTypeSelected(cardTypeReceived: CardType) {
+    this.account.cardType = cardTypeReceived;
+    this.flagShowFormCardType = false;
   }
 
   receivePaymentsMethodsSelected(event: PaymentMethodModel[]) {

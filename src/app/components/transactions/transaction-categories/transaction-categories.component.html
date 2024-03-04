@@ -5,6 +5,7 @@
             Seleccione una categoría<i (click)="closeFormularyPopUp()" class="fas fa-times"></i>
         </div>
         <div class="form__body">
+            <app-search [receivedDataFromFather]="subcategories" (sendDataFromSearchToFather)="receiveDataFromSearch($event)"></app-search>
             <ng-container *ngFor="let item of subcategories;">
                 <div (click)="itemSelected(item)" class="form__control">
                     <span> 
@@ -19,8 +20,16 @@
             </ng-container>        
         </div>
         <div class="form__footer">
+            <button *ngIf="subcategories.length == 0" (click)="showFormulary()" type="button">Crear</button>
             <button (click)="closeFormularyPopUp()" type="button">Salir</button>
         </div>
-
     </div>
+
+
+
+    <app-subcategory-form *ngIf="orderShowPopUp" 
+        [nameSearchedReceive]="subCategory.name"
+        (sendOrderCloseFormularyPopUp)="receiveOrderCloseFormularyPopUp()">
+    </app-subcategory-form>
+
 </div>

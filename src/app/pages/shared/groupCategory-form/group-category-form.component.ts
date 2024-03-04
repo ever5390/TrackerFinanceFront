@@ -9,7 +9,7 @@ import { GroupCategoryService } from 'src/app/services/groupCategory/category.se
 })
 export class GroupCategoryFormComponent {
   @Output("sendGroupSelected") sendGroupSelected = new EventEmitter<any>();
-
+  
   _groupCategoryService = inject(GroupCategoryService);
   
   groups: GroupCategoryModel[] = [];

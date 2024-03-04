@@ -16,7 +16,13 @@
                                 <i (click)="showMaskAsctions(item)" class="fas fa-ellipsis-v"></i>
                             </label>
                         </div>
-                        <span><i class="fas fa-circle"></i> {{item.active}}</span>
+                        <label>
+                            <span *ngIf="item.cardType">{{item.cardType.name}}</span>
+                            <span *ngIf="item.active"><i class="fas fa-circle"></i> Activado</span>
+                            <span *ngIf="!item.active"><i class="fas fa-circle"></i> Desactivado</span>
+                        </label>
+
+                        <!-- <span><i class="fas fa-circle"></i> {{item.active}}</span> -->
                     </div>
                 </header>
                 <footer>
