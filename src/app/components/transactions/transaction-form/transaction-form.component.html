@@ -27,7 +27,7 @@
                 </span>
                 <div class="detail__form__control">
                     <span *ngIf="transaction.type == 'DEFAULT'">Seleccione</span>
-                    <span *ngIf="transaction.type != 'DEFAULT'">{{operationTypeReceived.name}}</span>
+                    <span *ngIf="transaction.type != 'DEFAULT'">{{operationTypeReceived!.name}}</span>
                     <i class="fas fa-angle-right"></i>
                 </div>
 

@@ -44,6 +44,7 @@
 
     <app-account-form *ngIf="orderShowPopUp" 
         [nameSearchedReceive]="account.name"
+        [idAccountReceived]="accountIdToSendUpdate"
         (sendOrderCloseFormularyPopUp)="receiveOrderCloseFormularyPopUp()">
     </app-account-form>
     

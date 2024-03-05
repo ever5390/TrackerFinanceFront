@@ -4,6 +4,7 @@ import { TransactionModel } from 'src/app/models/transaction/transaction.model';
 import { TransactionService } from 'src/app/services/transaction/transaction.service';
 import { optionItemsConst } from './type-const.constant';
 import { Utils } from 'src/app/utils/utils.component';
+import { Type } from 'src/app/emuns/Type.enum';
 
 @Component({
   selector: 'app-transaction-form',
@@ -31,6 +32,8 @@ export class TransactionFormComponent implements OnInit{
   itemSelected: any;
 
   transaction: TransactionModel = new TransactionModel();
+  transactionAssocProvisional: TransactionModel = new TransactionModel();
+
   operationTypeReceived: any;
   workspaceId: number = 0;
 
@@ -41,7 +44,8 @@ export class TransactionFormComponent implements OnInit{
   }
 
   ngOnInit(): void {
-    this.transaction.setTransactionLoanAssocToPay(new TransactionModel());
+    this.transactionAssocProvisional.type = Type.EXPENSE;
+    this.transaction.setTransactionLoanAssocToPay(this.transactionAssocProvisional);
     if(this.receiveOrdershowFormulary.id != 0) {
       this.getByIdAndUserId();
     }
@@ -109,7 +113,13 @@ export class TransactionFormComponent implements OnInit{
   }
 
   create() {
+    if(this.transaction.type == 'DEFAULT') { 
+      alert("Por favor seleccione un operación.");
+      return;
+    }
+
     console.log(this.transaction);
+
     this._transactionService.createByUserId(this.transaction, this.workspaceId).subscribe({
       next: (response) => {
         alert("Operación creada correctamente");

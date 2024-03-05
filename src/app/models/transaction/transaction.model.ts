@@ -7,7 +7,6 @@ import { AccountModel } from "../account/account.model";
 import { CounterPartModel } from "../counterPartModel/counterpart.model";
 import { Tag } from "../tag/tag.model";
 import { SubCategoryModel } from "../subCategory/subCategory.model";
-import { Utils } from "src/app/utils/utils.component";
 import { UserRegister } from "../user/register.model";
 
 export class TransactionModel {
