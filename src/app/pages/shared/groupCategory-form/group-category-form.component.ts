@@ -51,6 +51,8 @@ export class GroupCategoryFormComponent {
   }
 
   receiveDataFromSearch(event: any) {
+    this.groups = this.groupsSearched;
+
     this.groupSearch = event.text;
     this.group.name = event.text;
 

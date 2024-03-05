@@ -1,6 +1,6 @@
 <div class="form__control__body">
     <p>Seleccione un grupo para asociar</p>
-    <app-search [receivedDataFromFather]="groups" (sendDataFromSearchToFather)="receiveDataFromSearch($event)"></app-search>
+    <app-search [receivedDataFromFather]="groupsSearched" (sendDataFromSearchToFather)="receiveDataFromSearch($event)"></app-search>
     <div class="form__body__list">
         <ng-container *ngIf="groups && groups.length > 0; else template;">
             <label *ngFor="let item of groups">

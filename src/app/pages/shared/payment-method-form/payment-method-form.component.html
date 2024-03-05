@@ -1,6 +1,6 @@
 <div class="form__control__body">
     <p>Asocie distintas formas de pago (Opcional)</p>
-    <app-search [receivedDataFromFather]="paymentMethods" (sendDataFromSearchToFather)="receiveDataFromSearch($event)"></app-search>
+    <app-search [receivedDataFromFather]="paymentMethodsSearched" (sendDataFromSearchToFather)="receiveDataFromSearch($event)"></app-search>
     <div class="form__body__list">
         <ng-container *ngIf="paymentMethods && paymentMethods.length > 0; else template;">
             <label for="{{i}}_checkbox" *ngFor="let item of paymentMethods; let i = index;">

@@ -15,18 +15,20 @@ export class TransactionAccountsComponent {
   _accountsService = inject(AccountService);
   accounts: AccountModel[] = [];
   itemsSearched: AccountModel[] = [];
+  account: AccountModel = new AccountModel();
   accounDestinyText: string ="";
   workspaceId: number = 0;
+  orderShowPopUp: boolean = false;
 
   constructor() {
     this.workspaceId = parseInt(localStorage.getItem("workspaceId") || '0');
     setTimeout(() => {
       this.accounDestinyText = this.accountDestinyReceived=="account"?"":"destino";
     }, 100);
-    this.getAllCounterParts();
+    this.getAll();
   }
 
-  getAllCounterParts() {
+  getAll() {
     this._accountsService.readAllByUserId(this.workspaceId).subscribe({
       next:(response) =>{
         this.accounts = response;
@@ -44,5 +46,22 @@ export class TransactionAccountsComponent {
 
   closeFormularyPopUp() {
     this.sendOrderCloseFormularyPopUp.emit();
+  }
+
+  receiveDataFromSearch(event: any) {
+    this.account.name = event.text;
+
+    this.accounts = event.data;
+    if( event.text == '')
+      this.accounts = this.itemsSearched;
+  }
+
+  showFormulary() {
+    this.orderShowPopUp = true;
+  }
+
+  receiveOrderCloseFormularyPopUp() {
+    this.orderShowPopUp = false;
+    this.getAll();
   }
 }

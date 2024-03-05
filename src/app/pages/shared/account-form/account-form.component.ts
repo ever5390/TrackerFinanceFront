@@ -11,9 +11,11 @@ import { AuthenticationService } from 'src/app/services/user/authentication.serv
   styleUrls: ['./account-form.component.css']
 })
 export class AccountFormComponent implements OnInit{
-
+  
   @Output() sendOrderCloseFormularyPopUp = new EventEmitter<any>();
   @Input("idAccountReceived") idAccountReceived : number = 0;
+  @Input("nameSearchedReceive") nameSearchedReceive : string = '';
+
   _oauthService = inject(AuthenticationService);
   _accountService = inject(AccountService);
   
@@ -28,9 +30,13 @@ export class AccountFormComponent implements OnInit{
   }
 
   ngOnInit(): void {
-    if(this.idAccountReceived != 0) {
+
+    if(this.nameSearchedReceive != '') 
+      this.account.name = this.nameSearchedReceive; 
+    
+    if(this.idAccountReceived != 0) 
       this.getByIdAndUserId(this.idAccountReceived);
-    }
+    
   }
 
   closeFormularyPopUp() {
