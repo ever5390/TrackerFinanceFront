@@ -1,7 +1,10 @@
 <div class="container__formulary">
     <div class="form__container">
-        <div class="form__header">
+        <div *ngIf="idCategoryReceived==0" class="form__header">
             Crear  <i (click)="closeFormularyPopUp()" class="fas fa-times"></i>
+        </div>
+        <div *ngIf="idCategoryReceived!=0" class="form__header">
+            Actualizar <i (click)="closeFormularyPopUp()" class="fas fa-times"></i>
         </div>
         <div class="form__body">
             <div class="form__control">
