@@ -69,7 +69,7 @@ export class TransactionsListComponent {
       },
       error: (error: any) => {
         console.log(error);
-        alert(error.error.text);
+        alert(error.error.message);
         this.sendConfirmDelete.emit();
       }
     });

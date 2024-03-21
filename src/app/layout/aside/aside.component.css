@@ -1,6 +1,5 @@
 aside {
     width: 100%;
-    border-right: 1px solid #ccc;
     font-size: small;
     height: calc(100vh - 50px);
     padding-top: 20px;

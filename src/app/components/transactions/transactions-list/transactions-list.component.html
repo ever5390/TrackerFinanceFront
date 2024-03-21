@@ -5,7 +5,8 @@
                 <div class="txihl__data">
                     <img src="../../../../assets/icons/discount-svgrepo-com.png" alt="" srcset="">
                     <div class="txihld__main">
-                        <p *ngIf="item.subCategory">{{item.subCategory.name}}</p>
+                        <p *ngIf="item.type != 'TRANSFERENCE' && item.subCategory">{{item.subCategory.name}}</p>
+                        <p *ngIf="item.type == 'TRANSFERENCE'">{{setFormatTextTransference(item.account, item.accountDestiny)}}</p>
                         <label>
                             <i class="far fa-user"></i>
                             <span>User: {{item.responsableUser.firstname}}</span>
@@ -20,7 +21,7 @@
                         </label>
                         <label *ngIf="item.type != 'TRANSFERENCE'"class="showWeb">
                             <i class="fas fa-credit-card"></i>
-                            <span>{{item.account.name}} ({{item.account.cardType!.name | lowercase}})</span>
+                            <span>{{item.account.name}} </span> <span *ngIf="item.account.cardType">({{item.account.cardType!.name | lowercase}})</span>
                         </label>
                         <!-- <label *ngIf="item.tags.length > 0" class="showWeb">
                             <i class="fas fa-tags"></i>
@@ -51,7 +52,7 @@
                 </label>
                 <label>
                     <i class="fas fa-credit-card"></i>
-                    <span>{{item.account.name}} ({{item.account.cardType!.name | lowercase}})</span>
+                    <span>{{item.account.name}} </span> <span *ngIf="item.account.cardType">({{item.account.cardType!.name | lowercase}})</span>
                 </label>
             </div>
             <div class="txib__data">

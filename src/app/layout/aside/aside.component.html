@@ -1,18 +1,17 @@
 <aside>
-    <label><i class="fas fa-warehouse"></i> Dashboard</label>
-    <label [routerLink]="'/transactions'"><i class="fas fa-luggage-cart"></i> transacciones</label>
-    <label><i class="fas fa-file-alt"></i> Reportes</label>
+    <label (click)="openCloseAsideOrder()" ><i class="fas fa-warehouse"></i> Dashboard</label>
+    <label (click)="openCloseAsideOrder()"  [routerLink]="'/transactions'"><i class="fas fa-luggage-cart"></i> transacciones</label>
+    <label (click)="openCloseAsideOrder()" ><i class="fas fa-file-alt"></i> Reportes</label>
 
     <label class="item">Mantenimiento</label>
     <ul>
-        <!-- <li [routerLink]="'/payment-method'"><i class="fas fa-credit-card"></i> Medios de pago</li> -->
-        <li [routerLink]="'/categories'"><i class="far fa-clipboard"></i> Categorías</li>
-        <li [routerLink]="'/accounts'"><i class="fab fa-cc-visa"></i> Cuentas</li>
+        <li (click)="openCloseAsideOrder()"  [routerLink]="'/categories'"><i class="far fa-clipboard"></i> Categorías</li>
+        <li (click)="openCloseAsideOrder()"  [routerLink]="'/accounts'"><i class="fab fa-cc-visa"></i> Cuentas</li>
     </ul>
     <label class="item">Presupuestos</label>
     <ul>
-        <li [routerLink]="'/budget-actives'"><i class="far fa-calendar-check"></i> Activos</li>
-        <li [routerLink]="'/budget-disables'"><i class="far fa-window-close"></i> Desactivos</li>
+        <li (click)="openCloseAsideOrder()"  [routerLink]="'/budget-actives'"><i class="far fa-calendar-check"></i> Activos</li>
+        <li (click)="openCloseAsideOrder()" [routerLink]="'/budget-disables'"><i class="far fa-window-close"></i> Desactivos</li>
     </ul>
     <label class="item">Contrapartes</label>
     <ul>

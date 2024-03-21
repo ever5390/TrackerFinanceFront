@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, EventEmitter, Output, inject } from '@angular/core';
 import { AuthenticationService } from 'src/app/services/user/authentication.service';
 
 @Component({
@@ -7,6 +7,10 @@ import { AuthenticationService } from 'src/app/services/user/authentication.serv
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent {
+
+    @Output() sendOpenCloseAsideOrder = new EventEmitter<any>();
+
+
     userName: string = "";
     email: string = "";
     _authService = inject(AuthenticationService);
@@ -14,5 +18,9 @@ export class HeaderComponent {
     constructor(){
       this.userName = this._authService.getUserNanme();
       this.email = this._authService.getEmail();
+    }
+
+    openCloseAsideOrder() {
+      this.sendOpenCloseAsideOrder.emit();
     }
 }

@@ -1,9 +1,9 @@
-<app-header></app-header>
-<main>
-    <aside>
-        <app-aside></app-aside>
+<app-header (sendOpenCloseAsideOrder)="receivedOpenCloseAsideOrder()"></app-header>
+<main #main class="main__layaout">
+    <aside [ngStyle]="{ 'width': (isOpen ? widthAside : 0) }" >
+        <app-aside *ngIf="flagShowAsideComponent" (sendOpenCloseAsideOrder)="receivedOpenCloseAsideOrder()"></app-aside>
     </aside>
-    <section>
+    <section >
         <article>
             <router-outlet></router-outlet>
         </article>

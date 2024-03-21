@@ -1,32 +1,39 @@
-main {
-    display: grid;
-    grid-template-columns: 200px 1fr;
+.main__layaout {
+    display: flex;
 }
 
 section {
     width: 100%;
-    /* background-color: rgb(4, 184, 34); */
     height: calc(100vh - 50px);
     overflow-y: auto;
+    transition: all .5s ease-in-out;
 }
 
 article {
     max-width: 1400px;
     margin: 0 auto;
-    /* background-color: bisque; */
 }
 
 aside {
-    display: block;
+    box-sizing: border-box;
+    transition: all .5s;
+    background-color: #fff;
+    border-right: 1px solid #ccc;
+    z-index: 2;
 }
 
 
-@media screen and (max-width: 680px) {
+@media screen and (max-width: 480px) {
     aside {
-        display: none;
+        position: absolute;
+        width: 100%;
+        height: calc(100vh - 50px);
+        left: 0;
+        right: 0;
     }
 
-    main {
-        grid-template-columns: 1fr;
+    .main__layaout {
+        display: block;
+        position: relative;
     }
 }

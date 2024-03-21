@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, HostListener, ViewChild } from '@angular/core';
 
 @Component({
   selector: 'app-layout',
@@ -6,5 +6,35 @@ import { Component } from '@angular/core';
   styleUrls: ['./layout.component.css']
 })
 export class LayoutComponent {
+  @ViewChild('main') main!: ElementRef;
+
+  widthAside: string = "250px";
+  isOpen: boolean = false;
+  isMobile: boolean = false;
+  flagShowAsideComponent:boolean = false;
+
+  constructor() { }
+
+  receivedOpenCloseAsideOrder() {
+    console.log(this.isMobile);
+    this.isOpen = !this.isOpen;
+
+    if(this.isMobile)
+      this.widthAside = "100%";
+
+    let timeShowHidden = 0;
+    if(this.isOpen) timeShowHidden = 200;
+    if(!this.isOpen) timeShowHidden = 0;
+
+    setTimeout(() => {
+      this.flagShowAsideComponent = !this.flagShowAsideComponent;
+    }, timeShowHidden);
+  }
+
+  ngAfterViewInit() {
+    setTimeout(() => {
+      this.isMobile = this.main.nativeElement.offsetWidth <= 480;
+    }, 200);
+  }
 
 }
