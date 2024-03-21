@@ -13,12 +13,10 @@ export class MessageBoxService {
   getDataRequest$ = this.subjectRequest.asObservable();
 
   sendDateResponse(data: any): void {
-    console.log("service message subject: " + data);
     this.subjectResponse.next(data);
   }
 
   sendDateRequest(data: any): void {
-    console.log("service message subject: " + data);
     this.subjectRequest.next(data);
   }
 

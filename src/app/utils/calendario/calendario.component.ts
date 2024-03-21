@@ -109,13 +109,10 @@ export class CalendarioComponent{
   date: Date = new Date();
   selectDate(day: number, month: number, year: number, indexDay: number) {
     this.date = new Date(year, month, day, parseInt(this.hour), parseInt(this.minute));
-    // console.log( "Date select total: " + new Date(year, month, day, parseInt(this.hour), parseInt(this.minute)));
-    // if(indexDay == 0) this.sendDateSelectedFromCalendar.emit({dateSelected: new Date(year, month, day, parseInt(this.hour), parseInt(this.minute)), order: this.receiveGetInitOrFinalDate});
   }
 
   sendDateSelected() {
     this.date = new Date(this.date.getFullYear(), this.date.getMonth(), this.date.getDate(), parseInt(this.hour), parseInt(this.minute));
-    console.log(" date select OK: " + this.date);
     this.sendDateSelectedFromCalendar.emit({dateSelected: this.date, order: this.receiveGetInitOrFinalDate});
   }
 }

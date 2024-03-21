@@ -44,8 +44,6 @@ export class DataResumeComponent {
     this.uniqueOptions = this.uniqueOptionShows.map((optionShow: any) => {
       return this.filteOptions.find((option: { optionShow: any; }) => option.optionShow === optionShow);
     });
-    console.log(this.uniqueOptions);
-
   }
 
   showFormTransaction() {

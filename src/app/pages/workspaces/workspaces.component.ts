@@ -30,7 +30,6 @@ export class WorkspacesComponent {
     this._workspaceService.readAllByUserId(this._authService.getUserId()).subscribe({
       next: (res:any) => {
         this.workspaces = res;
-        console.log(res);
       }, error: (err : any)=> {
         console.log(err.error.message);
         setTimeout(() => {
@@ -54,9 +53,4 @@ export class WorkspacesComponent {
     this.findAllWorkspaceByUserLogged();
   }
 
-  // localStorage.setItem("workspaceId", res[0].id);
-  // this._router.navigate(['/']);
-  // setTimeout(() => {
-  //   this._messageBoxService.sendDateRequest({type:"success", message:"Bienvenido(a), Has accedido correctamente", isActive:true});
-  // }, 1);
 }

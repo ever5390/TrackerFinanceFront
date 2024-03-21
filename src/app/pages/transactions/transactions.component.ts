@@ -60,7 +60,6 @@ export class TransactionsComponent {
   getAllByUserId() {
     this._transactionService.readAllResumeByUserIdAndFilters(this.workspaceId, this.filters).subscribe({
       next: (response : any) => {
-        console.log(response);
         this.resumenMovementDto = response;
         this.transactions = response.movememts;
       },

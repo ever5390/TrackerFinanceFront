@@ -41,6 +41,7 @@ export class AuthenticationService {
 
   public logOut(): void {
     this.token = null;
+    console.log("sdasdasd asda");
     localStorage.removeItem("token");
   }
 

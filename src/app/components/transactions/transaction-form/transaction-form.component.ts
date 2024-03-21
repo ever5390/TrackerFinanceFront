@@ -178,7 +178,6 @@ export class TransactionFormComponent implements OnInit{
       case "transactionLoan":
         this.transaction.setTransactionLoanAssocToPay(new TransactionModel());
         this.transaction.transactionLoanAssocToPay = event.object;
-        console.log(this.transaction.transactionLoanAssocToPay?.id);
         break; 
       default:
         break;

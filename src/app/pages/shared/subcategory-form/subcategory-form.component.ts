@@ -40,8 +40,6 @@ export class SubCategoryFormComponent {
 
   receiveGroupSelected(event: GroupCategoryModel) {
     this.subCategory.category = event;
-    console.log("Elemento seleccionado:");
-    console.log(event);
   }
 
   getByIdAndUserId(idAccount: number) {

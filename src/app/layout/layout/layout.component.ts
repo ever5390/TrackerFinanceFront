@@ -16,7 +16,6 @@ export class LayoutComponent {
   constructor() { }
 
   receivedOpenCloseAsideOrder() {
-    console.log(this.isMobile);
     this.isOpen = !this.isOpen;
 
     if(this.isMobile)

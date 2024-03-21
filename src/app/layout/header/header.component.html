@@ -3,11 +3,15 @@
         <i (click)="openCloseAsideOrder()" class="fas fa-bars"></i>
         <img src="../../../assets/icons/chakram_8337855.png" alt="" srcset="">
     </section>
-    <section>
+    <section (click)="showBoxCloseSession()">
         <img src="../../../assets/icons/man_4140048.png" alt="" srcset="">
-        <article>
+        <article >
             <label>{{userName}}</label>
             <label>{{email}}</label>
+
+            <div *ngIf="flagShowBoxCloseSession" class="box__session__terminate">
+                <p (click)="closeSession()"><i class="fas fa-walking"></i> <span>Cerrar sessión</span></p>
+            </div>
         </article>
     </section>
 

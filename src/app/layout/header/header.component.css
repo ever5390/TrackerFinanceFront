@@ -23,6 +23,10 @@ section img {
     margin-left: 10px;
 }
 
+article {
+    position: relative;
+}
+
 article label {
     display: block;
 }
@@ -31,6 +35,26 @@ article label:first-child {
     font-weight: bold;
 }
 
+/*::: pop up session close :::*/
+.box__session__terminate {
+    position: absolute;
+    top: 35px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    z-index: 3;
+    width: 200px;
+    right: 0;
+    background-color: #fff;
+}
+
+.box__session__terminate p {
+    padding: 20px;
+    text-align: center;
+}
+
+.fa-walking {
+    margin-right: 10px;
+}
 
 @media screen and (max-width: 680px) {
 

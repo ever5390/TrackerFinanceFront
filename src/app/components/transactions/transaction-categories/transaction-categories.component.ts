@@ -37,7 +37,6 @@ export class TransactionCategoriesComponent {
   }
 
   itemSelected(itemSelected: SubCategoryModel) {
-    console.log("item:" + itemSelected);
     this.sendItemSelected.emit({"object":itemSelected, "type":"subcategory"});
   }
 
