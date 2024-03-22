@@ -12,6 +12,8 @@ export class LayoutComponent {
   isOpen: boolean = false;
   isMobile: boolean = false;
   flagShowAsideComponent:boolean = false;
+  // orderCloseormularyPopUp:boolean = false;
+  // sendOrdershowFormulary: number = 0;
 
   constructor() { }
 
@@ -35,5 +37,14 @@ export class LayoutComponent {
       this.isMobile = this.main.nativeElement.offsetWidth <= 480;
     }, 200);
   }
+
+  // receiveOrderCloseFormularyPopUp(event: any) {
+  //   this.orderCloseormularyPopUp = !this.orderCloseormularyPopUp;
+  //   this.sendOrdershowFormulary = event;
+  // }
+
+  // receiveReloadTransactionsOrderFromFormularyTx() {
+  //   this.orderCloseormularyPopUp = !this.orderCloseormularyPopUp;
+  // }
 
 }

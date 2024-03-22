@@ -2,15 +2,15 @@ header {
     height: 50px;
     display: flex;
     align-items: center;
-    padding: 0 40px 0 15px;
+    padding: 0 20px;
     font-size: .8rem;
     border-bottom: 1px solid #ccc;
     justify-content: space-between;
 }
 
-header  img {
-    width: 30px;
-    height: 30px;
+header img {
+    width: 33px;
+    height: 33px;
 }
 
 section {
@@ -48,13 +48,37 @@ article label:first-child {
 }
 
 .box__session__terminate p {
-    padding: 20px;
-    text-align: center;
+    padding: 10px 20px;
+    border-bottom: 1px solid #ccc;
+    text-align: left;
+}
+
+.box__session__terminate p:hover {
+    background-color: #cccccc56;
+}
+
+.box__session__terminate p:hover, 
+.add__transaction:hover,
+.fa-bars:hover,
+header img:hover {
+    cursor: pointer;
+}
+
+.fa-bars {
+    font-size: 1.1rem;
 }
 
 .fa-walking {
     margin-right: 10px;
 }
+
+.add__transaction {
+    padding: 9px 11px;
+    border-radius: 50%;
+    color: #fff;
+    background-color: rgb(25, 196, 102);
+}
+
 
 @media screen and (max-width: 680px) {
 

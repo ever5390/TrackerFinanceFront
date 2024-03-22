@@ -1,9 +1,5 @@
-.resume__container {
-    /* width: 100%; */
-}
-
 main {
-    margin: 20px;
+    margin: 10px 20px;
     border-radius: 10px;
     border: 1px solid #ccc;
 }
@@ -195,7 +191,7 @@ article {
 
 @media screen and (max-width: 960px) {
     main {
-        margin: 5px;
+        margin: 10px +5px;
     }
 }
         

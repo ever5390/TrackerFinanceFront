@@ -3,6 +3,7 @@ import { optionItemsConst } from 'src/app/components/transactions/transaction-fo
 import { ResumenMovementDto } from 'src/app/dto/movementDto/movement-resume-dto.model';
 import { TransactionFilters } from 'src/app/models/transaction-filters/transaction-filters.model';
 import { TransactionModel } from 'src/app/models/transaction/transaction.model';
+import { LinksComponentsService } from 'src/app/services/links-components/links-components.service';
 import { TransactionService } from 'src/app/services/transaction/transaction.service';
 import { AuthenticationService } from 'src/app/services/user/authentication.service';
 import { Utils } from 'src/app/utils/utils.component';
@@ -27,13 +28,26 @@ export class TransactionsComponent {
   filters: TransactionFilters = new TransactionFilters();
 
   workspaceId: number = 0;
-  sendOrdershowFormulary: number = 0;
+  sendOrdershowFormulary: any = 0;
 
   optionConst : any[] = optionItemsConst; 
 
-  constructor(){
+  constructor(private _linkService: LinksComponentsService){
     this.workspaceId = parseInt(localStorage.getItem("workspaceId") || '0');
     this.getAllByUserId();
+    this.showFormTransaction();
+  }
+
+  showFormTransaction() {
+    this._linkService.getOrderReload$.subscribe({
+      next: (data: any) => {
+        console.log(data);
+        this.getAllByUserId();
+      },
+      error: error => {
+        console.error('Error al recibir datos del servicio:', error.error);
+      }
+    });
   }
 
   receivedDeleteConfirm() {

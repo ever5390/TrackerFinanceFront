@@ -1,7 +1,9 @@
+<app-search-transactions></app-search-transactions>
+
 <app-data-resume [resumenMovementDto]="resumenMovementDto" 
     (sendOrderShowFormularyPopUp)="receiveOrderCloseFormularyPopUp($event)"
     (sendDateRangeSelected)="receiveDateRangeSelected($event)"></app-data-resume>
-<app-search-transactions></app-search-transactions>
+
 <app-transactions-list 
     [receivedTransactions]="transactions"
     (sendOrderShowFormularyPopUp)="receiveOrderCloseFormularyPopUp($event)" (sendConfirmDelete)="receivedDeleteConfirm()"></app-transactions-list>

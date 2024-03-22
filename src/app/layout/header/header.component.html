@@ -3,16 +3,21 @@
         <i (click)="openCloseAsideOrder()" class="fas fa-bars"></i>
         <img src="../../../assets/icons/chakram_8337855.png" alt="" srcset="">
     </section>
-    <section (click)="showBoxCloseSession()">
-        <img src="../../../assets/icons/man_4140048.png" alt="" srcset="">
+    <section>
+        <span (click)="showFormTransaction()"class="add__transaction"><i class="fas fa-plus"></i></span>
+        <img (click)="showBoxCloseSession()" src="../../../assets/icons/man_4140048.png" alt="" srcset="">
         <article >
-            <label>{{userName}}</label>
-            <label>{{email}}</label>
-
             <div *ngIf="flagShowBoxCloseSession" class="box__session__terminate">
+                <p><i class="fas fa-walking"></i> <span>{{userName}}</span></p>
+                <p><i class="fas fa-walking"></i> <span>{{email}}</span></p>
                 <p (click)="closeSession()"><i class="fas fa-walking"></i> <span>Cerrar sessión</span></p>
             </div>
         </article>
     </section>
-
 </header>
+
+<app-transaction-form *ngIf="orderCloseormularyPopUp" 
+    [receiveOrdershowFormulary]="sendOrdershowFormulary" 
+    (sendReloadTransactionsOrderFromFormularyTx) = "receiveReloadTransactionsOrderFromFormularyTx()"
+    (sendOrderCloseFormularyPopUp)="receiveOrderCloseFormularyPopUp($event)">
+</app-transaction-form>
